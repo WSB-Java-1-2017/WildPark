@@ -3,9 +3,9 @@ package wildpark.model.animals.mammals;
 import java.time.Duration;
 import wildpark.model.*;
 
-public class LampartSpecification extends Mammal implements BirthGivingAnimal, CarnivorousAnimal, ChewingAnimals, SwallowingAnimals, MetaturnalAnimal, Predator, RunningAnimal, Scavenger, WalkingAnimal   {
+public class LeopardSpecification extends Mammal implements BirthGivingAnimal, CarnivorousAnimal, ChewingAnimals, SwallowingAnimals, MetaturnalAnimal, Predator, RunningAnimal, Scavenger, WalkingAnimal   {
     
-	private final String NAME = "Lampart";
+	private final String NAME = "Leopard";
 	private final float ADULT_WEIGHT = 90;	// weight in kg 
 	private final float NEWBORN_WEIGHT = 3.5f; // in kg
 	private final float FOOD_QUANTITY_REQUIRED_PER_DAY = 5; // in kg

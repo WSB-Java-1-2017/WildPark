@@ -9,19 +9,29 @@ import wildpark.model.WildParkAreaCell;
 import wildpark.model.*;
 import wildpark.model.animals.Animal;
 import wildpark.model.animals.NocturnalAnimal;
-import wildpark.model.animals.Predator;
-import wildpark.model.animals.SsacingAnimal;
-import wildpark.model.animals.SwallowingAnimals;
 
+/**
+ * The REAL animal class. This contains implementations of all abstract methods declared in all superclasses.
+ */
+public class MalayanFlyingLemur implements TreeEatingAnimal, GrassEatingAnimal, FruitEatingAnimal, NocturnalAnimal, RunningAnimal, WalkingAnimal, FloatingAnimal, ChewingAnimal, SoaringAnimal,  {
+	private final AnimalSpeciesSpecification animalSpeciesSpecification = new MalayanFlyingLemurSpecification();
 
-public class Lampart extends Mammal implements BirthGivingAnimal, CarnivorousAnimal, ChewingAnimals, SwallowingAnimals, MetaturnalAnimal, Predator, RunningAnimal, Scavenger, WalkingAnimal   {
-private final AnimalSpeciesSpecification animalSpeciesSpecification = new LampartSpecification();
+	//	Inherited from Meat:
+	// public Duration TIME_OF_DEATH = null;
 
-public Lampart( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
+	//	Inherited from Food:
+	// public float weight;	// current animal weight
+	// private final float CALORIC_EFFICIENCY_PER_KILO = animalSpeciesSpecification.CALORIC_EFFICIENCY_PER_KILO; // określa liczbę kalorii z kilograma danego mięsa 
+
+	public MalayanFlyingLemur( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
 		super( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
 	}
 
-public AnimalSpeciesSpecification.AcceptableCellType[] getAcceptableCellTypes() {
+
+
+
+
+	public AnimalSpeciesSpecification.AcceptableCellType[] getAcceptableCellTypes() {
          return animalSpeciesSpecification.getAcceptableCellTypes();
     }
 
@@ -40,7 +50,7 @@ public AnimalSpeciesSpecification.AcceptableCellType[] getAcceptableCellTypes() 
 	}
 
 	public boolean hunt( Animal animal ) {
-		return true;
+		return false;
 	}
 
 	public int digestMeat( Meat meat )	{ // return energy amount
@@ -64,6 +74,10 @@ public AnimalSpeciesSpecification.AcceptableCellType[] getAcceptableCellTypes() 
 	}
 
 	public boolean isNocturnal() {
-		return true; //isActiveDuringTheNight;
+		return null; //isActiveDuringTheNight;
 	}
+
+
+
+
 }
