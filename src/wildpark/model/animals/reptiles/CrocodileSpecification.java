@@ -8,9 +8,9 @@ import wildpark.model.*;
  */
 public final class CrocodileSpecification extends AnimalSpeciesSpecification {
 	private final String NAME = "Crocodile";
-	private final float ADULT_WEIGHT = 900f;	// 900kg weight in kg 
-	private final float NEWBORN_WEIGHT = 10f; // in kg
-	private final float FOOD_QUANTITY_REQUIRED_PER_DAY = 0.001f; // in kg
+	private final float ADULT_WEIGHT = 900;	// 900kg weight in kg 
+	private final float NEWBORN_WEIGHT = 10; // in kg
+	private final float FOOD_QUANTITY_REQUIRED_PER_DAY = 20; // in kg
 	private final int MAX_STARVING_DAYS_BEFORE_DEATH = 365;
 	private final int HUNGER_ENERGY_PERCENT = 70; // poniżej tej wartości zwierze poszukuje jedzenia. Powyżej zwierze nie jest zainteresowane jedzeniem 
 	private final float STANDARD_SPEED = 30;	// km/h, sprawdzamy jaką odległość zwierzę standardowo pokonuje w ciągu dnia (w czasie godzin aktywności) i na tej podstawie obliczamy stardard w km/h
@@ -21,7 +21,7 @@ public final class CrocodileSpecification extends AnimalSpeciesSpecification {
 	private final Duration MAX_AGE = Duration.ofDays(50*365); // 20 years
 	private final Duration MIN_BREEDING_AGE = Duration.ofDays(24*30); // minimalny wiek rozrodczy
 	private final Duration MAX_BREEDING_AGE = Duration.ofDays(40*365); // maksymalny wiek rozrodczy	
-	private Duration MAX_AGE_IN_NEST = Duration.ofDays(3*30);
+	private final Duration MAX_AGE_IN_NEST = Duration.ofDays(3*30);
 	private final Duration MIN_SELF_GOVERNMENT_AGE = Duration.ofDays(4*30); // minimalny wiek usamodzielnienia się
 	private int CALORIC_EFFICIENCY_PER_KILO = 1040; // Cal/kg
 
@@ -35,7 +35,7 @@ public final class CrocodileSpecification extends AnimalSpeciesSpecification {
 	}
 
 	public String toString() {
-		return String.format( "Species Name: %1$s\r\nAdult Weight: %2$900f kg\r\n...\r\nStandard Speed: %6$30f km/h\r\n", SPECIES_NAME, ADULT_WEIGHT, FOOD_QUANTITY_REQUIRED_PER_HOUR, MAX_STARVING_HOURS_BEFORE_DEATH, HUNGER_ENERGY_PERCENT, STANDARD_SPEED  );
+		return String.format( "Species Name: %1$s\r\nAdult Weight: %2$900f kg\r\n...\r\nStandard Speed: %6$30f km/h\r\n", SPECIES_NAME, ADULT_WEIGHT, FOOD_QUANTITY_REQUIRED_PER_DAY, MAX_STARVING_DAYS_BEFORE_DEATH, HUNGER_ENERGY_PERCENT, STANDARD_SPEED  );
 	}
 
 	public String getSPECIES_NAME() {
@@ -50,12 +50,12 @@ public final class CrocodileSpecification extends AnimalSpeciesSpecification {
 		return NEWBORN_WEIGHT;
 	}
 	
-	public float getFOOD_QUANTITY_REQUIRED_PER_HOUR() {
-		return FOOD_QUANTITY_REQUIRED_PER_HOUR;
+	public float getFOOD_QUANTITY_REQUIRED_PER_DAY() {
+		return FOOD_QUANTITY_REQUIRED_PER_DAY;
 	}
 	
-	public int getMAX_STARVING_HOURS_BEFORE_DEATH() {
-		return MAX_STARVING_HOURS_BEFORE_DEATH;
+	public int getMAX_STARVING_DAYS_BEFORE_DEATH() {
+		return MAX_STARVING_DAYS_BEFORE_DEATH;
 	}
 
 	public int getHUNGER_ENERGY_PERCENT() {
@@ -104,23 +104,4 @@ public final class CrocodileSpecification extends AnimalSpeciesSpecification {
 	
 	public int getCALORIC_EFFICIENCY_PER_KILO() {
 		return CALORIC_EFFICIENCY_PER_KILO;
-	}
-
-	public abstract String getSPECIES_NAME();
-	public abstract float getADULT_WEIGHT(); // weight in kg 
-	public abstract float getNEWBORN_WEIGHT(); // in kg
-	public abstract float getFOOD_QUANTITY_REQUIRED_PER_DAY(); // in kg 
-	public abstract int getMAX_STARVING_DAYS_BEFORE_DEATH(); 
-	public abstract int getHUNGER_ENERGY_PERCENT(); // below this value the animal starts seeking food. Above this level the animal is not interested in food. 
-	public abstract float getSTANDARD_SPEED();	// sprawdzamy jaką odległość zwierzę standardowo pokonuje w ciągu dnia (w czasie godzin aktywności) i na tej podstawie obliczamy stardard w km/h
-	public abstract int getMAX_SPEED();	
-	public abstract int getMAX_STAMINA(); 
-	public abstract int getAVERAGE_SCION_COUNT_IN_LITTER(); // średnia liczba potomków w miocie
-	public abstract int getMAX_SCION_COUNT_IN_LITTER();	// na tej podstawie określimy widełki RANDOMa określającego liczbę potomków w danym miocie
-	public abstract Duration getMAX_AGE(); 
-	public abstract Duration getMIN_BREEDING_AGE(); // minimalny wiek rozrodczy
-	public abstract Duration getMAX_BREEDING_AGE(); // maksymalny wiek rozrodczy
-	public abstract Duration getMIN_SELF_GOVERNMENT_AGE(); // minimalny wiek usamodzielnienia się
-	public abstract int getCALORIC_EFFICIENCY_PER_KILO();
-
 }
