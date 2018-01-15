@@ -456,11 +456,12 @@ public class WildPark extends Application {
     // Fill Wild Park with animals
     void populateWildPark() {
         final int INSECT_EATING_BAT_COUNT = 10; // Count of all bats in Wild Park 
-        //...
+       	final int LEOPARD_COUNT=10;
 
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
             Animal bat = new InsectEatingBat( new InsectEatingBatSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
         }
+<<<<<<< HEAD
         
         final int LION_COUNT = 10;
         
@@ -468,6 +469,11 @@ public class WildPark extends Application {
             Animal lion = new Lion( new LionSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
         }
 
+=======
+        for( int i=0; i<LEOPARD_COUNT; i++ ) {
+            Animal leopard = new Leopard( new LeopardSpecification(), new WildParkAreaCell( CellType.DESERT ), false );
+        }
+>>>>>>> b97a131706b725f42e4f365bc26ecd3f60a2934f
     }
     
     
