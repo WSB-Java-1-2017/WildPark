@@ -47,7 +47,7 @@ import wildpark.model.animals.*;
 import wildpark.model.animals.mammals.*;
 import wildpark.model.animals.birds.*;
 import wildpark.model.animals.reptiles.*;
-import wildpark.model.animals.fish.*;
+//import wildpark.model.animals.fish.*;
 
 
 
@@ -461,13 +461,14 @@ public class WildPark extends Application {
     void populateWildPark() {
         final int INSECT_EATING_BAT_COUNT = 10; // Count of all bats in Wild Park 
        	final int LEOPARD_COUNT=10;
+        final int LION_COUNT = 10;
+        final int CROCODILE_COUNT = 10;
 
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
             Animal bat = new InsectEatingBat( new InsectEatingBatSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
         }
 
         
-        final int LION_COUNT = 10;
         
         for( int i=0; i<LION_COUNT; i++ ) {
             Animal lion = new Lion( new LionSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
@@ -478,12 +479,11 @@ public class WildPark extends Application {
         //     Animal leopard = new Leopard( new LeopardSpecification(), new WildParkAreaCell( CellType.DESERT ), false );
         // }
 
-		final int CROCODILE_COUNT = 10;
 
-        for( int i=0; i<CROCODILE_COUNT; i++ ) {
-            Animal crocodile = new Crocodile( new CrocodileSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
-            getAnimals().add( crocodile );
-        }
+        // for( int i=0; i<CROCODILE_COUNT; i++ ) {
+        //     Animal crocodile = new Crocodile( new CrocodileSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
+        //     getAnimals().add( crocodile );
+        // }
     }
     
     
