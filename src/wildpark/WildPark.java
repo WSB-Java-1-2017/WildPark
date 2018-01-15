@@ -470,9 +470,9 @@ public class WildPark extends Application {
         }
 
 
-        for( int i=0; i<LEOPARD_COUNT; i++ ) {
-            Animal leopard = new Leopard( new LeopardSpecification(), new WildParkAreaCell( CellType.DESERT ), false );
-        }
+        // for( int i=0; i<LEOPARD_COUNT; i++ ) {
+        //     Animal leopard = new Leopard( new LeopardSpecification(), new WildParkAreaCell( CellType.DESERT ), false );
+        // }
 
     }
     
