@@ -186,7 +186,7 @@ public class WildPark extends Application {
         final Menu menu1 = new Menu("File");
         MenuItem menu1_New = new MenuItem("New");
         MenuItem menu1_Open = new MenuItem("Open");
-        MenuItem menu1_3 = new MenuItem("Save");
+        MenuItem menu1_Save = new MenuItem("Save");
         menu1.getItems().addAll( menu1_1, menu1_2, menu1_3, new SeparatorMenuItem(), menu1_Exit );
         final Menu menu2 = new Menu("Reports");
         final Menu menu3 = new Menu("Settings");
@@ -510,7 +510,12 @@ public class WildPark extends Application {
                 
             }
         });
-
+        menu1_Save.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+            	System.out.println("menu1_Save_New clicked");
+            }
+        });
         menu1_Exit.setOnAction( new EventHandler<ActionEvent>() {
             @Override 
             public void handle( ActionEvent e ) {
