@@ -1,4 +1,4 @@
-package wildpark.model.animals.mammals;
+package wildpark.model.animals;
 
 public interface GrassEatingAnimal {
 
