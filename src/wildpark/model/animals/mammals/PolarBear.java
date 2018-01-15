@@ -10,11 +10,12 @@ import wildpark.model.*;
 import wildpark.model.animals.Animal;
 import wildpark.model.animals.NocturnalAnimal;
 import wildpark.model.animals.Predator;
-
+import wildpark.model.animals.mammals.*;
+import wildpark.model.animals.*;
 /**
  * The REAL animal class. This contains implementations of all abstract methods declared in all superclasses.
  */
-public class PolarBear extends Bat implements NocturnalAnimal, Predator {
+public class PolarBear extends Mammal implements MetaturnalAnimal, Predator {
 	private final AnimalSpeciesSpecification animalSpeciesSpecification = new InsectEatingBatSpecification();
 
 	//	Inherited from Meat:
@@ -65,13 +66,17 @@ public class PolarBear extends Bat implements NocturnalAnimal, Predator {
 	public Food ssack( Food food ) {
 		return null;
 	}
+
+	public Food swollow( Food food ) {
+		return null;
+	}
 	
 	public Food chew( Food food ) {
 		return null;
 	}
 
-	public boolean isNocturnal() {
-		return false; //isActiveDuringTheNight;
+	public boolean isMetaturnal() {
+		return false; //isActiveDuring Day and Night;
 	}
 
 

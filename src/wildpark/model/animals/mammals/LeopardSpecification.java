@@ -8,7 +8,7 @@ import wildpark.model.*;
 	private final float ADULT_WEIGHT = 90;	// weight in kg 
 	private final float NEWBORN_WEIGHT = 3.5f; // in kg
 	private final float FOOD_QUANTITY_REQUIRED_PER_DAY = 5; // in kg
-	private final int MAX_STARVING_DAY_BEFORE_DEATH = 5;
+	private final int MAX_STARVING_DAYS_BEFORE_DEATH = 5;
 	private final int HUNGER_ENERGY_PERCENT = 60; // poniżej tej wartości zwierze poszukuje jedzenia. Powyżej zwierze nie jest zainteresowane jedzeniem 
 	private final float STANDARD_SPEED = 5;	// km/h, sprawdzamy jaką odległość zwierzę standardowo pokonuje w ciągu dnia (w czasie godzin aktywności) i na tej podstawie obliczamy stardard w km/h
 	private final int MAX_SPEED = 58;	// km/h
@@ -101,18 +101,6 @@ import wildpark.model.*;
 	
 	public int getCALORIC_EFFICIENCY_PER_KILO() {
 		return CALORIC_EFFICIENCY_PER_KILO;
-	}
-
-	@Override
-	public float getFOOD_QUANTITY_REQUIRED_PER_HOUR() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getMAX_STARVING_HOURS_BEFORE_DEATH() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 

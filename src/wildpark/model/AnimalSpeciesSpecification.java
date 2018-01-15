@@ -50,8 +50,8 @@ public abstract class AnimalSpeciesSpecification {
 	public abstract String getSPECIES_NAME();
 	public abstract float getADULT_WEIGHT(); // weight in kg 
 	public abstract float getNEWBORN_WEIGHT(); // in kg
-	public abstract float getFOOD_QUANTITY_REQUIRED_PER_HOUR(); // in kg 
-	public abstract int getMAX_STARVING_HOURS_BEFORE_DEATH(); 
+	public abstract float getFOOD_QUANTITY_REQUIRED_PER_DAY(); // in kg 
+	public abstract int getMAX_STARVING_DAYS_BEFORE_DEATH(); 
 	public abstract int getHUNGER_ENERGY_PERCENT(); // below this value the animal starts seeking food. Above this level the animal is not interested in food. 
 	public abstract float getSTANDARD_SPEED();	// sprawdzamy jaką odległość zwierzę standardowo pokonuje w ciągu dnia (w czasie godzin aktywności) i na tej podstawie obliczamy stardard w km/h
 	public abstract int getMAX_SPEED();	

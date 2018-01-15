@@ -48,12 +48,12 @@ public final class PolarBearSpecification extends AnimalSpeciesSpecification {
 		return NEWBORN_WEIGHT;
 	}
 	
-	public float getFOOD_QUANTITY_REQUIRED_PER_HOUR() {
-		return FOOD_QUANTITY_REQUIRED_PER_HOUR;
+	public float getFOOD_QUANTITY_REQUIRED_PER_DAY() {
+		return FOOD_QUANTITY_REQUIRED_PER_DAY;
 	}
 	
-	public int getMAX_STARVING_HOURS_BEFORE_DEATH() {
-		return MAX_STARVING_HOURS_BEFORE_DEATH;
+	public int getMAX_STARVING_DAYS_BEFORE_DEATH() {
+		return MAX_STARVING_DAYS_BEFORE_DEATH;
 	}
 
 	public int getHUNGER_ENERGY_PERCENT() {
