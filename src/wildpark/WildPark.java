@@ -189,6 +189,10 @@ public class WildPark extends Application {
         MenuItem menu1_Save = new MenuItem("Save");
         menu1.getItems().addAll( menu1_1, menu1_2, menu1_3, new SeparatorMenuItem(), menu1_Exit );
         final Menu menu2 = new Menu("Reports");
+        MenuItem menu2_Species = new MenuItem("Species");
+        MenuItem menu2_Animals = new MenuItem("Animals");
+        MenuItem menu2_Steps = new MenuItem("Steps");
+
         final Menu menu3 = new Menu("Settings");
         final Menu menu4 = new Menu("Help");
         MenuBar menuBar = new MenuBar();
