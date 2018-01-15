@@ -45,6 +45,10 @@ import wildpark.controller.*;
 import wildpark.model.*;
 import wildpark.model.animals.*;
 import wildpark.model.animals.mammals.*;
+import wildpark.model.animals.birds.*;
+import wildpark.model.animals.reptiles.*;
+import wildpark.model.animals.fish.*;
+
 
 
 
