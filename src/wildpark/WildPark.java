@@ -45,6 +45,10 @@ import wildpark.controller.*;
 import wildpark.model.*;
 import wildpark.model.animals.*;
 import wildpark.model.animals.mammals.*;
+import wildpark.model.animals.birds.*;
+import wildpark.model.animals.reptiles.*;
+//import wildpark.model.animals.fish.*;
+
 
 
 
@@ -130,13 +134,16 @@ public class WildPark extends Application {
  
 
     // MENU
+    MenuItem menu1_New = new MenuItem("New");
+    MenuItem menu1_Open = new MenuItem("Open...");
+    MenuItem menu1_Save = new MenuItem("Save...");
     MenuItem menu1_Exit = new MenuItem("Exit");
 
     // TOOLBAR
     Button toolBarButton_New = new Button("New");
     static Label toolBarLabel_CurrentStep = new Label( "0" ); 
     Button toolBarButton_Step = new Button("Step");
-
+    Button toolBarButton_Reset = new Button("Reset");
 
 
     Stage stage;
@@ -184,10 +191,7 @@ public class WildPark extends Application {
 
 
         final Menu menu1 = new Menu("File");
-        MenuItem menu1_New = new MenuItem("New");
-        MenuItem menu1_Open = new MenuItem("Open...");
-        MenuItem menu1_Save = new MenuItem("Save...");
-        menu1.getItems().addAll( menu1_1, menu1_2, menu1_3, new SeparatorMenuItem(), menu1_Exit );
+        menu1.getItems().addAll( menu1_New, menu1_Open, menu1_Save, new SeparatorMenuItem(), menu1_Exit );
         final Menu menu2 = new Menu("Reports");
         MenuItem menu2_Species = new MenuItem("Species...");
         MenuItem menu2_Animals = new MenuItem("Animals...");
@@ -212,7 +216,7 @@ public class WildPark extends Application {
             toolBarButton_New,
             new Button("Open"),
             new Button("Save"),
-            new Button("Reset"),
+            toolBarButton_Reset,
             new Separator( Orientation.VERTICAL ),
             new Label( "Current Step:"),
             toolBarLabel_CurrentStep,
@@ -457,23 +461,29 @@ public class WildPark extends Application {
     void populateWildPark() {
         final int INSECT_EATING_BAT_COUNT = 10; // Count of all bats in Wild Park 
        	final int LEOPARD_COUNT=10;
+        final int LION_COUNT = 10;
+        final int CROCODILE_COUNT = 10;
 
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
             Animal bat = new InsectEatingBat( new InsectEatingBatSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
         }
 
         
-        final int LION_COUNT = 10;
         
         for( int i=0; i<LION_COUNT; i++ ) {
             Animal lion = new Lion( new LionSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
         }
 
 
-        for( int i=0; i<LEOPARD_COUNT; i++ ) {
-            Animal leopard = new Leopard( new LeopardSpecification(), new WildParkAreaCell( CellType.DESERT ), false );
-        }
+        // for( int i=0; i<LEOPARD_COUNT; i++ ) {
+        //     Animal leopard = new Leopard( new LeopardSpecification(), new WildParkAreaCell( CellType.DESERT ), false );
+        // }
 
+
+        // for( int i=0; i<CROCODILE_COUNT; i++ ) {
+        //     Animal crocodile = new Crocodile( new CrocodileSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
+        //     getAnimals().add( crocodile );
+        // }
     }
     
     
