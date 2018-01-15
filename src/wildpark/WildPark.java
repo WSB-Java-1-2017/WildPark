@@ -144,7 +144,8 @@ public class WildPark extends Application {
     static Label toolBarLabel_CurrentStep = new Label( "0" ); 
     Button toolBarButton_Step = new Button("Step");
     Button toolBarButton_Reset = new Button("Reset");
-
+    
+    Button toolBarButton_Settings = new Button("Settings");
 
     Stage stage;
     GridPane wildParkGrid = new GridPane();
@@ -233,7 +234,7 @@ public class WildPark extends Application {
             new Button("Run"),            
             new Separator( Orientation.VERTICAL ),
             new Button("Reports"),
-            new Button("Settings"),
+            toolBarButton_Settings,
             new Button("Help")
         );
         toolBarLabel_CurrentStep.setMinWidth(40);
@@ -563,6 +564,9 @@ public class WildPark extends Application {
             }
         });
 
+
+
+
         toolBarButton_New.setOnAction( new EventHandler<ActionEvent>() {
             @Override 
             public void handle( ActionEvent e ) {
@@ -577,6 +581,14 @@ public class WildPark extends Application {
             public void handle( ActionEvent e ) {
                 System.out.println("toolBarButton_Step clicked");
                 makeWildParkTimeStep();
+            }
+        });
+
+        toolBarButton_Settings.setOnAction( new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                System.out.println("toolBarButton_Settings clicked");
+//                Newwindow nw =new Newwindow();
             }
         });
 
