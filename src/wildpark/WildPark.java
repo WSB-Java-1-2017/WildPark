@@ -461,8 +461,16 @@ public class WildPark extends Application {
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
             Animal bat = new InsectEatingBat( new InsectEatingBatSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
         }
+        
+        final int LION_COUNT = 10;
+        
+        for( int i=0; i<LION_COUNT; i++ ) {
+            Animal lion = new Lion( new LionSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
+        }
 
     }
+    
+    
 
 
 
