@@ -105,9 +105,16 @@ public class WildPark extends Application {
      * The collection of all animals in Wild Park. It also contains dead animals - animals 
      * are not removed from this collection after death but are treated as Meat == Food. 
      */
-    private ArrayList<Animal> animals = new ArrayList<>();
+    static private ArrayList<Animal> animals = new ArrayList<>();
 
 
+    /**
+     * Getter for animals attribute. animals array contins all animals in the park.
+     * @return ArrayList of all animals in the park.
+     */
+    static ArrayList<Animal> getAnimals() {
+        return animals;
+    }
 
 
 
@@ -177,8 +184,8 @@ public class WildPark extends Application {
 
 
         final Menu menu1 = new Menu("File");
-        MenuItem menu1_1 = new MenuItem("New");
-        MenuItem menu1_2 = new MenuItem("Open");
+        MenuItem menu1_New = new MenuItem("New");
+        MenuItem menu1_Open = new MenuItem("Open");
         MenuItem menu1_3 = new MenuItem("Save");
         menu1.getItems().addAll( menu1_1, menu1_2, menu1_3, new SeparatorMenuItem(), menu1_Exit );
         final Menu menu2 = new Menu("Reports");
@@ -496,6 +503,14 @@ public class WildPark extends Application {
      * Listeners to menu items, buttons and other controls of UI
      */
     void addUIEventListeners() {
+        menu1_Open.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("menu1_Open clicked");
+                
+            }
+        });
+
         menu1_Exit.setOnAction( new EventHandler<ActionEvent>() {
             @Override 
             public void handle( ActionEvent e ) {

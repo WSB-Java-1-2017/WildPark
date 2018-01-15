@@ -10,8 +10,8 @@ public final class InsectEatingBatSpecification extends AnimalSpeciesSpecificati
 	private final String NAME = "InsectEatingBat";
 	private final float ADULT_WEIGHT = 0.007f;	// weight in kg 
 	private final float NEWBORN_WEIGHT = 0.001f; // in kg
-	private final float FOOD_QUANTITY_REQUIRED_PER_HOUR = 0.001f; // in kg
-	private final int MAX_STARVING_HOURS_BEFORE_DEATH = 50;
+	private final float FOOD_QUANTITY_REQUIRED_PER_DAY = 0.001f; // in kg
+	private final int MAX_STARVING_DAYS_BEFORE_DEATH = 50;
 	private final int HUNGER_ENERGY_PERCENT = 70; // poniżej tej wartości zwierze poszukuje jedzenia. Powyżej zwierze nie jest zainteresowane jedzeniem 
 	private final float STANDARD_SPEED = 40;	// km/h, sprawdzamy jaką odległość zwierzę standardowo pokonuje w ciągu dnia (w czasie godzin aktywności) i na tej podstawie obliczamy stardard w km/h
 	private final int MAX_SPEED = 40;	// km/h

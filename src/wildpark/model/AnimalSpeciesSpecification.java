@@ -10,8 +10,8 @@ public abstract class AnimalSpeciesSpecification {
 	private String SPECIES_NAME;
 	private float ADULT_WEIGHT; // weight in kg 
 	private float NEWBORN_WEIGHT; // in kg
-	private float FOOD_QUANTITY_REQUIRED_PER_HOUR; // in kg 
-	private int MAX_STARVING_HOURS_BEFORE_DEATH; 
+	private float FOOD_QUANTITY_REQUIRED_PER_DAY; // in kg 
+	private int MAX_STARVING_DAYS_BEFORE_DEATH; 
 	private int HUNGER_ENERGY_PERCENT; // below this value the animal starts seeking food. Above this level the animal is not interested in food. 
 	private float STANDARD_SPEED;	// sprawdzamy jaką odległość zwierzę standardowo pokonuje w ciągu dnia (w czasie godzin aktywności) i na tej podstawie obliczamy stardard w km/h
 	private int MAX_SPEED;	
@@ -30,11 +30,12 @@ public abstract class AnimalSpeciesSpecification {
 		OCEAN,
 		LAKE,
 		RIVER,
-		GROUND,
 		FOREST,
 		GRASS,
 		DESERT,
-		MOUNTAIN
+		MOUNTAIN,
+		POLAR_AREA,
+		PARK_EDGE
 	}
 
 	public AcceptableCellType[] getAcceptableCellTypes() {
