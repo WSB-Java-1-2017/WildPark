@@ -1,51 +1,14 @@
+package wildpark.animals.birds;
+
+import java.time.Duration;
+
 public class Penguin extends Bird implements DivingAnimal, WalkingAnimal, EggBearingAnimal, EggIncubatingAnimal, Predator {
     
+    private final AnimalSpeciesSpecification animalSpeciesSpecification;
     private String name;
-    int ADULT_WEIGHT;
-    float FOOD_QUANTITY_REQUIRED_PER_DAY; // in kg's
-    int MAX_STARVING_DAYS_BEFORE_DEATH;
-    int daysSinceLastMeal;
-    int energyPercent;
-    int maxEnergyPercent;
-    int STANDARD_SPEED;
-    int MAX_SPEED;
-    int MAX_STAMINA;
-    int AVERAGE_SCION_COUNT_IN_LITTER;
-    int MAX_AGE;
-    int MIN_BREEDING_AGE;
-    int MAX_BREEDING_AGE;
-    int MAX_AGE_IN_NEST;
-    int MIN_SELF_GOVERNMENT_AGE;
-    int age;
-    Gender gender;
-    boolean isProliferating;
-    boolean isFeedingNewborns;
-    Duration timeOfBirth;
-    Duration timeOfDeath;
 
     public Penguin() {
-        this.name = "Pingwin";
-        this.ADULT_WEIGHT = 20;
-        this.FOOD_QUANTITY_REQUIRED_PER_DAY = 1;
-        this.MAX_STARVING_DAYS_BEFORE_DEATH = 1;
-        this.daysSinceLastMeal = 0;
-        this.energyPercent = 100;
-        this.maxEnergyPercent = 120;
-        this.STANDARD_SPEED = 1;
-        this.MAX_SPEED = 1;
-        this.MAX_STAMINA = 1;
-        this.AVERAGE_SCION_COUNT_IN_LITTER = 1;
-        this.MAX_AGE = 40;
-        this.MIN_BREEDING_AGE = 1;
-        this.MAX_BREEDING_AGE = 99;
-        this.MAX_AGE_IN_NEST = 1;
-        this.MIN_SELF_GOVERNMENT_AGE = 1;
-        this.age = 0;
-        this.gender = Gender.MALE;
-        this.isProliferating = true;
-        this.isFeedingNewborns = true;
-        this.timeOfBirth = null;
-        this.timeOfDeath = null;
+        this.animalSpeciesSpecification = new PenguinSpecification();
     }
 
     public Food getFood(WildparkAreaCell cell){
