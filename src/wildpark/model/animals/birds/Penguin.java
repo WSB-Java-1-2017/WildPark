@@ -1,14 +1,27 @@
 package wildpark.animals.birds;
 
 import java.time.Duration;
+import wildpark.animals.birds.PenguinSpecification;
 
 public class Penguin extends Bird implements DivingAnimal, WalkingAnimal, EggBearingAnimal, EggIncubatingAnimal, Predator {
     
     private final AnimalSpeciesSpecification animalSpeciesSpecification;
-    private String name;
+    private int age;
+    private Gender gender;
+    private boolean isProliferating;
+    private boolean isFeedingNewborns;
+    private Duration timeOfBirth;
+    private Duration timeOfDeath;
 
     public Penguin() {
         this.animalSpeciesSpecification = new PenguinSpecification();
+        Random generator = new Random(); 
+        this.age = generator.nextInt(animalSpeciesSpecification.getMAX_AGE()) + 1;
+        // this.gender = ?
+        this.isProliferating = generator.nextInt(1);
+        this.isFeedingNewborns = generator.nextInt(1);
+        // this.timeOfBirth = ??? czemu Duration::class a nie LocalDateTime???
+        // this.timeOfDeath = ??? czemu Duration::class a nie LocalDateTime???
     }
 
     public Food getFood(WildparkAreaCell cell){
@@ -54,10 +67,9 @@ public class Penguin extends Bird implements DivingAnimal, WalkingAnimal, EggBea
     public void incubateEggs(){
         System.out.println("Pingwin wysiaduje jajka");
     }
-    public boolean hunt(Pike pike){
-        // returns 0 or 1 if hunt was successful
-    }
-    public boolean hunt(Macrel macrel){
+
+    // Hunts only fishes? (pike/macrel?)
+    public boolean hunt(Fish fish){
         // returns 0 or 1 if hunt was successful
     }
 }
