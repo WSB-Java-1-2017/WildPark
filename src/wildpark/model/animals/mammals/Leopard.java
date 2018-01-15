@@ -14,10 +14,10 @@ import wildpark.model.animals.SsacingAnimal;
 import wildpark.model.animals.SwallowingAnimals;
 
 
-public class Lampart extends Mammal implements BirthGivingAnimal, CarnivorousAnimal, ChewingAnimals, SwallowingAnimals, MetaturnalAnimal, Predator, RunningAnimal, Scavenger, WalkingAnimal   {
+public class Leopard extends Mammal implements BirthGivingAnimal, CarnivorousAnimal, ChewingAnimals, SwallowingAnimals, MetaturnalAnimal, Predator, RunningAnimal, Scavenger, WalkingAnimal   {
 private final AnimalSpeciesSpecification animalSpeciesSpecification = new LampartSpecification();
 
-public Lampart( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
+public Leopard( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
 		super( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
 	}
 
