@@ -109,5 +109,17 @@ public final class GiraffeSpecification extends AnimalSpeciesSpecification {
 		return CALORIC_EFFICIENCY_PER_KILO;
 	}
 
+	@Override
+	public float getFOOD_QUANTITY_REQUIRED_PER_DAY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getMAX_STARVING_DAYS_BEFORE_DEATH() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }
