@@ -1,6 +1,6 @@
 package wildpark.model.animals.Birds;
 
-class Eagle extends Bird implements FlyingAnimal, Predator, OnlySwallowingAniamal, CarnivorousAnimal {
+class Eagle extends Bird implements FlyingAnimal, Predator, OnlySwallowingAniamal, CarnivorousAnimal, Diurnal {
 	private final AnimalSpeciesSpecification animalSpeciesSpecification = new InsectEatingBatSpecification();
 
 	
@@ -53,8 +53,8 @@ class Eagle extends Bird implements FlyingAnimal, Predator, OnlySwallowingAniama
 		return null;
 	}
 
-	public boolean isNocturnal() {
-		return false; //isActiveDuringTheNight;
+	public boolean Diurnal() {
+		return false; 
 	}
 
 

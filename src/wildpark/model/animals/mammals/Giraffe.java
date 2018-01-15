@@ -1,4 +1,4 @@
-public class Giraffe extends Mammals implements TreeEatingAnimal, WalkingAnimal, RunningAnimal, ChewingAnimal {
+public class Giraffe extends Mammals implements TreeEatingAnimal, WalkingAnimal, RunningAnimal, ChewingAnimal, Diurnal {
 
 	
 
@@ -44,7 +44,9 @@ public class Giraffe extends Mammals implements TreeEatingAnimal, WalkingAnimal,
 		}
 
 
-
+		public boolean Diurnal(){
+         return true;
+        		}
 
  }
 

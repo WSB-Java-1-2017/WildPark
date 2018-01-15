@@ -11,6 +11,7 @@ package wildpark;
 import java.util.ArrayList;
 import java.util.Random;
 import java.time.Duration;
+import java.util.*;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -144,8 +145,10 @@ public class WildPark extends Application {
     static Label toolBarLabel_CurrentStep = new Label( "0" ); 
     Button toolBarButton_Step = new Button("Step");
     Button toolBarButton_Reset = new Button("Reset");
+
     
     Button toolBarButton_Settings = new Button("Settings");
+    Button toolBarButton_Reports = new Button("Reports");
 
     Stage stage;
     GridPane wildParkGrid = new GridPane();
@@ -233,8 +236,10 @@ public class WildPark extends Application {
             new Label( "steps"),
             new Button("Run"),            
             new Separator( Orientation.VERTICAL ),
-            new Button("Reports"),
+
             toolBarButton_Settings,
+            toolBarButton_Reports,
+            new Button("Settings"),
             new Button("Help")
         );
         toolBarLabel_CurrentStep.setMinWidth(40);
@@ -583,6 +588,33 @@ public class WildPark extends Application {
                 makeWildParkTimeStep();
             }
         });
+        toolBarButton_Reports.setOnAction( new EventHandler<ActionEvent>() {
+            @Override
+            public void handle( ActionEvent e ) {
+                System.out.println("toolBarButton_Reports clicked");
+                List<String> choices = new ArrayList<>();
+                choices.add("Report 1");
+                choices.add("Report 2");
+                choices.add("Report 3");
+                ChoiceDialog<String> dialog = new ChoiceDialog<>("Report 1", choices);
+                dialog.setTitle("Report Choice");
+                dialog.setHeaderText("Choose Report");
+                dialog.setContentText("Report:");
+
+                Optional<String> result = dialog.showAndWait();
+                    if (result.isPresent()){
+                        System.out.println("Your choice: " + result.get());
+                        Stage stage2 = new Stage();
+                        TextArea textArea = new TextArea();
+                        textArea.setText("Przykladowa tresc raportu");
+                        Scene scene2 = new Scene(new BorderPane(textArea));
+                        stage2.setScene(scene2);
+                        stage2.show();
+
+                        }
+
+                    }
+            });
 
         toolBarButton_Settings.setOnAction( new EventHandler<ActionEvent>() {
             @Override
