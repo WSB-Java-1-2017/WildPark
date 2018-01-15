@@ -53,11 +53,11 @@ public final class InsectEatingBatSpecification extends AnimalSpeciesSpecificati
 	}
 	
 	public float getFOOD_QUANTITY_REQUIRED_PER_HOUR() {
-		return FOOD_QUANTITY_REQUIRED_PER_HOUR;
+		return FOOD_QUANTITY_REQUIRED_PER_DAY;
 	}
 	
 	public int getMAX_STARVING_HOURS_BEFORE_DEATH() {
-		return MAX_STARVING_HOURS_BEFORE_DEATH;
+		return MAX_STARVING_DAYS_BEFORE_DEATH;
 	}
 
 	public int getHUNGER_ENERGY_PERCENT() {
