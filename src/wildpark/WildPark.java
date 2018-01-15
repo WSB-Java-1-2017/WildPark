@@ -463,6 +463,8 @@ public class WildPark extends Application {
        	final int LEOPARD_COUNT=10;
         final int LION_COUNT = 10;
         final int CROCODILE_COUNT = 10;
+        final int POLAR_BEAR_COUNT = 10;
+
 
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
             Animal bat = new InsectEatingBat( new InsectEatingBatSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
@@ -484,6 +486,10 @@ public class WildPark extends Application {
         //     Animal crocodile = new Crocodile( new CrocodileSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
         //     getAnimals().add( crocodile );
         // }
+            for( int i=0; i<POLAR_BEAR_COUNT; i++ ) {
+            Animal polarbear = new PolarBear( new PolarBearSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
+            getAnimals().add(polarbear);
+        }
     }
     
     

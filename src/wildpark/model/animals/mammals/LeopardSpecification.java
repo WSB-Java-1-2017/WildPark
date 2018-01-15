@@ -3,7 +3,7 @@ package wildpark.model.animals.mammals;
 import java.time.Duration;
 import wildpark.model.*;
 
-	public class LeopardSpecification extends extends AnimalSpeciesSpecification {
+	public class LeopardSpecification extends  AnimalSpeciesSpecification {
 	private final String NAME = "Leopard";
 	private final float ADULT_WEIGHT = 90;	// weight in kg 
 	private final float NEWBORN_WEIGHT = 3.5f; // in kg
