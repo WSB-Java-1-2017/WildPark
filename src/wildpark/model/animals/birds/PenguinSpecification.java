@@ -1,7 +1,6 @@
 package wildpark.animals.birds;
 
 import java.time.Duration;
-import wildpark.model.*;
 
 public final class PenguinSpecification extends AnimalSpeciesSpecification {
 	
