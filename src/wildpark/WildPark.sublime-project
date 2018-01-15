@@ -1,0 +1,26 @@
+{
+	"folders":
+	[
+		{
+			"path": "C:\\Users\\Macek\\Documents\\java\\01\\src"
+		}
+	],
+    "settings":
+    {
+        "SublimeLinter":
+        {
+            "Java":
+            {
+                "working_directory": "C:\\Users\\Macek\\Documents\\java\\01\\src\\wildpark",
+
+                "lint_args":
+                [
+                    "-sourcepath", "src",
+                    "-classpath", "src",
+                    "-Xlint", "-Xlint:-serial",
+                    "wildpark/WildPark.java"
+                ]
+            }
+        }
+    }
+}
