@@ -136,7 +136,7 @@ public class WildPark extends Application {
     Button toolBarButton_New = new Button("New");
     static Label toolBarLabel_CurrentStep = new Label( "0" ); 
     Button toolBarButton_Step = new Button("Step");
-
+    Button toolBarButton_Reset = new Button("Reset");
 
 
     Stage stage;
@@ -212,7 +212,7 @@ public class WildPark extends Application {
             toolBarButton_New,
             new Button("Open"),
             new Button("Save"),
-            new Button("Reset"),
+            toolBarButton_Reset,
             new Separator( Orientation.VERTICAL ),
             new Label( "Current Step:"),
             toolBarLabel_CurrentStep,
