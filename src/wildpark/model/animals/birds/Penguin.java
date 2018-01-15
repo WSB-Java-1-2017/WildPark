@@ -13,13 +13,16 @@ public class Penguin extends Bird implements DivingAnimal, WalkingAnimal, EggBea
     private Duration timeOfBirth;
     private Duration timeOfDeath;
 
-    public Penguin() {
-        this.animalSpeciesSpecification = new PenguinSpecification();
+    public Penguin(AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn) {
+        // Po dodaniu Bird:class można użyć super()
+        // super( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
+        
+        this.animalSpeciesSpecification = animalSpeciesSpecification;
         Random generator = new Random(); 
-        this.age = generator.nextInt(animalSpeciesSpecification.getMAX_AGE()) + 1;
+        this.age = generator.nextInt(animalSpeciesSpecification.getMAX_AGE()) + animalSpeciesSpecification.getMIN_SELF_GOVERNMENT_AGE;
         // this.gender = ?
-        this.isProliferating = generator.nextInt(1);
-        this.isFeedingNewborns = generator.nextInt(1);
+        this.isProliferating = isNewborn;
+        this.isFeedingNewborns = !isNewborn;
         // this.timeOfBirth = ??? czemu Duration::class a nie LocalDateTime???
         // this.timeOfDeath = ??? czemu Duration::class a nie LocalDateTime???
     }

@@ -464,6 +464,7 @@ public class WildPark extends Application {
         final int LION_COUNT = 10;
         final int CROCODILE_COUNT = 10;
         final int POLAR_BEAR_COUNT = 10;
+        final int PENGUIN_COUNT = 10;
 
 
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
@@ -474,6 +475,10 @@ public class WildPark extends Application {
         
         for( int i=0; i<LION_COUNT; i++ ) {
             Animal lion = new Lion( new LionSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
+        }
+
+        for( int i=0; i<PENGUIN_COUNT; i++ ) {
+            Animal animal = new Penguin(new PenguinSpecification(), new WildparkAreaCell(CellType.POLAR_AREA), false);
         }
 
 
