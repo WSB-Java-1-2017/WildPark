@@ -2,9 +2,13 @@ package wildpark.animals.birds;
 
 import java.time.Duration;
 
+import wildpark.model.AnimalSpeciesSpecification;
+
 public final class PenguinSpecification extends AnimalSpeciesSpecification {
 	
-    /* Privates */
+    private static final float FOOD_QUANTITY_REQUIRED_PER_HOUR;
+	private static final int MAX_STARVING_HOURS_BEFORE_DEATH = 0;
+	/* Privates */
     private String SPECIES_NAME;
 	private float ADULT_WEIGHT; // weight in kg 
 	private float NEWBORN_WEIGHT; // in kg
@@ -123,5 +127,17 @@ public final class PenguinSpecification extends AnimalSpeciesSpecification {
 
 	public String toString() {
 		return String.format( "Species Name: %1$s\r\nAdult Weight: %2$900f kg\r\n...\r\nStandard Speed: %6$30f km/h\r\n", SPECIES_NAME, ADULT_WEIGHT, FOOD_QUANTITY_REQUIRED_PER_HOUR, MAX_STARVING_HOURS_BEFORE_DEATH, HUNGER_ENERGY_PERCENT, STANDARD_SPEED  );
+	}
+
+	@Override
+	public float getFOOD_QUANTITY_REQUIRED_PER_DAY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getMAX_STARVING_DAYS_BEFORE_DEATH() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

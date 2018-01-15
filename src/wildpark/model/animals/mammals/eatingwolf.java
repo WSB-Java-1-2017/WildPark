@@ -8,13 +8,14 @@ import wildpark.model.Movement;
 import wildpark.model.WildParkAreaCell;
 import wildpark.model.*;
 import wildpark.model.animals.Animal;
+import wildpark.model.animals.Mammal;
 import wildpark.model.animals.NocturnalAnimal;
 import wildpark.model.animals.Predator;
 
 /**
  * The REAL animal class. This contains implementations of all abstract methods declared in all superclasses.
  */
-public class Wolf extends mammals {
+public class Wolf extends Mammal {
 	private final AnimalSpeciesSpecification animalSpeciesSpecification = new InsectEatingBatSpecification();
 
 	//	Inherited from Meat:

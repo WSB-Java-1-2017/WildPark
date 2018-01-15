@@ -6,7 +6,9 @@ import wildpark.model.*;
 /**
  * Absract class used to set the particular animal specification parameters.
  */
-public final class CrocodileSpecification extends AnimalSpeciesSpecification {
+public abstract class CrocodileSpecification extends AnimalSpeciesSpecification {
+	private static final float FOOD_QUANTITY_REQUIRED_PER_HOUR = 0;
+	private static final int MAX_STARVING_HOURS_BEFORE_DEATH = 0;
 	private final String NAME = "Crocodile";
 	private final float ADULT_WEIGHT = 900f;	// 900kg weight in kg 
 	private final float NEWBORN_WEIGHT = 10f; // in kg

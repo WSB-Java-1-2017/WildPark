@@ -1,6 +1,13 @@
 package wildpark.model.animals.Birds;
 
-class Eagle extends Bird implements FlyingAnimal, Predator, OnlySwallowingAniamal, CarnivorousAnimal, Diurnal {
+import javafx.util.Duration;
+import wildpark.model.*;
+import wildpark.model.Food;
+import wildpark.model.Meat;
+import wildpark.model.WildParkAreaCell;
+import wildpark.model.animals.*;
+
+class Eagle extends Bird implements FlyingAnimal, Predator, OnlySwallowingAniamal, CarnivorousAnimal, DiurnalAnimal {
 	private final AnimalSpeciesSpecification animalSpeciesSpecification = new InsectEatingBatSpecification();
 
 	
@@ -55,6 +62,22 @@ class Eagle extends Bird implements FlyingAnimal, Predator, OnlySwallowingAniama
 
 	public boolean Diurnal() {
 		return false; 
+	}
+
+
+
+	@Override
+	public void soar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void fly() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

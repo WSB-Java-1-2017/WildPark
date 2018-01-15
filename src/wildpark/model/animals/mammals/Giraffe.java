@@ -1,4 +1,4 @@
-public class Giraffe extends Mammals implements TreeEatingAnimal, WalkingAnimal, RunningAnimal, ChewingAnimal, Diurnal {
+public class Giraffe extends Mammal implements TreeEatingAnimal, WalkingAnimal, RunningAnimal, ChewingAnimal, Diurnal {
 
 	
 

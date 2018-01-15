@@ -1,7 +1,9 @@
-package wildpark.animals.birds;
+package wildpark.model.animals.birds;
 
 import java.time.Duration;
 import wildpark.animals.birds.PenguinSpecification;
+import wildpark.model.Food;
+import wildpark.model.Gender;
 
 public class Penguin extends Bird implements DivingAnimal, WalkingAnimal, EggBearingAnimal, EggIncubatingAnimal, Predator {
     

@@ -1,6 +1,12 @@
-package wildpark.model.animals.Birds;
+package wildpark.model.animals.Mammals;
 
-class Wolf extends Mamals{
+import wildpark.model.Food;
+import wildpark.model.Meat;
+import wildpark.model.Movement;
+import wildpark.model.WildParkAreaCell;
+import wildpark.model.animals.Animal;
+
+class Wolf extends Mammal {
 	int hoursSinceLastMeal = 0;
 	int energyPercent = 0;
 	int maxEnergyPercent = 0;
@@ -47,7 +53,7 @@ class Wolf extends Mamals{
 	}
 
 	public Movement move( float time ) {
-		return new Movement(  );
+		return new Movement(time);
 	}
 
 	public void proliferate(  ) {

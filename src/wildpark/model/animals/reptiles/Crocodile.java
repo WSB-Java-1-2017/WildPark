@@ -9,6 +9,7 @@ import wildpark.model.WildParkAreaCell;
 import wildpark.model.*;
 import wildpark.model.animals.Animal;
 import wildpark.model.animals.Predator;
+import wildpark.model.animals.Reptile;
 import wildpark.model.animals.CarnivorousAnimal;
 import wildpark.model.animals.ChewingAnimal;
 import wildpark.model.animals.CrawlingAnimal;
@@ -50,6 +51,18 @@ public class Crocodile extends Reptile implements Predator, CarnivorousAnimal, C
 
 	public int giveBirth() {	// Returns the number of newborns
 		return 0;		
+	}
+
+	@Override
+	public Food swollow(Food food) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Food chew(Food food) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

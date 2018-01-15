@@ -7,6 +7,7 @@ import wildpark.model.*;
  * Absract class used to set the particular animal specification parameters.
  */
 public final class MalayanFlyingLemurSpecification extends AnimalSpeciesSpecification {
+	private static final float FOOD_QUANTITY_REQUIRED_PER_HOUR = 0;
 	private final String NAME = "MalayanFlyingLemur";
 	private final float ADULT_WEIGHT = 2;	// weight in kg 
 	private final float NEWBORN_WEIGHT = 0.035f; // in kg
