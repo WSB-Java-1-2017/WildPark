@@ -13,15 +13,17 @@ import wildpark.model.animals.Animal;
 import wildpark.model.animals.Predator;
 import wildpark.model.animals.NocturnalAnimal;
 import wildpark.model.animals.BirthGivingAnimal;
+import wildpark.model.animals.CarnivorousAnimal;
 import wildpark.model.animals.ChewingAnimal;
-import wildpark.model.animals.SwallowingAnimals;
+import wildpark.model.animals.Mammal;
+import wildpark.model.animals.SwollowingAnimal;
 
 
 
 /**
  * The REAL animal class. This contains implementations of all abstract methods declared in all superclasses.
  */
-public class Lion extends Mammal implements NocturnalAnimal, Predator, BirthGivingAnimal, CarnivorousAnimal, ChewingAnimal, SwallowingAnimals{
+public class Lion extends Mammal implements NocturnalAnimal, Predator, BirthGivingAnimal, CarnivorousAnimal, ChewingAnimal, SwollowingAnimal{
 	private final AnimalSpeciesSpecification animalSpeciesSpecification = new LionSpecification();
 
 	//	Inherited from Meat:
@@ -86,3 +88,4 @@ public class Lion extends Mammal implements NocturnalAnimal, Predator, BirthGivi
 	public Food swollow( Food food ) {
 		return null;
 	}
+}

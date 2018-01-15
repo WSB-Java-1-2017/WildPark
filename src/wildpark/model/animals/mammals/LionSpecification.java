@@ -106,5 +106,17 @@ import wildpark.model.*;
 		return CALORIC_EFFICIENCY_PER_KILO;
 	}
 
+	@Override
+	public float getFOOD_QUANTITY_REQUIRED_PER_HOUR() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getMAX_STARVING_HOURS_BEFORE_DEATH() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }
