@@ -473,7 +473,7 @@ public class WildPark extends Application {
         for( int i=0; i<LEOPARD_COUNT; i++ ) {
             Animal leopard = new Leopard( new LeopardSpecification(), new WildParkAreaCell( CellType.DESERT ), false );
         }
->>>>>>> b97a131706b725f42e4f365bc26ecd3f60a2934f
+
     }
     
     
