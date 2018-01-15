@@ -474,6 +474,12 @@ public class WildPark extends Application {
         //     Animal leopard = new Leopard( new LeopardSpecification(), new WildParkAreaCell( CellType.DESERT ), false );
         // }
 
+		final int CROCODILE_COUNT = 10;
+
+        for( int i=0; i<CROCODILE_COUNT; i++ ) {
+            Animal crocodile = new Crocodile( new CrocodileSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
+            getAnimals().add( crocodile );
+        }
     }
     
     
