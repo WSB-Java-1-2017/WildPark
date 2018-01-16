@@ -50,7 +50,8 @@ import wildpark.model.animals.birds.*;
 import wildpark.model.animals.reptiles.*;
 //import wildpark.model.animals.fish.*;
 
-
+import java.io.*;
+import java.io.FileNotFoundException;
 
 
 
@@ -145,6 +146,7 @@ public class WildPark extends Application {
     static Label toolBarLabel_CurrentStep = new Label( "0" ); 
     Button toolBarButton_Step = new Button("Step");
     Button toolBarButton_Reset = new Button("Reset");
+    Button toolBarButton_Save = new Button("Save");
 
     
     Button toolBarButton_Settings = new Button("Settings");
@@ -219,7 +221,7 @@ public class WildPark extends Application {
         ToolBar toolBar = new ToolBar(
             toolBarButton_New,
             new Button("Open"),
-            new Button("Save"),
+            toolBarButton_Save,
             toolBarButton_Reset,
             new Separator( Orientation.VERTICAL ),
             new Label( "Current Step:"),
@@ -581,6 +583,15 @@ public class WildPark extends Application {
             }
         });
 
+
+		toolBarButton_Save.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("toolBarButton_Save clicked");
+                save();
+            }
+        });
+
         toolBarButton_Step.setOnAction( new EventHandler<ActionEvent>() {
             @Override 
             public void handle( ActionEvent e ) {
@@ -588,6 +599,7 @@ public class WildPark extends Application {
                 makeWildParkTimeStep();
             }
         });
+
         toolBarButton_Reports.setOnAction( new EventHandler<ActionEvent>() {
             @Override
             public void handle( ActionEvent e ) {
@@ -629,6 +641,21 @@ public class WildPark extends Application {
 
 
 
+
+
+    private void save(){
+
+        try{
+            PrintWriter writer = new PrintWriter("logs.txt");
+            for( Animal item : getAnimals() ){
+                writer.println(item.getId());
+            }
+            writer.close();
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+
+    }
 
 
 
