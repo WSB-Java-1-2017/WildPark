@@ -472,6 +472,7 @@ public class WildPark extends Application {
         final int LION_COUNT = 10;
         final int CROCODILE_COUNT = 10;
         final int POLAR_BEAR_COUNT = 10;
+        final int MALAYAN_FLYING_LEMUR_COUNT = 10;
 
 
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
@@ -497,6 +498,11 @@ public class WildPark extends Application {
             for( int i=0; i<POLAR_BEAR_COUNT; i++ ) {
             Animal polarbear = new PolarBear( new PolarBearSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
             getAnimals().add(polarbear);
+        }
+
+        for( int i=0; i<MALAYAN_FLYING_LEMUR_COUNT; i++ ) {
+            Animal malayanflyinglemur = new MalayanFlyingLemur( new MalayanFlyingLemurSpecification(), new WildParkAreaCell( CellType.FOREST ), false );
+            getAnimals().add(malayanflyinglemur);
         }
     }
     
