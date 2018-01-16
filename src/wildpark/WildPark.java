@@ -71,6 +71,7 @@ public class WildPark extends Application {
     final int WILD_PARK_CELL_WIDTH = 54;
     final int WILD_PARK_CELL_HEIGHT = 54;
 
+
     /**
      * Duration Time of the existance of current Wild Park.
      * Initially it is ZERO. 
@@ -98,11 +99,10 @@ public class WildPark extends Application {
      * Make a single time step of Wild Park - add a single Wild Park Time unit defined in WILD_PARK_TIME_STEP_DURATION constnt
      */
     public static void makeWildParkTimeStep() {
-
         wildParkTime = wildParkTime.plus( WILD_PARK_TIME_STEP_DURATION );
 
         // Update Step Counter in UI
-        toolBarLabel_CurrentStep.setText( String.format( "%s", wildParkTime.toHours() ) );
+        toolBarLabel_CurrentStep.setText( String.format( "%8d", wildParkTime.toHours() ) );
     }
 
 
@@ -127,6 +127,20 @@ public class WildPark extends Application {
 
 
 
+
+    private static void addAnimal( Animal animal ) {
+        getAnimals().add( animal ); 
+        label_NumberOfAnimals.setText( String.format( "Number of animals: %10d", getAnimals().size() ) );
+    } 
+
+
+
+
+
+
+
+
+
     // final Background BACKGROUND_GREEN = new Background( new BackgroundFill( Paint.valueOf( "0x00ff0088" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
     final Background BACKGROUND_GREEN = new Background( new BackgroundFill( Paint.valueOf( "linear-gradient(from 0px 54px to 0px 0px, #44ff55 20%, 0x44ff5555 100%)" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
     final Background BACKGROUND_OCEAN_BLUE = new Background( new BackgroundFill( Paint.valueOf( "linear-gradient(from 0px 54px to 0px 0px, #2299ff 20%, 0x2299ff55 100%)" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
@@ -134,29 +148,126 @@ public class WildPark extends Application {
 
  
 
+
+
+
+
+
+
+
+
     // MENU
     MenuItem menu1_New = new MenuItem("New");
     MenuItem menu1_Open = new MenuItem("Open...");
     MenuItem menu1_Save = new MenuItem("Save...");
     MenuItem menu1_Exit = new MenuItem("Exit");
+    //---------------------
+    MenuItem menu2_SpeciesReport = new MenuItem("Species Report...");
+    MenuItem menu2_AnimalsReport = new MenuItem("Animals Report...");
+    MenuItem menu2_StepsReport = new MenuItem("Steps Report...");
+    //---------------------
+    MenuItem menu3_AnimalSettings = new MenuItem("Animal Settings...");
+    MenuItem menu3_WildParkSettings = new MenuItem("Wild Park Settings...");
+    //---------------------
+    MenuItem menu4_Help = new MenuItem("Help...");
+    MenuItem menu4_AboutWildPark = new MenuItem("About Wild Park...");
+
 
     // TOOLBAR
     Button toolBarButton_New = new Button("New");
-    static Label toolBarLabel_CurrentStep = new Label( "0" ); 
-    Button toolBarButton_Step = new Button("Step");
+    Button toolBarButton_Open = new Button("Open");
+    Button toolBarButton_Save = new Button("Save");
     Button toolBarButton_Reset = new Button("Reset");
 
+    static Label toolBarLabel_CurrentStep = new Label( String.format( "%8d", wildParkTime.toHours() ) ); 
+    Button toolBarButton_Step = new Button("Step");
+
+    int playSpeed = 1; // Time Steps per second
+
+    TextField textField_PlaySpeed = new TextField() {
+        @Override
+        public void replaceText(int start, int end, String text) {
+            if( text.matches("[0-9]") ) 
+                if( textField_PlaySpeed.getLength() < 3 ) {
+                super.replaceText(start, end, text);   
+                playSpeed = Integer.parseInt( super.getText() );                  
+            } 
+            else
+                super.clear(); 
+        }
+
+        @Override
+        public void replaceSelection(String text) {
+            if ( text.matches("[0-9]") ) 
+                if( textField_PlaySpeed.getLength() < 3 ) {
+                    super.replaceSelection(text);
+                    playSpeed = Integer.parseInt( super.getText() ); 
+                }
+                else
+                    super.clear();
+        }
+    };       
+
+
+    Button toolBarButton_Play = new Button("Play");
+    boolean stopButtonClicked = true; // This is set to false, when Play button is clicked. Then it is set to true, when Stop button is clicked. It is used by Play function.
+
+    int numberOfStepsToRun = 10; // when Run button is clicked
+
+    TextField textField_NumberOfStepsToRun = new TextField() {
+        @Override
+        public void replaceText(int start, int end, String text) {
+            if( text.matches("[0-9]") ) {
+                if( super.getText().length() > 4 )
+                    super.clear();
+                else {
+                    super.replaceText(start, end, text);   
+                    numberOfStepsToRun = Integer.parseInt( super.getText() );  
+                }                
+            } 
+        }
+
+        @Override
+        public void replaceSelection(String text) {
+            if ( text.matches("[0-9]") ) {
+                if( super.getText().length() > 4 )
+                    super.clear();
+                else {
+                    super.replaceSelection(text);
+                    numberOfStepsToRun = Integer.parseInt( super.getText() ); 
+                }
+            }
+        }
+    };       
+
+
+    Button toolBarButton_Run = new Button("Run");
     
     Button toolBarButton_Settings = new Button("Settings");
     Button toolBarButton_Reports = new Button("Reports");
+    Button toolBarButton_Help = new Button("Help");
+
+    
+    // STATUS BAR:
+    static Label label_NumberOfAnimals = new Label( String.format( "Number of animals: %10d", 0 ) );
+    Button button_SearchAnimal = new Button("Search"); 
+
 
     Stage stage;
     GridPane wildParkGrid = new GridPane();
-    Button[][] cellArray = new Button[WILD_PARK_AREA_WIDTH][WILD_PARK_AREA_HEIGHT];
 
+    /**
+     * Main 2-dimension Array of WildParkArea Cells
+     */
+    WildParkAreaCell[][] cellArray = new WildParkAreaCell[WILD_PARK_AREA_WIDTH][WILD_PARK_AREA_HEIGHT];
 
-    final static Label label = new Label();
 //    DropShadow cellShadow = new DropShadow();
+
+
+
+
+
+
 
 
 
@@ -197,29 +308,26 @@ public class WildPark extends Application {
         final Menu menu1 = new Menu("File");
         menu1.getItems().addAll( menu1_New, menu1_Open, menu1_Save, new SeparatorMenuItem(), menu1_Exit );
         final Menu menu2 = new Menu("Reports");
-        MenuItem menu2_Species = new MenuItem("Species...");
-        MenuItem menu2_Animals = new MenuItem("Animals...");
-        MenuItem menu2_Steps = new MenuItem("Steps...");
+        menu2.getItems().addAll( menu2_SpeciesReport, menu2_AnimalsReport, menu2_StepsReport );
         final Menu menu3 = new Menu("Settings");
-        MenuItem menu3_AnimalSettings = new MenuItem("Animal Settings...");
-        MenuItem menu3_WildParkSettings = new MenuItem("Wild Park Settings...");
+        menu3.getItems().addAll( menu3_AnimalSettings, menu3_WildParkSettings );
         final Menu menu4 = new Menu("Help");
-        MenuItem menu4_Help = new MenuItem("Help...");
-        MenuItem menu4_AboutWildPark = new MenuItem("About Wild Park...");
-
+        menu4.getItems().addAll( menu4_Help, menu4_AboutWildPark );
 
         MenuBar menuBar = new MenuBar();
         menuBar.getMenus().addAll( menu1, menu2, menu3, menu4 );
 
-        TextField textField_PlaySpeed = new TextField();
         textField_PlaySpeed.setPrefColumnCount(2);
-        TextField textField_NumberOfStepsToRun = new TextField();
+        textField_PlaySpeed.setText( String.format( "%d", playSpeed ) );
+        toolBarButton_Play.setMinWidth( 42 );   // ...to avoid size change when "Play" is switched to "Stop"
+
         textField_NumberOfStepsToRun.setPrefColumnCount(3);
+        textField_NumberOfStepsToRun.setText( String.format( "%d", numberOfStepsToRun ) );
 
         ToolBar toolBar = new ToolBar(
             toolBarButton_New,
-            new Button("Open"),
-            new Button("Save"),
+            toolBarButton_Open,
+            toolBarButton_Save,
             toolBarButton_Reset,
             new Separator( Orientation.VERTICAL ),
             new Label( "Current Step:"),
@@ -229,30 +337,26 @@ public class WildPark extends Application {
             new Label( "Play Speed:"),
             textField_PlaySpeed,
             new Label( "steps/sec."),
-            new Button("Play"),
+            toolBarButton_Play,
             new Separator( Orientation.VERTICAL ),
             new Label( "Run"),
             textField_NumberOfStepsToRun,
             new Label( "steps"),
-            new Button("Run"),            
+            toolBarButton_Run,            
             new Separator( Orientation.VERTICAL ),
 
-            toolBarButton_Settings,
             toolBarButton_Reports,
-            new Button("Settings"),
-            new Button("Help")
+            toolBarButton_Settings,
+            toolBarButton_Help
         );
         toolBarLabel_CurrentStep.setMinWidth(40);
 
         HBox statusBar = new HBox(10);  // HBox( spacing )
-        int numberOfAnimals = 1234;
-        Label label_NumberOfAnimals = new Label( "Number of animals: " + numberOfAnimals );
         HBox.setMargin( label_NumberOfAnimals, new Insets(6,4,4,43) );    // Insets( top, right, bottom, left )
         Label label_FindAnimal = new Label("Find animal:");
         HBox.setMargin( label_FindAnimal, new Insets(6,0,4,40) );    // Insets( top, right, bottom, left )
         TextField textField_FindAnimal = new TextField();
-        HBox.setMargin( textField_FindAnimal, new Insets(2,0,2,0) );    // Insets( top, right, bottom, left )
-        Button button_SearchAnimal = new Button("Search");        
+        HBox.setMargin( textField_FindAnimal, new Insets(2,0,2,0) );    // Insets( top, right, bottom, left )       
         HBox.setMargin( button_SearchAnimal, new Insets(2,0,2,0) );    // Insets( top, right, bottom, left )
         statusBar.setAlignment(Pos.BOTTOM_CENTER);
         statusBar.getChildren().addAll( label_NumberOfAnimals, label_FindAnimal, textField_FindAnimal, button_SearchAnimal );    
@@ -276,52 +380,6 @@ public class WildPark extends Application {
                                                     // BorderPane( center    , top   , right, bottom, left ) 
         stage.setScene( new Scene( new BorderPane( new BorderPane( scrollPane, toolBar, null, null, slider ), menuBar, null, statusBar, null ) ) );
 
-     // ListView list = new ListView();
-     // BorderPane.setAlignment(list, Pos.TOP_LEFT);
-     // BorderPane.setMargin(list, new Insets(12,12,12,12));   // Insets( top, right, bottom, left )
-     // borderPane.setCenter(list);
-
-        // scrollPane.setVbarPolicy( ScrollPane.ScrollBarPolicy.ALWAYS );
-
-        // final Label dollar = new Label("$");
-        // GridPane.setConstraints(dollar, 0, 0);
-        // wildParkGrid.getChildren().add(dollar);
-        
-        // final TextField sum = new TextField() {
-        //     @Override
-        //     public void replaceText(int start, int end, String text) {
-        //         if (!text.matches("[a-z, A-Z]")) {
-        //             super.replaceText(start, end, text);                     
-        //         }
-        //         label.setText("Enter a numeric value");
-        //     }
- 
-        //     @Override
-        //     public void replaceSelection(String text) {
-        //         if (!text.matches("[a-z, A-Z]")) {
-        //             super.replaceSelection(text);
-        //         }
-        //     }
-        // };
- 
-        // sum.setPromptText("Enter the total");
-        // sum.setPrefColumnCount(10);
-        // GridPane.setConstraints(sum, 1, 0);
-        // wildParkGrid.getChildren().add(sum);
-        
-        // Button submit = new Button("Submit");
-        // GridPane.setConstraints(submit, 2, 0);
-        // wildParkGrid.getChildren().add(submit);
-        
-        // submit.setOnAction(new EventHandler<ActionEvent>() {
-        //     @Override
-        //     public void handle(ActionEvent e) {
-        //         label.setText(null);
-        //     }
-        // });
-        // GridPane.setConstraints(label, 0, 1);
-        // GridPane.setColumnSpan(label, 3);
-        // wildParkGrid.getChildren().add(label);
         
         initializeWildParkArea();
         newWildParkArea();
@@ -329,6 +387,9 @@ public class WildPark extends Application {
         stage.setWidth(1000);
         stage.setHeight(600);
         stage.show();
+
+        textField_PlaySpeed.setAlignment(Pos.CENTER_RIGHT); // setAlignment MUST be called after the TextField was added to the scene
+        textField_NumberOfStepsToRun.setAlignment(Pos.CENTER_RIGHT); // setAlignment MUST be called after the TextField was added to the scene
     }
 
 
@@ -341,42 +402,43 @@ public class WildPark extends Application {
 
 
     void initializeWildParkArea() {
-        //Button button;
+        //WildParkAreaCell areaCell;
         for( int y=0; y<WILD_PARK_AREA_HEIGHT; y++ ) {
             for( int x=0; x<WILD_PARK_AREA_WIDTH; x++ ) {
-                final Button button = new Button( x + " : " + y );
-                cellArray[x][y] = button;
-                button.setMinSize( WILD_PARK_CELL_WIDTH, WILD_PARK_CELL_HEIGHT );
-                button.setMaxSize( WILD_PARK_CELL_WIDTH, WILD_PARK_CELL_HEIGHT );
+                final WildParkAreaCell areaCell = new WildParkAreaCell( x + " : " + y );;
+                cellArray[x][y] = areaCell;
 
-                button.setBackground( Background.EMPTY );
+                areaCell.setMinSize( WILD_PARK_CELL_WIDTH, WILD_PARK_CELL_HEIGHT );
+                areaCell.setMaxSize( WILD_PARK_CELL_WIDTH, WILD_PARK_CELL_HEIGHT );
+
+                areaCell.setBackground( Background.EMPTY );
                 // cellArray[x][y].setBackground( new Background( new BackgroundFill( Paint.valueOf( "0x00FF00" ), CornerRadii.EMPTY, Insets.EMPTY ) ) );
-                //button.setBorder( null );
-                GridPane.setConstraints( button, x, y );
-                wildParkGrid.getChildren().add( button );
+                //areaCell.setBorder( null );
+                GridPane.setConstraints( areaCell, x, y );
+                wildParkGrid.getChildren().add( areaCell );
 
-                button.setOnAction( new EventHandler<ActionEvent>() {
+                areaCell.setOnAction( new EventHandler<ActionEvent>() {
                     @Override 
                     public void handle( ActionEvent e ) {
                         System.out.println("Cell["+this.toString()+"] clicked");
                     }
                 });
 
-                button.addEventHandler( MouseEvent.MOUSE_ENTERED,
+                areaCell.addEventHandler( MouseEvent.MOUSE_ENTERED,
                     new EventHandler<MouseEvent>() {
                       @Override
                       public void handle(MouseEvent e) {
-                        //button.setEffect(cellShadow);
-                        //button.setBackground( Background.EMPTY );
+                        //areaCell.setEffect(cellShadow);
+                        //areaCell.setBackground( Background.EMPTY );
                       }
                     });
 
-                button.addEventHandler( MouseEvent.MOUSE_EXITED,
+                areaCell.addEventHandler( MouseEvent.MOUSE_EXITED,
                     new EventHandler<MouseEvent>() {
                       @Override
                       public void handle(MouseEvent e) {
-                        //button.setEffect(null);
-                        //button.setBackground( BACKGROUND_OCEAN_BLUE ); //ocean
+                        //areaCell.setEffect(null);
+                        //areaCell.setBackground( BACKGROUND_OCEAN_BLUE ); //ocean
                       }
                     });
 
@@ -397,7 +459,7 @@ public class WildPark extends Application {
         int currentOceanRightRandom;
         int currentLakeLeftRandom;
         int currentLakeRightRandom;
-        Button button;
+        WildParkAreaCell areaCell;
         Random random = new Random();
 
         int previousOceanRightRandom = WILD_PARK_OCEAN_AVERAGE_WIDTH - (int)(0.05*WILD_PARK_AREA_WIDTH) + random.nextInt( (int)(0.10*WILD_PARK_AREA_WIDTH) ); // initial Ocean Right Edge 
@@ -425,21 +487,21 @@ public class WildPark extends Application {
             if( y==10+WILD_PARK_LAKE_HEIGHT-1 ) currentLakeRightRandom = currentLakeLeftRandom+5;
 
             for( int x=0; x<WILD_PARK_AREA_WIDTH; x++ ) {
-                button = cellArray[x][y];
-                button.setMinSize( WILD_PARK_CELL_WIDTH, WILD_PARK_CELL_HEIGHT );
-                button.setMaxSize( WILD_PARK_CELL_WIDTH, WILD_PARK_CELL_HEIGHT );
+                areaCell = cellArray[x][y];
+                areaCell.setMinSize( WILD_PARK_CELL_WIDTH, WILD_PARK_CELL_HEIGHT );
+                areaCell.setMaxSize( WILD_PARK_CELL_WIDTH, WILD_PARK_CELL_HEIGHT );
 
-//                button.setBackground( Background.EMPTY );
+//                areaCell.setBackground( Background.EMPTY );
                 // cellArray[x][y].setBackground( new Background( new BackgroundFill( Paint.valueOf( "0x00FF00" ), CornerRadii.EMPTY, Insets.EMPTY ) ) );
 
                 if( x < currentOceanRightRandom ) 
-                    button.setBackground( BACKGROUND_OCEAN_BLUE ); //ocean
+                    areaCell.setBackground( BACKGROUND_OCEAN_BLUE ); //ocean
                 else 
-                    button.setBackground( BACKGROUND_GREEN );  //teren
+                    areaCell.setBackground( BACKGROUND_GREEN );  //teren
 
-                if( x>currentLakeLeftRandom && x<currentLakeRightRandom && y>10 && y<10+WILD_PARK_LAKE_HEIGHT ) button.setBackground( BACKGROUND_LAKE_BLUE ); //jezioro
+                if( x>currentLakeLeftRandom && x<currentLakeRightRandom && y>10 && y<10+WILD_PARK_LAKE_HEIGHT ) areaCell.setBackground( BACKGROUND_LAKE_BLUE ); //jezioro
 
-                //button.setBorder( null );
+                //areaCell.setBorder( null );
 
                 previousOceanRightRandom = currentOceanRightRandom;
                 previousLakeLeftRandom = currentLakeLeftRandom;
@@ -471,30 +533,37 @@ public class WildPark extends Application {
         final int CROCODILE_COUNT = 10;
         final int POLAR_BEAR_COUNT = 10;
 
-
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
-            Animal bat = new InsectEatingBat( new InsectEatingBatSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
+            InsectEatingBatSpecification animalSpecification = new InsectEatingBatSpecification();
+
+            //generuje dwie współrzędne random
+            //spradzamy jakiego typu jest komórka = cell w WildParku.
+            //Jeśli wylosowana komórka NIE jest zgodna z komórkami akceptowanymi przez danego zwierza, 
+            //wówczas losowanie powtarzamy do skutku
+            WildParkAreaCell areaCell = cellArray[1][1];
+
+            Animal bat = new InsectEatingBat( animalSpecification, areaCell, false );
+            addAnimal( bat );
         }
 
-        
-        
         for( int i=0; i<LION_COUNT; i++ ) {
             Animal lion = new Lion( new LionSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
+            addAnimal( lion );
         }
-
 
         for( int i=0; i<LEOPARD_COUNT; i++ ) {
             Animal leopard = new Leopard( new LeopardSpecification(), new WildParkAreaCell( CellType.DESERT ), false );
+            addAnimal( leopard );
         }
-
 
         // for( int i=0; i<CROCODILE_COUNT; i++ ) {
         //     Animal crocodile = new Crocodile( new CrocodileSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
         //     getAnimals().add( crocodile );
         // }
-            for( int i=0; i<POLAR_BEAR_COUNT; i++ ) {
-            Animal polarbear = new PolarBear( new PolarBearSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
-            getAnimals().add(polarbear);
+        
+        for( int i=0; i<POLAR_BEAR_COUNT; i++ ) {
+            Animal polarBear = new PolarBear( new PolarBearSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
+            addAnimal( polarBear ); 
         }
     }
     
@@ -548,6 +617,16 @@ public class WildPark extends Application {
      * Listeners to menu items, buttons and other controls of UI
      */
     void addUIEventListeners() {
+        menu1_New.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("menu1_New clicked"); 
+                //Wyświetl okno dialogowe z pytaniem, czy użytkownik chce zapisać bieżący park.
+                //
+                newWildParkArea();                
+            }
+        });
+
         menu1_Open.setOnAction( new EventHandler<ActionEvent>() {
             @Override 
             public void handle( ActionEvent e ) {
@@ -555,22 +634,76 @@ public class WildPark extends Application {
                 
             }
         });
+
         menu1_Save.setOnAction( new EventHandler<ActionEvent>() {
             @Override 
             public void handle( ActionEvent e ) {
             	System.out.println("menu1_Save_New clicked");
             }
         });
+
         menu1_Exit.setOnAction( new EventHandler<ActionEvent>() {
             @Override 
             public void handle( ActionEvent e ) {
                 System.exit(0);
 
-            }
+            }        
+        });
+
+        //------------------
+
+        menu2_SpeciesReport.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("menu2_SpeciesReport clicked");
+                // Species Report page
+                
+            }        
+        });
+
+        menu2_AnimalsReport.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("menu2_AnimalsReport clicked");
+                // Animal Report page
+                
+            }        
+        });
+
+        menu2_StepsReport.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("menu2_StepsReport clicked");
+                // Time Steps Report page
+                
+            }        
         });
 
 
+        //------------------
 
+        menu3_AnimalSettings.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("menu3_AnimalSettings clicked");
+                // Animal settings page
+                
+            }        
+        });
+
+        menu3_WildParkSettings.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("menu3_WildParkSettings clicked");
+                // Animal settings page
+                
+            }        
+        });
+
+
+        //------------------
+        //------------------
+        //------------------
 
         toolBarButton_New.setOnAction( new EventHandler<ActionEvent>() {
             @Override 
@@ -581,13 +714,76 @@ public class WildPark extends Application {
             }
         });
 
+        toolBarButton_Open.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("toolBarButton_Open clicked");
+                // Opens the file explorer window to find the Wild Park Log File saved in previous sessions.
+                
+            }
+        });
+
+        toolBarButton_Save.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("toolBarButton_Save clicked");
+                // Open Wild Park Save As dialog box or just save the Park if the file name is already known
+                
+            }
+        });
+
+        toolBarButton_Reset.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("toolBarButton_Reset clicked");
+                // Resets Wild Park life - The new terrain is randomly generated and life starts from the begining. 
+                getAnimals().clear();
+                populateWildPark();
+                wildParkTime = Duration.ZERO;
+            }
+        });
+
+
+        toolBarButton_Play.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("toolBarButton_Play clicked");
+                // Let the Park performs steps automatically with the speed specified in textField_PlaySpeed text field.
+                // Change the button Labbel to Stop and perform Time Steps until the Stop button is clicked.
+                if( stopButtonClicked ) {
+                    toolBarButton_Play.setText( "Stop" );
+                    stopButtonClicked = false;
+                    //Perform automatic steps with specified delay determined on the basis of playSpeed attribute value.
+                } else {
+                    toolBarButton_Play.setText( "Play" );
+                    stopButtonClicked = true;    
+                    //Stop automatic steps                
+                }
+
+            }
+        });
+
         toolBarButton_Step.setOnAction( new EventHandler<ActionEvent>() {
             @Override 
             public void handle( ActionEvent e ) {
                 System.out.println("toolBarButton_Step clicked");
+                // Perform the single Time step
                 makeWildParkTimeStep();
             }
         });
+
+        toolBarButton_Run.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("toolBarButton_Run clicked");
+                // Quickly perform the given amount of Time Steps. The amount of steps is specified in textField_NumberOfStepsToRun text field.
+                for(int i=0; i<numberOfStepsToRun; i++) {
+                    makeWildParkTimeStep();
+                    toolBarLabel_CurrentStep.setText( String.format( "%8d", wildParkTime.toHours() ) );
+                }
+            }
+        });
+        
         toolBarButton_Reports.setOnAction( new EventHandler<ActionEvent>() {
             @Override
             public void handle( ActionEvent e ) {
@@ -614,13 +810,22 @@ public class WildPark extends Application {
                         }
 
                     }
-            });
+        });
 
         toolBarButton_Settings.setOnAction( new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 System.out.println("toolBarButton_Settings clicked");
 //                Newwindow nw =new Newwindow();
+            }
+        });
+
+        button_SearchAnimal.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("button_SearchAnimal clicked");
+                // Point the animal with given ID at the map or in the table view
+
             }
         });
 

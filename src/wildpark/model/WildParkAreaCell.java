@@ -12,7 +12,7 @@ import wildpark.model.animals.Animal;
 
 public class WildParkAreaCell extends Button {
 	
-	CellType cellType;
+	private CellType cellType;
 	
 	public Boolean modified = true;
 	
@@ -21,7 +21,15 @@ public class WildParkAreaCell extends Button {
 	
 	public List<Animal> animals = new ArrayList<Animal>();
 
-	public WildParkAreaCell(CellType _type) {
+
+	// public WildParkAreaCell() {
+	// }
+
+	public WildParkAreaCell( String label ) {
+		super( label );
+	}
+
+	public WildParkAreaCell( CellType _type ) {
 		this.cellType = _type;
 		this.setAlignment(Pos.TOP_LEFT);
 //		this.setBackground(null);

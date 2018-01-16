@@ -12,14 +12,6 @@ extends Meat
 	private Duration TIME_OF_BIRTH; 
 	private Gender GENDER; // płeć
 
-	/**
-	 * Animal unique ID
-	 * @return int unique ID
-	 */
-	public int getId() {
-		return hashCode();
-	}
-
 	private AnimalState animalState;
 
 	//	Attributes inherited from super classes:
@@ -53,7 +45,7 @@ extends Meat
 			Duration animalAge =  Duration.ofHours( (long)( animalSpeciesSpecification.getMIN_SELF_GOVERNMENT_AGE().toHours() + new Random().nextFloat() * ( animalSpeciesSpecification.getMAX_AGE().toHours() - animalSpeciesSpecification.getMIN_SELF_GOVERNMENT_AGE().toHours() ) ) );
 			TIME_OF_BIRTH = WildPark.getWildParkTime().minus( animalAge );
 		}
-		System.out.printf( "Animal created: %s, %6s, %.3f kg, %6.2f years old.\r\n", animalSpeciesSpecification.getSPECIES_NAME(), GENDER, weight, WildPark.getWildParkTime().minus(TIME_OF_BIRTH).toDays()/365f );
+		System.out.printf( "| %6d   %-18s  %-7s  %9.3f kg  %7.2f years old\r\n", getId(), animalSpeciesSpecification.getSPECIES_NAME(), GENDER, weight, WildPark.getWildParkTime().minus(TIME_OF_BIRTH).toDays()/365f );
 	}
 
 	public void die() {
