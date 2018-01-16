@@ -1,5 +1,5 @@
 /**
- * @author Michał Woźniak
+ * @author Xtry333
  */
 package wildpark.model;
 
