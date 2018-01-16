@@ -1,5 +1,7 @@
 package wildpark.model.animals;
 
+import wildpark.model.*;
+
 public interface CrawlingAnimal{
-	public void crawl();
+	public Movement CrawlOnLand( float time);
 }

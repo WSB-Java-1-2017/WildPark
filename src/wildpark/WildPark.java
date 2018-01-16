@@ -556,10 +556,10 @@ public class WildPark extends Application {
             addAnimal( leopard );
         }
 
-        // for( int i=0; i<CROCODILE_COUNT; i++ ) {
-        //     Animal crocodile = new Crocodile( new CrocodileSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
-        //     getAnimals().add( crocodile );
-        // }
+        for( int i=0; i<CROCODILE_COUNT; i++ ) {
+            Animal crocodile = new Crocodile( new CrocodileSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
+            addAnimal( crocodile );
+        }
         
         for( int i=0; i<POLAR_BEAR_COUNT; i++ ) {
             Animal polarBear = new PolarBear( new PolarBearSpecification(), new WildParkAreaCell( CellType.LAKE ), false );

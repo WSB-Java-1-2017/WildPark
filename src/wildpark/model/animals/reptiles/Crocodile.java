@@ -11,15 +11,18 @@ import wildpark.model.WildParkAreaCell;
 import wildpark.model.*;
 import wildpark.model.animals.*;
 import wildpark.model.animals.Animal;
+import wildpark.model.animals.Reptile;
 import wildpark.model.animals.MetaturnalAnimal;
 import wildpark.model.animals.Predator;
 import wildpark.model.animals.CarnivorousAnimal;
 import wildpark.model.animals.ChewingAnimal;
 import wildpark.model.animals.CrawlingAnimal;
 import wildpark.model.animals.DivingAnimal;
+import wildpark.model.animals.FloatingAnimal;
 import wildpark.model.animals.EggBearingAnimal;
+import wildpark.model.animals.SwollowingAnimal;
 
-public class Crocodile extends Reptile implements MetaturnalAnimal, Predator, CarnivorousAnimal, ChewingAnimal, CrawlingAnimal, DivingAnimal, EggBearingAnimal{
+public class Crocodile extends Reptile implements MetaturnalAnimal, Predator, CarnivorousAnimal, ChewingAnimal, CrawlingAnimal, DivingAnimal, FloatingAnimal, EggBearingAnimal ,SwollowingAnimal{
 	private final AnimalSpeciesSpecification animalSpeciesSpecification = new CrocodileSpecification();
 
 	public Crocodile( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
@@ -63,7 +66,22 @@ public class Crocodile extends Reptile implements MetaturnalAnimal, Predator, Ca
 	public boolean isMetaturnal() {
 		return false;
 	}
-	
+
+	public Food swollow( Food food ) {
+		return null;
+	}
+
+	public Movement CrawlOnLand( float time) {
+		return null;
+	}
+
+	public Movement DiveInWater( float time) {
+		return null;
+	}
+
+	public Movement floatOnWater( float time) {
+		return null;
+	}
 }
 
 

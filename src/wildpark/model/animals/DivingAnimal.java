@@ -1,5 +1,7 @@
 package wildpark.model.animals;
 
+import wildpark.model.*;
+
 public interface DivingAnimal{
-	public void dive();
+	public Movement DiveInWater( float time);
 }

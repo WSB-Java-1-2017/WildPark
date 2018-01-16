@@ -26,17 +26,13 @@ public final class CrocodileSpecification extends AnimalSpeciesSpecification {
 	private int CALORIC_EFFICIENCY_PER_KILO = 1040; // Cal/kg
 
 	public enum AcceptableCellType {
-		LAKE,
-		RIVER,				
+		LAKE,		
+		RIVER			
 	}
 
-	public AcceptableCellType[] getAcceptableCellTypes() {
-		return AcceptableCellType.values();
-	}
-
-	public String toString() {
-		return String.format( "Species Name: %1$s\r\nAdult Weight: %2$900f kg\r\n...\r\nStandard Speed: %6$30f km/h\r\n", SPECIES_NAME, ADULT_WEIGHT, FOOD_QUANTITY_REQUIRED_PER_DAY, MAX_STARVING_DAYS_BEFORE_DEATH, HUNGER_ENERGY_PERCENT, STANDARD_SPEED  );
-	}
+	// public AcceptableCellType[] getAcceptableCellTypes() {
+	// 	return AcceptableCellType.values();
+	// }	
 
 	public String getSPECIES_NAME() {
 		return NAME;
@@ -104,4 +100,5 @@ public final class CrocodileSpecification extends AnimalSpeciesSpecification {
 	
 	public int getCALORIC_EFFICIENCY_PER_KILO() {
 		return CALORIC_EFFICIENCY_PER_KILO;
+	}
 }
