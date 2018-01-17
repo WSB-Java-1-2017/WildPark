@@ -24,6 +24,14 @@ public class Horse extends Mammal implements RunningAnimal, BirthGivingAnimal, H
 		// TODO Auto-generated constructor stub
 	}
 
+	public Horse() {
+		this( animalSpeciesSpecification, HorseSpeciesSpecification.selectRandomCell(), false);
+	}
+
+	public Horse( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
+		super( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
+	}
+
 	public String NAME = "Horse";
 	public float FOOD_QUANTITY_REQUIRED_PER_HOUR = 9 / 24f;// KG
 	public int MAX_STARVING_HOURS_BEFORE_DEATH = 14 * 24; // HOURS

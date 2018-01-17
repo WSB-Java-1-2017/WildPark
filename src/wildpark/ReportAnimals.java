@@ -3,7 +3,6 @@
  */
 package wildpark;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
@@ -21,22 +20,19 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import wildpark.model.animals.Animal;
-import wildpark.model.animals.mammals.Horse;
-import wildpark.model.animals.mammals.InsectEatingBat;
-import wildpark.model.animals.mammals.Lion;
 
 public class ReportAnimals extends Application {
 
-	static List<Animal> thisShouldBeGlobalAnimalsList = new ArrayList<Animal>();
+	static List<Animal> thisShouldBeGlobalAnimalsList = WildPark.getAnimals();
 	
 	public static void main(String[] args) {
-		for (int i = 0; i < 10; i++) {
-			thisShouldBeGlobalAnimalsList.add(new Horse(null, false));
+		/*for (int i = 0; i < 10; i++) {
+			thisShouldBeGlobalAnimalsList.add(new Horse());
 			//thisShouldBeGlobalAnimalsList.add(new InsectEatingBat(null, null, false));
 			//thisShouldBeGlobalAnimalsList.add(new Lion(null, null, false));
-		}
+		}*/
 		
-		launch();
+		//launch();
 	}
 
 	/* TODO: This should be compilable...

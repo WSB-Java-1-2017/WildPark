@@ -4,10 +4,10 @@ public enum CellType {
 	OCEAN,
 	LAKE,
 	RIVER,
-	GROUND,
 	FOREST,
 	GRASS,
 	DESERT,
 	MOUNTAIN,
+	POLAR_AREA,
 	PARK_EDGE
 }

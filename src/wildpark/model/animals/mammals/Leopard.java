@@ -1,12 +1,6 @@
 package wildpark.model.animals.mammals;
 
 import java.time.Duration;
-import wildpark.model.Food;
-import wildpark.model.Gender;
-import wildpark.model.Meat;
-import wildpark.model.Movement;
-import wildpark.model.WildParkAreaCell;
-
 
 import wildpark.model.*;
 import wildpark.model.animals.Animal;
@@ -41,10 +35,9 @@ public class Leopard extends Mammal implements NocturnalAnimal, Predator, BirthG
 
 
 
-	public AnimalSpeciesSpecification.AcceptableCellType[] getAcceptableCellTypes() {
-         return animalSpeciesSpecification.getAcceptableCellTypes();
-    }
-
+	public CellType[] getAcceptableCellTypes() {
+        return LeopardSpecification.getAcceptableCellTypes();
+   }
 	public Food getFood( WildParkAreaCell cell ) {
 		return null;
 	}

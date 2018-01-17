@@ -12,6 +12,7 @@ public class AnimalState {
 	public boolean isFeedingNewborns = false; // czy osobnik karmi noworodki
 	WildParkAreaCell wildParkAreaCell = null; // Wild Park Cell corresponds to Area coordinates in which the animal currently resides
 	float weight = -1;
+	public boolean isAlive = true;
 
 	/**
 	 * Constructor of Animal State object

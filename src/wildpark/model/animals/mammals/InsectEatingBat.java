@@ -10,12 +10,14 @@ import wildpark.model.*;
 import wildpark.model.animals.Animal;
 import wildpark.model.animals.NocturnalAnimal;
 import wildpark.model.animals.Predator;
+import wildpark.*;
+import java.util.Random;
 
 /**
  * The REAL animal class. This contains implementations of all abstract methods declared in all superclasses.
  */
 public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
-	private final AnimalSpeciesSpecification animalSpeciesSpecification = new InsectEatingBatSpecification();
+	private static final AnimalSpeciesSpecification animalSpeciesSpecification = new InsectEatingBatSpecification();
 
 	//	Inherited from Meat:
 	// public Duration TIME_OF_DEATH = null;
@@ -28,13 +30,41 @@ public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
 		super( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
 	}
 
+	public InsectEatingBat( WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
+		this( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
+	}
+
+	public InsectEatingBat() {
+		this( animalSpeciesSpecification, InsectEatingBatSpecification.selectRandomCell(), false );
+	}
 
 
-
-
-	public AnimalSpeciesSpecification.AcceptableCellType[] getAcceptableCellTypes() {
-         return animalSpeciesSpecification.getAcceptableCellTypes();
+	public CellType[] getAcceptableCellTypes() {
+         return InsectEatingBatSpecification.getAcceptableCellTypes();
     }
+
+	public boolean acceptsCellType( CellType cellType ) {
+		return InsectEatingBatSpecification.acceptsCellType( cellType );
+	}
+
+	// public static WildParkAreaCell selectRandomCell() {   
+ //        WildParkAreaCell areaCell = null;
+ //        InsectEatingBatSpecification ss = new InsectEatingBatSpecification();
+ //        // Get a random WildParkAreaCell acceptable for the particular species
+ //        boolean isAcceptable = false;
+ //        do {
+ //            areaCell =  WildPark.cellArray[ new Random().nextInt( WildPark.WILD_PARK_AREA_WIDTH ) ][ new Random().nextInt( WildPark.WILD_PARK_AREA_HEIGHT ) ];      
+ //            if( ss.acceptsCellType( areaCell.getCellType() ) ) {
+ //                isAcceptable = true;
+ //            } 
+ //            System.out.println( "----------o--------------------------------------------------------------------------\nRandom cell for " + ss.getSPECIES_NAME() + " ----- cellType: " + areaCell.getCellType() + " --- " + isAcceptable );    
+ //        } while( !isAcceptable );
+
+ //        return areaCell;
+	// }
+
+
+
 
 	public Food getFood( WildParkAreaCell cell ) {
 		return null;

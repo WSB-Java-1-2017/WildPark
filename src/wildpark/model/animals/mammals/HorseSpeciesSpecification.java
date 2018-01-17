@@ -1,8 +1,13 @@
 package wildpark.model.animals.mammals;
 
 import java.time.Duration;
+import java.util.Random;
 
+import wildpark.WildPark;
 import wildpark.model.AnimalSpeciesSpecification;
+import wildpark.model.CellType;
+import wildpark.model.FoodType;
+import wildpark.model.WildParkAreaCell;
 
 public class HorseSpeciesSpecification extends AnimalSpeciesSpecification {
 
@@ -23,7 +28,46 @@ public class HorseSpeciesSpecification extends AnimalSpeciesSpecification {
 	public static final Duration MAX_BREEDING_AGE = Duration.ofDays(25 * 365); // DAYS
 	public static final Duration MAX_AGE_IN_NEST = Duration.ofDays(0 * 365); // DAYS
 	public static final Duration MIN_SELF_GOVERNMENT_AGE = Duration.ofDays(3 * 365); // DAYS
-	public static final int CALORIC_EFFICIENCY_PER_KILO = 175;
+	public static final int CALORIC_EFFICIENCY_PER_KILO = 1750;
+	
+	private static final CellType[] acceptableCellTypes = {
+		CellType.FOREST,
+		CellType.GRASS,	
+	};
+
+	public static CellType[] getAcceptableCellTypes() {
+		return acceptableCellTypes;
+	}
+	
+	public static boolean acceptsCellType( CellType cellType ) {
+		boolean accepts = false;
+		for( CellType type : acceptableCellTypes ) {
+			System.out.println( "OK - ISBSpecification: "+type );
+			if( type == cellType ) {
+				accepts = true;
+				break;
+			}
+		}
+		return accepts;
+	}
+	private static final FoodType[] edibleFoodTypes = {
+		FoodType.GRASS
+	};
+		
+	public static WildParkAreaCell selectRandomCell() {   // Shouldnt this be in a generation method?
+        WildParkAreaCell areaCell = null;
+        // Get a random WildParkAreaCell acceptable for the particular species
+        boolean isAcceptable = false;
+        do {
+            areaCell =  WildPark.cellArray[ new Random().nextInt( WildPark.WILD_PARK_AREA_WIDTH ) ][ new Random().nextInt( WildPark.WILD_PARK_AREA_HEIGHT ) ];      
+            if( acceptsCellType( areaCell.getCellType() ) ) {
+                isAcceptable = true;
+            } 
+            System.out.println( "Random cell for " + SPECIES_NAME + " ----- cellType: " + areaCell.getCellType() + " --- " + isAcceptable );    
+        } while( !isAcceptable );
+
+        return areaCell;
+	}
 	
 	public String toString() {
 		return String.format( "Species Name: %1$s\r\nAdult Weight: %2$900f kg\r\n...\r\nStandard Speed: %6$30f km/h\r\n", SPECIES_NAME, ADULT_WEIGHT, FOOD_QUANTITY_REQUIRED_PER_HOUR, MAX_STARVING_HOURS_BEFORE_DEATH, HUNGER_ENERGY_PERCENT, STANDARD_SPEED  );

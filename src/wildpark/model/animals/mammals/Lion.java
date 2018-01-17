@@ -1,12 +1,6 @@
 package wildpark.model.animals.mammals;
 
 import java.time.Duration;
-import wildpark.model.Food;
-import wildpark.model.Gender;
-import wildpark.model.Meat;
-import wildpark.model.Movement;
-import wildpark.model.WildParkAreaCell;
-
 
 import wildpark.model.*;
 import wildpark.model.animals.Animal;
@@ -31,7 +25,7 @@ public class Lion extends Mammal implements NocturnalAnimal, Predator, BirthGivi
 
 	//	Inherited from Food:
 	// public float weight;	// current animal weight
-	// private final float CALORIC_EFFICIENCY_PER_KILO = animalSpeciesSpecification.CALORIC_EFFICIENCY_PER_KILO; // okreœla liczbê kalorii z kilograma danego miêsa 
+	// private final float CALORIC_EFFICIENCY_PER_KILO = animalSpeciesSpecification.CALORIC_EFFICIENCY_PER_KILO; // okreï¿½la liczbï¿½ kalorii z kilograma danego miï¿½sa 
 
 	public Lion( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
 		super( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
@@ -41,9 +35,9 @@ public class Lion extends Mammal implements NocturnalAnimal, Predator, BirthGivi
 
 
 
-	public AnimalSpeciesSpecification.AcceptableCellType[] getAcceptableCellTypes() {
-         return animalSpeciesSpecification.getAcceptableCellTypes();
-    }
+	public CellType[] getAcceptableCellTypes() {
+        return LionSpecification.getAcceptableCellTypes();
+   }
 
 	public Food getFood( WildParkAreaCell cell ) {
 		return null;

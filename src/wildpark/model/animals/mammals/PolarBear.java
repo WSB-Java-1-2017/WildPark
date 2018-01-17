@@ -1,11 +1,7 @@
 package wildpark.model.animals.mammals;
 
 import java.time.Duration;
-import wildpark.model.Food;
-import wildpark.model.Gender;
-import wildpark.model.Meat;
-import wildpark.model.Movement;
-import wildpark.model.WildParkAreaCell;
+
 import wildpark.model.*;
 import wildpark.model.animals.Animal;
 import wildpark.model.animals.NocturnalAnimal;
@@ -33,9 +29,9 @@ public class PolarBear extends Mammal implements MetaturnalAnimal, Predator {
 
 
 
-	public AnimalSpeciesSpecification.AcceptableCellType[] getAcceptableCellTypes() {
-         return animalSpeciesSpecification.getAcceptableCellTypes();
-    }
+	public CellType[] getAcceptableCellTypes() {
+        return LionSpecification.getAcceptableCellTypes();
+   }
 
 	public Food getFood( WildParkAreaCell cell ) {
 		return null;
