@@ -79,7 +79,7 @@ public class Lion extends Mammal implements NocturnalAnimal, Predator, BirthGivi
 		return null;
 	}
 
-	public Food swollow( Food food ) {
+	public Food swallow( Food food ) {
 		return null;
 	}
 }

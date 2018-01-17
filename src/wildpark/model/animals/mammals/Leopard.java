@@ -78,7 +78,7 @@ public class Leopard extends Mammal implements NocturnalAnimal, Predator, BirthG
 		return null;
 	}
 
-	public Food swollow( Food food ) {
+	public Food swallow( Food food ) {
 		return null;
 	}
 }

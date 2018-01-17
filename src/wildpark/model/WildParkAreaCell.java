@@ -3,13 +3,11 @@
  */
 package wildpark.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.LinkedHashSet;
 
-import javafx.scene.text.Font;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.text.Font;
 import wildpark.model.animals.Animal;
 
 public class WildParkAreaCell extends Button {
@@ -35,11 +33,11 @@ public class WildParkAreaCell extends Button {
 		super( string );
 	}
 
-	public WildParkAreaCell( int x, int y, String label ) {
+	public WildParkAreaCell( int _x, int _y, String label ) { // "_" is for clear difference between this.x and method argument _x
 		super( label );
 //		this.cellType = _type;
-		this.x = x;
-		this.y = y;
+		this.x = _x;
+		this.y = _y;
 		this.setAlignment(Pos.TOP_LEFT);
 		this.setFont( Font.font(7) );
 //		this.setBackground(null);
@@ -82,6 +80,10 @@ public class WildParkAreaCell extends Button {
 		update();
 	}
 
+	/*public String toString() {
+		return "X: " + this.getX() + ", Y: " + this.getY(); 
+	}*/
+	
 	/**
 	 * Update cell label
 	 */
@@ -92,5 +94,9 @@ public class WildParkAreaCell extends Button {
 			animalNames += "\n" + animal.getSPECIES_NAME();
 		}		
 		this.setText(coords + animalNames);
+	}
+
+	public String getPosition() {
+		return "X: " + this.x + ", Y: " + this.y;
 	}
 }

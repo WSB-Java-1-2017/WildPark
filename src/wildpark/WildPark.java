@@ -603,8 +603,8 @@ public class WildPark extends Application {
 
         WildParkAreaCell areaCell = new WildParkAreaCell("Cell1");
         for( int i=0; i<5; i++ ) {
+			new Horse();
 			Animal bat = new InsectEatingBat( areaCell, false );
-			Animal horse = new Horse();
         }
         
 
@@ -875,6 +875,7 @@ public class WildPark extends Application {
                 choices.add("Report 1");
                 choices.add("Report 2");
                 choices.add("Report 3");
+                choices.add("WildPark");
                 ChoiceDialog<String> dialog = new ChoiceDialog<>("Report 1", choices);
                 dialog.setTitle("Report Choice");
                 dialog.setHeaderText("Choose Report");
@@ -882,13 +883,15 @@ public class WildPark extends Application {
 
                 Optional<String> result = dialog.showAndWait();
                     if (result.isPresent()){
-                    	ReportAnimals ra = new ReportAnimals(); // Just as-is but working report list
-                    	try {
-							ra.start(new Stage());
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+                    	if (result.get() == "WildPark") {
+	                    	ReportAnimals ra = new ReportAnimals(getAnimals(), "WildPark"); // Just as-is but working report list
+	                    	try {
+								ra.show();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+                    	}
                         /*System.out.println("Your choice: " + result.get());
                         Stage stage2 = new Stage();
                         TextArea textArea = new TextArea();

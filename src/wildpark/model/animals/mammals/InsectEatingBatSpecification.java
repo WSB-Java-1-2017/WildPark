@@ -96,7 +96,7 @@ public final class InsectEatingBatSpecification extends AnimalSpeciesSpecificati
 	}
 
 
-
+	@Override
 	public String getSPECIES_NAME() {
 		return NAME;
 	}

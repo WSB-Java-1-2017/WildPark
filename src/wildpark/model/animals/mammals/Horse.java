@@ -59,7 +59,7 @@ public class Horse extends Mammal implements RunningAnimal, BirthGivingAnimal, H
 	}
 
 	@Override
-	public Food swollow(Food food) {
+	public Food swallow(Food food) {
 		// TODO Auto-generated method stub
 		return null;
 	}

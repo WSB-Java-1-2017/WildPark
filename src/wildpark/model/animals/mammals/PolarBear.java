@@ -63,7 +63,7 @@ public class PolarBear extends Mammal implements MetaturnalAnimal, Predator {
 		return null;
 	}
 
-	public Food swollow( Food food ) {
+	public Food swallow( Food food ) {
 		return null;
 	}
 	

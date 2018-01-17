@@ -1,4 +1,4 @@
 /bin/
 /out/
-.project
-.classpath
+/.settings/
+/*.project

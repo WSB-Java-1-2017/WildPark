@@ -96,7 +96,7 @@ public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
 		return null;
 	}
 
-	public Food swollow( Food food ) {
+	public Food swallow( Food food ) {
 		return null;
 	}
 

@@ -12,7 +12,7 @@ import wildpark.model.WildParkAreaCell;
 public class HorseSpeciesSpecification extends AnimalSpeciesSpecification {
 
 	public static final Object ADULT_WEIGHT = null;
-	public static final String SPECIES_NAME = "Horse";
+	public static final String SPECIES_NAME = "Horse2";
 	public static final float FOOD_QUANTITY_REQUIRED_PER_HOUR = 9 / 24f;// KG
 	public static final int MAX_STARVING_HOURS_BEFORE_DEATH = 14 * 24; // HOURS
 	public static final int STANDARD_SPEED = 7; // KMH

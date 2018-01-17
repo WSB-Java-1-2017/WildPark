@@ -54,7 +54,7 @@ public class Crocodile extends Reptile implements Predator, CarnivorousAnimal, C
 	}
 
 	@Override
-	public Food swollow(Food food) {
+	public Food swallow(Food food) {
 		// TODO Auto-generated method stub
 		return null;
 	}
