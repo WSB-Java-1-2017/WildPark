@@ -15,11 +15,15 @@ public class HorseSpeciesSpecification extends AnimalSpeciesSpecification {
 	public static final int MAX_STAMINA = 300; // SECONDS
 	public static final int AVERAGE_SCION_COUNT_IN_LITTER = 1; // Offspring
 	public static final Duration MAX_AGE = Duration.ofDays(30 * 365); // DAYS
-	public static final int MIN_BREEDING_AGE = 3 * 365; // DAYS
 	//public static final int MAX_BREEDING_AGE = MAX_AGE - 5 * 365; // DAYS
 	//public static final int MAX_AGE_IN_NEST; // DAYS
 	//public static final int MIN_SELF_GOVERNMENT_AGE; // DAYS
 	private static final Object HUNGER_ENERGY_PERCENT = null;
+	public static final Duration MIN_BREEDING_AGE = Duration.ofDays(5 * 365); // DAYS
+	public static final Duration MAX_BREEDING_AGE = Duration.ofDays(25 * 365); // DAYS
+	public static final Duration MAX_AGE_IN_NEST = Duration.ofDays(0 * 365); // DAYS
+	public static final Duration MIN_SELF_GOVERNMENT_AGE = Duration.ofDays(3 * 365); // DAYS
+	public static final int CALORIC_EFFICIENCY_PER_KILO = 175;
 	
 	public String toString() {
 		return String.format( "Species Name: %1$s\r\nAdult Weight: %2$900f kg\r\n...\r\nStandard Speed: %6$30f km/h\r\n", SPECIES_NAME, ADULT_WEIGHT, FOOD_QUANTITY_REQUIRED_PER_HOUR, MAX_STARVING_HOURS_BEFORE_DEATH, HUNGER_ENERGY_PERCENT, STANDARD_SPEED  );
@@ -27,8 +31,7 @@ public class HorseSpeciesSpecification extends AnimalSpeciesSpecification {
 	
 	@Override
 	public String getSPECIES_NAME() {
-		// TODO Auto-generated method stub
-		return null;
+		return SPECIES_NAME;
 	}
 
 	@Override
@@ -94,19 +97,19 @@ public class HorseSpeciesSpecification extends AnimalSpeciesSpecification {
 	@Override
 	public Duration getMAX_AGE() {
 		// TODO Auto-generated method stub
-		return null;
+		return MAX_AGE;
 	}
 
 	@Override
 	public Duration getMIN_BREEDING_AGE() {
 		// TODO Auto-generated method stub
-		return null;
+		return MIN_BREEDING_AGE;
 	}
 
 	@Override
 	public Duration getMAX_BREEDING_AGE() {
 		// TODO Auto-generated method stub
-		return null;
+		return MAX_BREEDING_AGE;
 	}
 
 	@Override
@@ -118,12 +121,12 @@ public class HorseSpeciesSpecification extends AnimalSpeciesSpecification {
 	@Override
 	public Duration getMIN_SELF_GOVERNMENT_AGE() {
 		// TODO Auto-generated method stub
-		return null;
+		return MIN_SELF_GOVERNMENT_AGE;
 	}
 
 	@Override
 	public int getCALORIC_EFFICIENCY_PER_KILO() {
 		// TODO Auto-generated method stub
-		return 0;
+		return CALORIC_EFFICIENCY_PER_KILO;
 	}
 }

@@ -8,13 +8,11 @@ import java.time.Duration;
 import wildpark.model.AnimalSpeciesSpecification;
 import wildpark.model.Food;
 import wildpark.model.Gender;
-import wildpark.model.Movement;
 import wildpark.model.WildParkAreaCell;
 import wildpark.model.animals.BirthGivingAnimal;
 import wildpark.model.animals.HerbivorousAnimal;
 import wildpark.model.animals.Mammal;
 import wildpark.model.animals.RunningAnimal;
-import wildpark.model.animals.reptiles.CrocodileSpecification;
 
 public class Horse extends Mammal implements RunningAnimal, BirthGivingAnimal, HerbivorousAnimal {
 
@@ -34,10 +32,10 @@ public class Horse extends Mammal implements RunningAnimal, BirthGivingAnimal, H
 	public int MAX_STAMINA = 300; // SECONDS
 	public int AVERAGE_SCION_COUNT_IN_LITTER = 1; // Offspring
 	public int MAX_AGE = 30 * 365; // DAYS
-	public int MIN_BREEDING_AGE = 3 * 365; // DAYS
+	public int MIN_BREEDING_AGE = 5 * 365; // DAYS
 	public int MAX_BREEDING_AGE = MAX_AGE - 5 * 365; // DAYS
 	public int MAX_AGE_IN_NEST; // DAYS
-	public int MIN_SELF_GOVERNMENT_AGE; // DAYS
+	public int MIN_SELF_GOVERNMENT_AGE = 3 * 365; // DAYS
 
 	Gender gender;
 
