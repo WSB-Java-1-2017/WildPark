@@ -10,14 +10,14 @@ import wildpark.model.animals.BirthGivingAnimal;
 import wildpark.model.animals.CarnivorousAnimal;
 import wildpark.model.animals.ChewingAnimal;
 import wildpark.model.animals.Mammal;
-import wildpark.model.animals.SwollowingAnimal;
+import wildpark.model.animals.SwallowingAnimal;
 
 
 
 /**
  * The REAL animal class. This contains implementations of all abstract methods declared in all superclasses.
  */
-public class Leopard extends Mammal implements NocturnalAnimal, Predator, BirthGivingAnimal, CarnivorousAnimal, ChewingAnimal, SwollowingAnimal{
+public class Leopard extends Mammal implements NocturnalAnimal, Predator, BirthGivingAnimal, CarnivorousAnimal, ChewingAnimal, SwallowingAnimal{
 	private final AnimalSpeciesSpecification animalSpeciesSpecification = new LionSpecification();
 
 	//	Inherited from Meat:
