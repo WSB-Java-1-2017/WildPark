@@ -4,10 +4,12 @@ import java.time.Duration;
 import wildpark.model.*;
 
 /**
- * Absract class used to set the particular animal specification parameters.
- */
-public final class CrocodileSpecification extends AnimalSpeciesSpecification {
-	private final String NAME = "Crocodile";
+ * Abstract class used to set the particular animal specification parameters.
+ */	
+public class CrocodileSpecification extends AnimalSpeciesSpecification {
+	private static final float FOOD_QUANTITY_REQUIRED_PER_HOUR = 0;
+	private static final int MAX_STARVING_HOURS_BEFORE_DEATH = 0;
+	private final String SPECIES_NAME = "Crocodile";
 	private final float ADULT_WEIGHT = 900f;	// 900kg weight in kg 
 	private final float NEWBORN_WEIGHT = 10f; // in kg
 	private final float FOOD_QUANTITY_REQUIRED_PER_DAY = 0.001f; // in kg
@@ -27,19 +29,19 @@ public final class CrocodileSpecification extends AnimalSpeciesSpecification {
 
 	public enum AcceptableCellType {
 		LAKE,
-		RIVER,				
+		RIVER,
 	}
 
-	public AcceptableCellType[] getAcceptableCellTypes() {
-		return AcceptableCellType.values();
-	}
+	//public AcceptableCellType[] getAcceptableCellTypes() {
+	//	return AcceptableCellType.values();
+	//}
 
 	public String toString() {
 		return String.format( "Species Name: %1$s\r\nAdult Weight: %2$900f kg\r\n...\r\nStandard Speed: %6$30f km/h\r\n", SPECIES_NAME, ADULT_WEIGHT, FOOD_QUANTITY_REQUIRED_PER_HOUR, MAX_STARVING_HOURS_BEFORE_DEATH, HUNGER_ENERGY_PERCENT, STANDARD_SPEED  );
 	}
 
 	public String getSPECIES_NAME() {
-		return NAME;
+		return SPECIES_NAME;
 	}
 
 	public float getADULT_WEIGHT() {
@@ -106,7 +108,19 @@ public final class CrocodileSpecification extends AnimalSpeciesSpecification {
 		return CALORIC_EFFICIENCY_PER_KILO;
 	}
 
-	public abstract String getSPECIES_NAME();
+	@Override
+	public float getFOOD_QUANTITY_REQUIRED_PER_DAY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getMAX_STARVING_DAYS_BEFORE_DEATH() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	/*public abstract String getSPECIES_NAME();
 	public abstract float getADULT_WEIGHT(); // weight in kg 
 	public abstract float getNEWBORN_WEIGHT(); // in kg
 	public abstract float getFOOD_QUANTITY_REQUIRED_PER_DAY(); // in kg 
@@ -121,6 +135,6 @@ public final class CrocodileSpecification extends AnimalSpeciesSpecification {
 	public abstract Duration getMIN_BREEDING_AGE(); // minimalny wiek rozrodczy
 	public abstract Duration getMAX_BREEDING_AGE(); // maksymalny wiek rozrodczy
 	public abstract Duration getMIN_SELF_GOVERNMENT_AGE(); // minimalny wiek usamodzielnienia się
-	public abstract int getCALORIC_EFFICIENCY_PER_KILO();
+	public abstract int getCALORIC_EFFICIENCY_PER_KILO();*/
 
 }

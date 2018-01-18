@@ -7,6 +7,8 @@ import wildpark.model.*;
  * Absract class used to set the particular animal specification parameters.
  */
 public final class GiraffeSpecification extends AnimalSpeciesSpecification {
+	private static final int MAX_STARVING_HOURS_BEFORE_DEATH = 0;
+	private static final float FOOD_QUANTITY_REQUIRED_PER_HOUR = 0;
 	private final String NAME = "Giraffe";
 	private final float ADULT_WEIGHT = 1192f;	// weight in kg 
 	private final float NEWBORN_WEIGHT = 70f; // in kg
@@ -105,6 +107,18 @@ public final class GiraffeSpecification extends AnimalSpeciesSpecification {
 	
 	public int getCALORIC_EFFICIENCY_PER_KILO() {
 		return CALORIC_EFFICIENCY_PER_KILO;
+	}
+
+	@Override
+	public float getFOOD_QUANTITY_REQUIRED_PER_DAY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getMAX_STARVING_DAYS_BEFORE_DEATH() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

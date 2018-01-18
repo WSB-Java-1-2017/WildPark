@@ -10,6 +10,18 @@ import java.time.Duration;
 public abstract class Meat 
 extends Food
 {
+    public static long lastAnimalID; // auto-incrementing Meat/Animal ID
+    public long ID = ++lastAnimalID;
+
+	/**
+	 * Animal or Meat unique ID
+	 * @return long unique Meat/Animal ID
+	 */
+	public long getId() {
+		return ID;
+	}
+
+
 	/**
 	 * Value of null means that this is a living animal. 
 	 * Value > 0 represents the WildPark Time in which the animal died.

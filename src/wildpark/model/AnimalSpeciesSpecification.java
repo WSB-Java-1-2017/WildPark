@@ -23,24 +23,65 @@ public abstract class AnimalSpeciesSpecification {
 	private Duration MAX_BREEDING_AGE; // maksymalny wiek rozrodczy
 	private Duration MAX_AGE_IN_NEST; // specifies the number of days/hours after which a young animal leaves the nest 
 	private Duration MIN_SELF_GOVERNMENT_AGE; // minimalny wiek usamodzielnienia się
-	private float CALORIC_EFFICIENCY_PER_KILO;
+	private int CALORIC_EFFICIENCY_PER_KILO;
 
+	/**
+	 * The following array MUST be overriden in the real animal species specification class inherited fromm this 
+	 * AnimalSpeciesSpecification class but with only Cell Types acceptable by particular species.
+	 */	 
+	private static CellType[] acceptableCellTypes = {
+		CellType.OCEAN,
+		CellType.LAKE,
+		CellType.RIVER,
+		CellType.FOREST,
+		CellType.GRASS,
+		CellType.DESERT,
+		CellType.MOUNTAIN,
+		CellType.POLAR_AREA,
+		CellType.PARK_EDGE
+	};
 
-	public enum AcceptableCellType {
-		OCEAN,
-		LAKE,
-		RIVER,
-		FOREST,
-		GRASS,
-		DESERT,
-		MOUNTAIN,
-		POLAR_AREA,
-		PARK_EDGE
+	public static CellType[] getAcceptableCellTypes() {
+		return null;
 	}
 
-	public AcceptableCellType[] getAcceptableCellTypes() {
-		return AcceptableCellType.values();
+	/**
+	 * This method MUST be overriden/implemented in the subclass representing the real
+	 * animal species specification.  
+	 * @param  cellType [description]
+	 * @return          true if this species accepts the specified cellType (environment)
+	 */
+	public static boolean acceptsCellType( CellType cellType ) {
+		return false;
 	}
+
+	/**
+	 * The following array MUST be overriden in the real animal species specification class inherited fromm this 
+	 * AnimalSpeciesSpecification class - but only with Food Types edible (jadalne) for particular species.
+	 */	 
+	private static FoodType[] edibleFoodTypes = {
+		FoodType.SEAL,
+		FoodType.RABBIT,
+		FoodType.FLY
+	};
+
+	public static FoodType[] getEdibleFoodTypes() {
+		return null;
+	}
+
+	/**
+	 * This method MUST be overriden/implemented in the subclass representing the real
+	 * animal species specification.  
+ 	 * Determines if this species eats particular type of Food/Meat/Animal/Plant
+	 * @param  foodType FoodType object 
+	 * @return          boolean - true if this species eats given FoodType.
+	 */
+	public static boolean eatsFoodType( FoodType foodType ) {
+		return false;
+	}
+
+
+
 
 
 	public String toString() {
