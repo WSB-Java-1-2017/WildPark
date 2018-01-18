@@ -17,29 +17,31 @@ public class WildParkArea {
 	}
 
 	public static void moveAnimal( Animal animal ) {
-
 		float speed = animal.getStandardSpeed();
-		double angle = animal.getDirection();
-
-		double radians = Math.toRadians(angle);
-
-		int x = (int) Math.round(speed * Math.sin(radians));
-		int y = (int) Math.round(speed * Math.cos(radians));
+		int angle = animal.getDirection();
 
 		int currentX = animal.getWildParkAreaCell().getX();
 		int currentY = animal.getWildParkAreaCell().getY();
 
-		// update 
+		System.out.printf( "WildParkArea moveAnimal(): ID %6d   speed: %7.1f    angle: %03d   Original %s\r\n", animal.getId(), speed, angle, animal.getAnimalState().getWildParkAreaCell().toString() );
 
-		if(currentX > WildPark.WILD_PARK_AREA_WIDTH || currentX < 0 
-		|| currentY > WildPark.WILD_PARK_AREA_HEIGHT || currentY < 0) {
-			angle -= 180.0;
+		double radians = Math.toRadians(angle);
+
+		int x = currentX + (int) Math.round(speed * Math.sin(radians));
+		int y = currentY + (int) Math.round(speed * Math.cos(radians));
+
+		do {
+			angle = new Random().nextInt(360);
 			radians = Math.toRadians(angle);
 
-			x = (int) Math.round( speed * Math.sin(radians) );
-			y = (int) Math.round( speed * Math.cos(radians) );				
-		}	
-		
+			x = currentX + (int) Math.round( speed * Math.sin(radians) );
+			y = currentY + (int) Math.round( speed * Math.cos(radians) );			
+
+			System.out.println( "Target: " + x + ":" + y );	
+		} while( x >= WildPark.WILD_PARK_AREA_WIDTH || x < 0 
+			|| y >= WildPark.WILD_PARK_AREA_HEIGHT || y < 0 );
+
+		System.out.println( "Target: " + x + ":" + y );	
 		animal.move(x,y);
 		
 		//

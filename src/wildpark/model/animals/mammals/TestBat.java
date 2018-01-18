@@ -16,8 +16,8 @@ import java.util.Random;
 /**
  * The REAL animal class. This contains implementations of all abstract methods declared in all superclasses.
  */
-public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
-	private static final AnimalSpeciesSpecification animalSpeciesSpecification = new InsectEatingBatSpecification();
+public class TestBat extends Bat implements NocturnalAnimal, Predator {
+	private static final AnimalSpeciesSpecification animalSpeciesSpecification = new TestBatSpecification();
 
 	//	Inherited from Meat:
 	// public Duration TIME_OF_DEATH = null;
@@ -26,15 +26,15 @@ public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
 	// public float weight;	// current animal weight
 	// private final float CALORIC_EFFICIENCY_PER_KILO = animalSpeciesSpecification.CALORIC_EFFICIENCY_PER_KILO; // określa liczbę kalorii z kilograma danego mięsa 
 
-	public InsectEatingBat( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
+	public TestBat( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
 		super( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
 	}
 
-	public InsectEatingBat( WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
+	public TestBat( WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
 		this( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
 	}
 
-	public InsectEatingBat() {
+	public TestBat() {
 		this( animalSpeciesSpecification, InsectEatingBatSpecification.selectRandomCell(), false );
 	}
 
@@ -64,12 +64,9 @@ public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
 	// }
 
 
-<<<<<<< HEAD
 	public String getSPECIES_NAME() {
 		return animalSpeciesSpecification.getSPECIES_NAME();
 	}
-=======
->>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
 
 
 	public Food getFood( WildParkAreaCell cell ) {
@@ -103,7 +100,7 @@ public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
 		return null;
 	}
 
-	public Food swallow( Food food ) {
+	public Food swollow( Food food ) {
 		return null;
 	}
 

@@ -101,6 +101,10 @@ public class WildPark extends Application {
      */
     private static final Duration WILD_PARK_TIME_STEP_DURATION = Duration.ofHours(1);
 
+    public static Duration getWildParkTimeStepDuration() {
+        return WILD_PARK_TIME_STEP_DURATION;
+    }
+
     /**
      * Returns the current Wild Park Time counter value
      * @return wildParkTime value - the current time counter of Wild Park
@@ -117,6 +121,13 @@ public class WildPark extends Application {
 
         // Update Step Counter in UI
         toolBarLabel_CurrentStep.setText( String.format( "%8d", wildParkTime.toHours() ) );
+<<<<<<< HEAD
+
+        for( Animal animal : getAnimals() ) {
+            animal.performTimeStep();
+        }
+=======
+>>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
     }
 
 
@@ -588,12 +599,35 @@ public class WildPark extends Application {
 
     // Fill Wild Park with animals
     void populateWildPark() {
+<<<<<<< HEAD
+        final int INSECT_EATING_BAT_COUNT = 30; // Count of all bats to be generated 
+        final int TEST_BAT_COUNT = 30; // Count of all bats to be generated in Wild Park 
+=======
         final int INSECT_EATING_BAT_COUNT = 30; // Count of all bats to be generated in Wild Park 
+>>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
        	final int LEOPARD_COUNT=10;
         final int LION_COUNT = 10;
         final int CROCODILE_COUNT = 10;
         final int POLAR_BEAR_COUNT = 10;
 
+<<<<<<< HEAD
+        // single animals - pojedyncze egzemplarze:
+        for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
+            Animal bat = new InsectEatingBat();
+        }
+
+        // A herd/pack in a single WildParkCell- stado w jednej komórce:
+        WildParkAreaCell areaCell = InsectEatingBatSpecification.selectRandomCell();
+        for( int i=0; i<5; i++ ) {
+            Animal bat = new InsectEatingBat( areaCell, false );
+        }
+        
+
+        // single animals - pojedyncze egzemplarze:
+        for( int i=0; i<TEST_BAT_COUNT; i++ ) {
+            Animal testBat = new TestBat();
+        }
+=======
         // 5 single animals - pojedyncze egzemplarze:
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
             Animal bat = new InsectEatingBat();
@@ -602,6 +636,7 @@ public class WildPark extends Application {
 
         // A herd/pack in a single WildParkCell- stado w jednej komórce:
         //WildParkAreaCell areaCell = InsectEatingBatSpecification.selectRandomCell();
+>>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
 
         /*WildParkAreaCell areaCell = new WildParkAreaCell("Cell1");
         for( int i=0; i<5; i++ ) {
@@ -609,11 +644,20 @@ public class WildPark extends Application {
         }*/
         
 
+<<<<<<< HEAD
+
         // for( int i=0; i<LION_COUNT; i++ ) {
         //     Animal lion = new Lion( new LionSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
         //     addAnimal( lion );
         // }
 
+=======
+        // for( int i=0; i<LION_COUNT; i++ ) {
+        //     Animal lion = new Lion( new LionSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
+        //     addAnimal( lion );
+        // }
+
+>>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
         // for( int i=0; i<LEOPARD_COUNT; i++ ) {
         //     Animal leopard = new Leopard( new LeopardSpecification(), new WildParkAreaCell( CellType.DESERT ), false );
         //     addAnimal( leopard );
@@ -743,6 +787,27 @@ public class WildPark extends Application {
                 // Species Report page
                 
             }        
+<<<<<<< HEAD
+        });
+
+        menu2_AnimalsReport.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("menu2_AnimalsReport clicked");
+                // Animal Report page
+                
+            }        
+        });
+
+        menu2_StepsReport.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("menu2_StepsReport clicked");
+                // Time Steps Report page
+                
+            }        
+=======
+>>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
         });
 
         menu2_AnimalsReport.setOnAction( new EventHandler<ActionEvent>() {
@@ -762,7 +827,6 @@ public class WildPark extends Application {
                 
             }        
         });
-
 
         //------------------
 
@@ -784,7 +848,30 @@ public class WildPark extends Application {
             }        
         });
 
+        //------------------
 
+<<<<<<< HEAD
+=======
+        menu3_AnimalSettings.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("menu3_AnimalSettings clicked");
+                // Animal settings page
+                
+            }        
+        });
+
+        menu3_WildParkSettings.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("menu3_WildParkSettings clicked");
+                // Animal settings page
+                
+            }        
+        });
+
+
+>>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
         //------------------
         //------------------
         //------------------
@@ -943,6 +1030,13 @@ public class WildPark extends Application {
                 System.out.println("button_SearchAnimal clicked");
                 // Point the animal with given ID at the map or in the table view
 
+<<<<<<< HEAD
+                //Testowo wyświetl listę wszystkich zwierząt w parku
+                for( Animal animal : getAnimals() ) {
+                    System.out.printf( "%6d   %-18s\r\n", animal.getId(), animal.getSPECIES_NAME() );
+                }
+=======
+>>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
             }
         });
 
