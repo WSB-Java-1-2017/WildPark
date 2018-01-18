@@ -2,6 +2,7 @@
  * @author Marcin "marlepo" Potrykus
  *
  */
+
 package wildpark.model.animals.mammals;
 
 import java.time.Duration;
