@@ -41,6 +41,7 @@ public class Diagram01{
 	
 	private int horseCount = 0;
 	private int insectEatingBatCount = 0;
+	private int giraffeCount = 0;
 	
 	public Diagram01( List <Animal> _animal ) {
 		this.animal = _animal;
