@@ -7,6 +7,7 @@ import wildpark.model.animals.*;
 import wildpark.model.animals.mammals.*;
 
 public class AntEater extends Mammal implements SwallowingAnimal{
+	
     public AntEater(AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell,
 			boolean isNewborn) {
 		super(animalSpeciesSpecification, wildParkAreaCell, isNewborn);

@@ -25,7 +25,7 @@ public class AnimalState {
     }
 
 	public String toString() {
-		return String.format( "energyPercent: %d, hoursSinceLastMeal: %s, isProliferating: %s, isFeedingNewborns: %s, ", energyPercent, hoursSinceLastMeal.toHours(), isProliferating, isFeedingNewborns );
+		return String.format( "energyPercent: %d, hoursSinceLastMeal: %s, isProliferating: %s, isFeedingNewborns: %s, %s, %.3f kg, isAlive: %s", energyPercent, hoursSinceLastMeal.toHours(), isProliferating, isFeedingNewborns, wildParkAreaCell.toString(), weight, isAlive );
 	}
 
 

@@ -25,10 +25,6 @@ public class WildParkAreaCell extends Button {
 	 */
 	private LinkedHashSet<Animal> animals = new LinkedHashSet<>();
 
-
-	// public WildParkAreaCell() {
-	// }
-
 	public WildParkAreaCell( String string ) {
 		super( string );
 	}
@@ -80,10 +76,7 @@ public class WildParkAreaCell extends Button {
 		update();
 	}
 
-	/*public String toString() {
-		return "X: " + this.getX() + ", Y: " + this.getY(); 
-	}*/
-	
+
 	/**
 	 * Update cell label
 	 */
@@ -96,7 +89,14 @@ public class WildParkAreaCell extends Button {
 		this.setText(coords + animalNames);
 	}
 
+
+
+	public String toString() {
+		return String.format( "Cell %03d:%03d", x, y );
+	}
+
 	public String getPosition() {
 		return "X: " + this.x + ", Y: " + this.y;
+
 	}
 }

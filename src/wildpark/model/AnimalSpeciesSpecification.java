@@ -12,18 +12,19 @@ public abstract class AnimalSpeciesSpecification {
 	private float NEWBORN_WEIGHT; // in kg
 	private float FOOD_QUANTITY_REQUIRED_PER_DAY; // in kg 
 	private int MAX_STARVING_DAYS_BEFORE_DEATH; 
-	private int HUNGER_ENERGY_PERCENT; // below this value the animal starts seeking food. Above this level the animal is not interested in food. 
-	private float STANDARD_SPEED;	// sprawdzamy jaką odległość zwierzę standardowo pokonuje w ciągu dnia (w czasie godzin aktywności) i na tej podstawie obliczamy stardard w km/h
-	private int MAX_SPEED;	
+	private int HUNGER_ENERGY_PERCENT; // [%] below this value the animal starts seeking food. Above this level the animal is not interested in food. 
+	private float STANDARD_SPEED;	// [km/h] sprawdzamy jaką odległość zwierzę standardowo pokonuje w ciągu dnia (w czasie godzin aktywności) i na tej podstawie obliczamy stardard w km/h
+	private int MAX_SPEED;	// [km/h]
 	private int MAX_STAMINA; 
 	private int AVERAGE_SCION_COUNT_IN_LITTER; // średnia liczba potomków w miocie
 	private int MAX_SCION_COUNT_IN_LITTER;	// na tej podstawie określimy widełki RANDOMa określającego liczbę potomków w danym miocie
-	private Duration MAX_AGE; 
-	private Duration MIN_BREEDING_AGE; // minimalny wiek rozrodczy
-	private Duration MAX_BREEDING_AGE; // maksymalny wiek rozrodczy
-	private Duration MAX_AGE_IN_NEST; // specifies the number of days/hours after which a young animal leaves the nest 
-	private Duration MIN_SELF_GOVERNMENT_AGE; // minimalny wiek usamodzielnienia się
-	private int CALORIC_EFFICIENCY_PER_KILO;
+	private Duration MAX_AGE; //[days]
+	private Duration MIN_BREEDING_AGE; // [days] minimalny wiek rozrodczy
+	private Duration MAX_BREEDING_AGE; // [days] maksymalny wiek rozrodczy
+	private Duration MAX_AGE_IN_NEST; // [days] specifies the number of days/hours after which a young animal leaves the nest 
+	private Duration MIN_SELF_GOVERNMENT_AGE; // [days] minimalny wiek usamodzielnienia się
+	private float CALORIC_EFFICIENCY_PER_KILO;
+
 
 	/**
 	 * The following array MUST be overriden in the real animal species specification class inherited fromm this 

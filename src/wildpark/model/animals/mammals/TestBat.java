@@ -16,8 +16,8 @@ import java.util.Random;
 /**
  * The REAL animal class. This contains implementations of all abstract methods declared in all superclasses.
  */
-public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
-	private static final AnimalSpeciesSpecification animalSpeciesSpecification = new InsectEatingBatSpecification();
+public class TestBat extends Bat implements NocturnalAnimal, Predator {
+	private static final AnimalSpeciesSpecification animalSpeciesSpecification = new TestBatSpecification();
 
 	//	Inherited from Meat:
 	// public Duration TIME_OF_DEATH = null;
@@ -26,15 +26,15 @@ public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
 	// public float weight;	// current animal weight
 	// private final float CALORIC_EFFICIENCY_PER_KILO = animalSpeciesSpecification.CALORIC_EFFICIENCY_PER_KILO; // określa liczbę kalorii z kilograma danego mięsa 
 
-	public InsectEatingBat( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
+	public TestBat( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
 		super( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
 	}
 
-	public InsectEatingBat( WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
+	public TestBat( WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
 		this( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
 	}
 
-	public InsectEatingBat() {
+	public TestBat() {
 		this( animalSpeciesSpecification, InsectEatingBatSpecification.selectRandomCell(), false );
 	}
 
@@ -63,7 +63,7 @@ public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
  //        return areaCell;
 	// }
 
-	@Override
+
 	public String getSPECIES_NAME() {
 		return animalSpeciesSpecification.getSPECIES_NAME();
 	}
@@ -100,16 +100,18 @@ public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
 		return null;
 	}
 
-	public Food swallow( Food food ) {
-		return null;
-	}
-
 	public Food chew( Food food ) {
 		return null;
 	}
 
 	public boolean isNocturnal() {
 		return false; //isActiveDuringTheNight;
+	}
+
+	@Override
+	public Food swallow(Food food) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
