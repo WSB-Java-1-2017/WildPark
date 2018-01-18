@@ -56,7 +56,7 @@ public class Diagram01{
 				++insectEatingBatCount;
 				//System.out.println(++insectEatingBatCount);
 			}
-			System.out.println(" >>> "+insectEatingBatCount + ", " + horseCount);
+			//System.out.println(" >>> "+insectEatingBatCount + ", " + horseCount);
 		}
 	}
 	
