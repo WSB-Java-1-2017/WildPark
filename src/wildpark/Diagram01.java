@@ -119,7 +119,7 @@ public class Diagram01{
         
         //Scene scene  = new Scene( new BorderPane( lineChart, step, null, null, null ), 800,600 );
         Scene scene = new Scene( lineChart, 800, 600 );
-        lineChart.setTitle("Wild Park Diagram Beta");
+        //lineChart.setTitle("Wild Park Diagram Beta");
         lineChart.getData().addAll( series1, series2, series3, series4, series5 );    
       
         stage.setScene(scene);
