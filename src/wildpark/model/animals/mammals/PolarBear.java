@@ -5,13 +5,13 @@ import java.time.Duration;
 import wildpark.model.*;
 import wildpark.model.animals.Animal;
 import wildpark.model.animals.INocturnalAnimal;
-import wildpark.model.animals.Predator;
+import wildpark.model.animals.IPredator;
 import wildpark.model.animals.mammals.*;
 import wildpark.model.animals.*;
 /**
  * The REAL animal class. This contains implementations of all abstract methods declared in all superclasses.
  */
-public class PolarBear extends Mammal implements IMetaturnalAnimal, Predator {
+public class PolarBear extends Mammal implements IMetaturnalAnimal, IPredator {
 	private final AnimalSpeciesSpecification animalSpeciesSpecification = new InsectEatingBatSpecification();
 
 	//	Inherited from Meat:

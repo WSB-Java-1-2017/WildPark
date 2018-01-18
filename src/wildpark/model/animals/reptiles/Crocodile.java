@@ -13,10 +13,10 @@ import wildpark.model.animals.IChewingAnimal;
 import wildpark.model.animals.ICrawlingAnimal;
 import wildpark.model.animals.IDivingAnimal;
 import wildpark.model.animals.IEggBearingAnimal;
-import wildpark.model.animals.Predator;
+import wildpark.model.animals.IPredator;
 import wildpark.model.animals.Reptile;
 
-public class Crocodile extends Reptile implements Predator, ICarnivorousAnimal, IChewingAnimal, ICrawlingAnimal, IDivingAnimal, IEggBearingAnimal {
+public class Crocodile extends Reptile implements IPredator, ICarnivorousAnimal, IChewingAnimal, ICrawlingAnimal, IDivingAnimal, IEggBearingAnimal {
 	private final static AnimalSpeciesSpecification animalSpeciesSpecification = new CrocodileSpecification();
 
 	public Crocodile(WildParkAreaCell wildParkAreaCell, boolean isNewborn) {

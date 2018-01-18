@@ -9,14 +9,14 @@ import wildpark.model.WildParkAreaCell;
 import wildpark.model.*;
 import wildpark.model.animals.Animal;
 import wildpark.model.animals.INocturnalAnimal;
-import wildpark.model.animals.Predator;
+import wildpark.model.animals.IPredator;
 import wildpark.*;
 import java.util.Random;
 
 /**
  * The REAL animal class. This contains implementations of all abstract methods declared in all superclasses.
  */
-public class InsectEatingBat extends Bat implements INocturnalAnimal, Predator {
+public class InsectEatingBat extends Bat implements INocturnalAnimal, IPredator {
 	private static final AnimalSpeciesSpecification animalSpeciesSpecification = new InsectEatingBatSpecification();
 
 	//	Inherited from Meat:

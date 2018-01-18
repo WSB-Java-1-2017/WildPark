@@ -4,7 +4,7 @@ import java.time.Duration;
 
 import wildpark.model.*;
 import wildpark.model.animals.Animal;
-import wildpark.model.animals.Predator;
+import wildpark.model.animals.IPredator;
 import wildpark.model.animals.INocturnalAnimal;
 import wildpark.model.animals.IBirthGivingAnimal;
 import wildpark.model.animals.ICarnivorousAnimal;
@@ -17,7 +17,7 @@ import wildpark.model.animals.ISwallowingAnimal;
 /**
  * The REAL animal class. This contains implementations of all abstract methods declared in all superclasses.
  */
-public class Leopard extends Mammal implements INocturnalAnimal, Predator, IBirthGivingAnimal, ICarnivorousAnimal, IChewingAnimal, ISwallowingAnimal{
+public class Leopard extends Mammal implements INocturnalAnimal, IPredator, IBirthGivingAnimal, ICarnivorousAnimal, IChewingAnimal, ISwallowingAnimal{
 	private final AnimalSpeciesSpecification animalSpeciesSpecification = new LionSpecification();
 
 	//	Inherited from Meat:
