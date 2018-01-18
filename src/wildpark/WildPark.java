@@ -76,7 +76,7 @@ public class WildPark extends Application {
     final int WILD_PARK_CELL_WIDTH = 54;
     final int WILD_PARK_CELL_HEIGHT = 54;
 
-
+    Diagram01 diagram = new Diagram01(getAnimals());
 
 
 
@@ -596,10 +596,17 @@ public class WildPark extends Application {
 
         // 5 single animals - pojedyncze egzemplarze:
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
-            Animal bat = new InsectEatingBat();
+            Animal bat = new InsectEatingBat();					
+        }
+        
+        for( int i=0; i<25; i++ ) {			
 			new Horse();
         }
-
+        
+        for( int i=0; i<10; i++ ) {			
+			new Giraffe();
+        }
+        
         // A herd/pack in a single WildParkCell- stado w jednej komórce:
         //WildParkAreaCell areaCell = InsectEatingBatSpecification.selectRandomCell();
 
@@ -851,8 +858,10 @@ public class WildPark extends Application {
             @Override 
             public void handle( ActionEvent e ) {
                 System.out.println("toolBarButton_Step clicked");
+               
                 // Perform the single Time step
                 makeWildParkTimeStep();
+                diagram.nextStep();
             }
         });
 
@@ -894,9 +903,10 @@ public class WildPark extends Application {
 							}
                     	}
                     	if (result.get() == "Diagram") {
-	                    	Diagram01 ra = new Diagram01(getAnimals()); // Just as-is but working report list
+	                    	 // Just as-is but working report list
 	                    	try {
-								ra.show();
+	                    		
+								diagram.show();
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
