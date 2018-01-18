@@ -1,7 +1,7 @@
 package wildpark.model.animals;
 
 //active only at night 
-public interface DiurnalAnimal { 
+public interface IDiurnalAnimal { 
 	final boolean isActiveDuringTheDay = true;
 	final boolean isActiveDuringTheNight = false;
 	public boolean isDiurnal();

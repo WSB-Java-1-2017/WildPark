@@ -8,10 +8,16 @@ import java.util.*;
 public abstract class Animal 
 extends Meat 
 {
+	/**
+	 * Animal Species Specification Data - CONSTANTS.
+	 */
 	private AnimalSpeciesSpecification animalSpeciesSpecification;
 	private Duration TIME_OF_BIRTH; 
 	private Gender GENDER; // płeć
 
+	/**
+	 * Animal state data - VARIABLE in time.
+	 */
 	private AnimalState animalState;
 
 	//	Attributes inherited from super classes:
@@ -102,6 +108,9 @@ extends Meat
 	public void move( int x, int y ) {
 		if( getAnimalState().isAlive ) {
 				//Remove animal from current WildParkCell
+
+				System.out.println( "ID: " + getId() + ", " + getAnimalState().toString() );
+
 				getAnimalState().getWildParkAreaCell().removeAnimal( this );	
 		
 				//Move animal to another cell
@@ -131,6 +140,10 @@ extends Meat
 
 	public WildParkAreaCell getWildParkAreaCell() {
 		return getAnimalState().getWildParkAreaCell();
+	}
+
+	public void performTimeStep() {
+		move( WildPark.getWildParkTimeStepDuration() );
 	}
 
 }

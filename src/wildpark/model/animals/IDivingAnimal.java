@@ -1,5 +1,5 @@
 package wildpark.model.animals;
 
-public interface DivingAnimal {
+public interface IDivingAnimal {
 
 }

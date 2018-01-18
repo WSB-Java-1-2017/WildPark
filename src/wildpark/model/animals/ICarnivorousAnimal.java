@@ -2,6 +2,6 @@ package wildpark.model.animals;
 
 import wildpark.model.*;
 
-public interface CarnivorousAnimal { // Meat eater
+public interface ICarnivorousAnimal { // Meat eater
 	public int digestMeat( Meat meat );	// return energy amount
 }

@@ -1,4 +1,4 @@
-package wildpark.model.animals.mammals;
+/*package wildpark.model.animals.mammals;
 
 import java.time.Duration;
 import wildpark.model.AnimalSpeciesSpecification;
@@ -24,10 +24,10 @@ public class GuineaPigSpecification extends AnimalSpeciesSpecification {
 	private int CALORIC_EFFICIENCY_PER_KILO = 50;
 	
 	
-	/**
+	*//**
 	 * The following array MUST be overriden in the real animal species specification class inherited fromm this 
 	 * AnimalSpeciesSpecification class but with only Cell Types acceptable by particular species.
-	 */	
+	 *//*	
 	private static CellType[] acceptableCellTypes = {
 		CellType.FOREST,
 		CellType.GRASS,
@@ -139,3 +139,4 @@ public class GuineaPigSpecification extends AnimalSpeciesSpecification {
 	}
 
 }
+*/

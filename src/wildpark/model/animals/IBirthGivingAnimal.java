@@ -1,5 +1,5 @@
 package wildpark.model.animals;
 
-public interface BirthGivingAnimal {
+public interface IBirthGivingAnimal {
 	public int giveBirth( );
 }

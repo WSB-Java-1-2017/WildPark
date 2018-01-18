@@ -2,8 +2,7 @@ package wildpark.model.animals;
 
 import wildpark.model.*;
 
-public interface ChewingAnimal
-extends SwallowingAnimal  
+public interface IChewingAnimal extends ISwallowingAnimal  
 {
 	public Food chew( Food food );
 }

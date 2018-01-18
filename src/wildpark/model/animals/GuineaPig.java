@@ -1,4 +1,4 @@
-package wildpark.model.animals.mammals;
+/*package wildpark.model.animals.mammals;
 
 import java.time.Duration;
 
@@ -74,3 +74,4 @@ public class GuineaPig extends Mammal implements BirthGivingAnimal, MetaturnalAn
 	}
 
 }
+*/

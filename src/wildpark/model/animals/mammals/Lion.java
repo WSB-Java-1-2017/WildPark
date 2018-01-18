@@ -4,20 +4,20 @@ import java.time.Duration;
 
 import wildpark.model.*;
 import wildpark.model.animals.Animal;
-import wildpark.model.animals.Predator;
-import wildpark.model.animals.NocturnalAnimal;
-import wildpark.model.animals.BirthGivingAnimal;
-import wildpark.model.animals.CarnivorousAnimal;
-import wildpark.model.animals.ChewingAnimal;
+import wildpark.model.animals.IPredator;
+import wildpark.model.animals.INocturnalAnimal;
+import wildpark.model.animals.IBirthGivingAnimal;
+import wildpark.model.animals.ICarnivorousAnimal;
+import wildpark.model.animals.IChewingAnimal;
 import wildpark.model.animals.Mammal;
-import wildpark.model.animals.SwallowingAnimal;
+import wildpark.model.animals.ISwallowingAnimal;
 
 
 
 /**
  * The REAL animal class. This contains implementations of all abstract methods declared in all superclasses.
  */
-public class Lion extends Mammal implements NocturnalAnimal, Predator, BirthGivingAnimal, CarnivorousAnimal, ChewingAnimal, SwallowingAnimal{
+public class Lion extends Mammal implements INocturnalAnimal, IPredator, IBirthGivingAnimal, ICarnivorousAnimal, IChewingAnimal, ISwallowingAnimal{
 	private final AnimalSpeciesSpecification animalSpeciesSpecification = new LionSpecification();
 
 	//	Inherited from Meat:
@@ -75,7 +75,7 @@ public class Lion extends Mammal implements NocturnalAnimal, Predator, BirthGivi
 	}
 
 
-	public Food ssack( Food food ) {
+	public Food suck( Food food ) {
 		return null;
 	}
 
