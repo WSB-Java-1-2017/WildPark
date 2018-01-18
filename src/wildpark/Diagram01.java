@@ -39,8 +39,8 @@ public class Diagram01{
 	//WildPark
 	private List <Animal> animal;
 	
-	private static int horseCount= 0;
-	private static int insectEatingBatCount= 0;
+	private int horseCount = 0;
+	private int insectEatingBatCount = 0;
 	
 	public Diagram01( List <Animal> _animal ) {
 		this.animal = _animal;
