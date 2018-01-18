@@ -1,11 +1,20 @@
 package wildpark.model.animals.mammals;
 
+import java.time.Duration;
+
 import wildpark.model.*;
 import wildpark.model.animals.*;
 import wildpark.model.animals.mammals.*;
 
-public class AntEater extends Mammal implements SwallowingAnnimal{
-    private String name;
+public class AntEater extends Mammal implements SwallowingAnimal{
+	
+    public AntEater(AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell,
+			boolean isNewborn) {
+		super(animalSpeciesSpecification, wildParkAreaCell, isNewborn);
+		// TODO Auto-generated constructor stub
+	}
+
+	private String name;
     private int weight; //18-25kg
     final int MAX_STARVING_HOURS_BEFORE_DEATH = 210;
     protected int hoursSinceLastMeal = 0;
@@ -53,6 +62,48 @@ public class AntEater extends Mammal implements SwallowingAnnimal{
             this.energyPercent +=20;
         }
     }
+
+	@Override
+	public Food ssack(Food food) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Food chew(Food food) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Food swallow(Food food) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Food getFood(WildParkAreaCell cell) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Food eat(Food food) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void move(Duration time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void proliferate() {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }
