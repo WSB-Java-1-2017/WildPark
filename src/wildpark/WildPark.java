@@ -101,6 +101,10 @@ public class WildPark extends Application {
      */
     private static final Duration WILD_PARK_TIME_STEP_DURATION = Duration.ofHours(1);
 
+    public static Duration getWildParkTimeStepDuration() {
+        return WILD_PARK_TIME_STEP_DURATION;
+    }
+
     /**
      * Returns the current Wild Park Time counter value
      * @return wildParkTime value - the current time counter of Wild Park
@@ -117,6 +121,10 @@ public class WildPark extends Application {
 
         // Update Step Counter in UI
         toolBarLabel_CurrentStep.setText( String.format( "%8d", wildParkTime.toHours() ) );
+
+        for( Animal animal : getAnimals() ) {
+            animal.performTimeStep();
+        }
     }
 
 
@@ -588,26 +596,33 @@ public class WildPark extends Application {
 
     // Fill Wild Park with animals
     void populateWildPark() {
-        final int INSECT_EATING_BAT_COUNT = 30; // Count of all bats to be generated in Wild Park 
+
+        final int INSECT_EATING_BAT_COUNT = 30; // Count of all bats to be generated 
+        final int TEST_BAT_COUNT = 30; // Count of all bats to be generated in Wild Park 
+
        	final int LEOPARD_COUNT=10;
         final int LION_COUNT = 10;
         final int CROCODILE_COUNT = 10;
         final int POLAR_BEAR_COUNT = 10;
 
-        // 5 single animals - pojedyncze egzemplarze:
+
+        // single animals - pojedyncze egzemplarze:
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
-            Animal bat = new InsectEatingBat();					
+            Animal bat = new InsectEatingBat();
         }
-        
-        for( int i=0; i<25; i++ ) {			
-			new Horse();
-        }
-        
-        for( int i=0; i<10; i++ ) {			
-			new Giraffe();
-        }
-        
+
         // A herd/pack in a single WildParkCell- stado w jednej komórce:
+        WildParkAreaCell areaCell = InsectEatingBatSpecification.selectRandomCell();
+        for( int i=0; i<5; i++ ) {
+            Animal bat = new InsectEatingBat( areaCell, false );
+        }
+        
+
+        // single animals - pojedyncze egzemplarze:
+        for( int i=0; i<TEST_BAT_COUNT; i++ ) {
+            Animal testBat = new TestBat();
+        }
+
         //WildParkAreaCell areaCell = InsectEatingBatSpecification.selectRandomCell();
 
         /*WildParkAreaCell areaCell = new WildParkAreaCell("Cell1");
@@ -615,6 +630,8 @@ public class WildPark extends Application {
 			Animal bat = new InsectEatingBat( areaCell, false );
         }*/
         
+
+
 
         // for( int i=0; i<LION_COUNT; i++ ) {
         //     Animal lion = new Lion( new LionSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
@@ -750,6 +767,7 @@ public class WildPark extends Application {
                 // Species Report page
                 
             }        
+
         });
 
         menu2_AnimalsReport.setOnAction( new EventHandler<ActionEvent>() {
@@ -790,6 +808,8 @@ public class WildPark extends Application {
                 
             }        
         });
+
+        //------------------
 
 
         //------------------
@@ -903,10 +923,9 @@ public class WildPark extends Application {
 							}
                     	}
                     	if (result.get() == "Diagram") {
-	                    	 // Just as-is but working report list
+	                    	Diagram01 ra = new Diagram01(getAnimals()); // Just as-is but working report list
 	                    	try {
-	                    		
-								diagram.show();
+								ra.show();
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -952,6 +971,12 @@ public class WildPark extends Application {
             public void handle( ActionEvent e ) {
                 System.out.println("button_SearchAnimal clicked");
                 // Point the animal with given ID at the map or in the table view
+
+
+                //Testowo wyświetl listę wszystkich zwierząt w parku
+                for( Animal animal : getAnimals() ) {
+                    System.out.printf( "%6d   %-18s\r\n", animal.getId(), animal.getSPECIES_NAME() );
+                }
 
             }
         });

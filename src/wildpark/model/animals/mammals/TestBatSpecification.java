@@ -8,14 +8,14 @@ import java.util.Random;
 /**
  * Absract class used to set the particular animal specification parameters.
  */
-public final class InsectEatingBatSpecification extends AnimalSpeciesSpecification {
-	private final String NAME = "Insect Eating Bat";
+public final class TestBatSpecification extends AnimalSpeciesSpecification {
+	private final String NAME = "TestBat";
 	private final float ADULT_WEIGHT = 0.007f;	// weight in kg 
 	private final float NEWBORN_WEIGHT = 0.001f; // in kg
 	private final float FOOD_QUANTITY_REQUIRED_PER_DAY = 0.001f; // in kg
 	private final int MAX_STARVING_DAYS_BEFORE_DEATH = 50;
 	private final int HUNGER_ENERGY_PERCENT = 70; // poniżej tej wartości zwierze poszukuje jedzenia. Powyżej zwierze nie jest zainteresowane jedzeniem 
-	private final float STANDARD_SPEED = 40;	// km/h, sprawdzamy jaką odległość zwierzę standardowo pokonuje w ciągu dnia (w czasie godzin aktywności) i na tej podstawie obliczamy stardard w km/h
+	private final float STANDARD_SPEED = 1.5f;	// km/h, sprawdzamy jaką odległość zwierzę standardowo pokonuje w ciągu dnia (w czasie godzin aktywności) i na tej podstawie obliczamy stardard w km/h
 	private final int MAX_SPEED = 40;	// km/h
 	private final int MAX_STAMINA = 100; 	//
 	private final int AVERAGE_SCION_COUNT_IN_LITTER = 1; // średnia liczba potomków w miocie
@@ -25,7 +25,7 @@ public final class InsectEatingBatSpecification extends AnimalSpeciesSpecificati
 	private final Duration MAX_BREEDING_AGE = Duration.ofDays(15*365); // maksymalny wiek rozrodczy
 	private final Duration MAX_AGE_IN_NEST = Duration.ofDays(3*30); // po ilu 
 	private final Duration MIN_SELF_GOVERNMENT_AGE = Duration.ofDays(3*30); // minimalny wiek usamodzielnienia się
-	private final int CALORIC_EFFICIENCY_PER_KILO = 1000; // Cal/kg
+	private int CALORIC_EFFICIENCY_PER_KILO = 1000; // Cal/kg
 
 
 	private static final CellType[] acceptableCellTypes = {
@@ -38,7 +38,6 @@ public final class InsectEatingBatSpecification extends AnimalSpeciesSpecificati
 
 	public static CellType[] getAcceptableCellTypes() {
 		return acceptableCellTypes;
-<<<<<<< HEAD
 	}
 
 	public static boolean acceptsCellType( CellType cellType ) {
@@ -96,67 +95,8 @@ public final class InsectEatingBatSpecification extends AnimalSpeciesSpecificati
         return areaCell;
 	}
 
-=======
-	}
-
-	public static boolean acceptsCellType( CellType cellType ) {
-		boolean accepts = false;
-		for( CellType type : acceptableCellTypes ) {
-			System.out.println( "OK - ISBSpecification: "+type );
-			if( type == cellType ) {
-				accepts = true;
-				break;
-			}
-		}
-		return accepts;
-	}
 
 
-
-	private static final FoodType[] edibleFoodTypes = {
-		FoodType.FLY
-	};
-
-	public static FoodType[] getEdibleFoodTypes() {
-		return edibleFoodTypes;
-	}
-
-	/**
- 	 * Determines if this species eats particular type of Food/Meat/Animal/Plant
-	 * @param  foodType FoodType object 
-	 * @return          boolean - true if this species eats given FoodType
-	 */
-	public static boolean eatsFoodType( FoodType foodType ) {
-		boolean eats = false;
-		for( FoodType type : edibleFoodTypes ) {
-			if( type == foodType ) {
-				eats = true;
-				break;
-			}
-		}
-		return eats;
-	}
-
-
-
-	public static WildParkAreaCell selectRandomCell() {   
-        WildParkAreaCell areaCell = null;
-        // Get a random WildParkAreaCell acceptable for the particular species
-        boolean isAcceptable = false;
-        do {
-            areaCell =  WildPark.cellArray[ new Random().nextInt( WildPark.WILD_PARK_AREA_WIDTH ) ][ new Random().nextInt( WildPark.WILD_PARK_AREA_HEIGHT ) ];      
-            if( acceptsCellType( areaCell.getCellType() ) ) {
-                isAcceptable = true;
-            } 
-            System.out.println( "Random cell for " + "InsectEatingBat" + " ----- cellType: " + areaCell.getCellType() + " --- " + isAcceptable );    
-        } while( !isAcceptable );
-
-        return areaCell;
-	}
->>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
-
-
-	@Override
 	public String getSPECIES_NAME() {
 		return NAME;
 	}

@@ -3,8 +3,14 @@
  */
 package wildpark.model;
 
+<<<<<<< HEAD
+import java.util.ArrayList;
+import java.util.List;
+=======
+>>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
 import java.util.LinkedHashSet;
 
+import javafx.scene.text.Font;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.text.Font;
@@ -29,6 +35,17 @@ public class WildParkAreaCell extends Button {
 	// public WildParkAreaCell() {
 	// }
 
+<<<<<<< HEAD
+	public WildParkAreaCell( String label ) {
+		super( label );
+	}
+
+	public WildParkAreaCell( int x, int y, String label ) {
+		super( label );
+//		this.cellType = _type;
+		this.x = x;
+		this.y = y;
+=======
 	public WildParkAreaCell( String string ) {
 		super( string );
 	}
@@ -38,6 +55,7 @@ public class WildParkAreaCell extends Button {
 //		this.cellType = _type;
 		this.x = _x;
 		this.y = _y;
+>>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
 		this.setAlignment(Pos.TOP_LEFT);
 		this.setFont( Font.font(7) );
 //		this.setBackground(null);
@@ -80,10 +98,13 @@ public class WildParkAreaCell extends Button {
 		update();
 	}
 
+<<<<<<< HEAD
+=======
 	/*public String toString() {
 		return "X: " + this.getX() + ", Y: " + this.getY(); 
 	}*/
 	
+>>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
 	/**
 	 * Update cell label
 	 */
@@ -96,7 +117,13 @@ public class WildParkAreaCell extends Button {
 		this.setText(coords + animalNames);
 	}
 
+<<<<<<< HEAD
+
+	public String toString() {
+		return String.format( "Cell %03d:%03d", x, y );
+=======
 	public String getPosition() {
 		return "X: " + this.x + ", Y: " + this.y;
+>>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
 	}
 }

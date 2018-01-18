@@ -125,5 +125,5 @@ public class Diagram01{
         stage.setScene(scene);
         
         stage.show();
-    }    
+    }
 }
