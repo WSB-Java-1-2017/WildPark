@@ -6,5 +6,6 @@ public enum FoodType {
 	INSECT_EATING_BAT,
 	RABBIT,	
 	TIGER, 
-	SEAL
+	SEAL,
+	HORSE
 }

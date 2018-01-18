@@ -19,6 +19,7 @@ import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -596,16 +597,16 @@ public class WildPark extends Application {
         // 5 single animals - pojedyncze egzemplarze:
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
             Animal bat = new InsectEatingBat();
+			new Horse();
         }
 
         // A herd/pack in a single WildParkCell- stado w jednej komórce:
         //WildParkAreaCell areaCell = InsectEatingBatSpecification.selectRandomCell();
 
-        WildParkAreaCell areaCell = new WildParkAreaCell("Cell1");
+        /*WildParkAreaCell areaCell = new WildParkAreaCell("Cell1");
         for( int i=0; i<5; i++ ) {
-			new Horse();
 			Animal bat = new InsectEatingBat( areaCell, false );
-        }
+        }*/
         
 
         // for( int i=0; i<LION_COUNT; i++ ) {
@@ -873,7 +874,7 @@ public class WildPark extends Application {
                 System.out.println("toolBarButton_Reports clicked");
                 List<String> choices = new ArrayList<>();
                 choices.add("Report 1");
-                choices.add("Report 2");
+                choices.add("World");
                 choices.add("Report 3");
                 choices.add("WildPark");
                 ChoiceDialog<String> dialog = new ChoiceDialog<>("Report 1", choices);
@@ -887,6 +888,21 @@ public class WildPark extends Application {
 	                    	ReportAnimals ra = new ReportAnimals(getAnimals(), "WildPark"); // Just as-is but working report list
 	                    	try {
 								ra.show();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+                    	}
+                    	if (result.get() == "World") {
+                    		World.SEED = new Random().nextLong();
+                    		Image img = World.generate();
+	                    	ImageView imageView = new ImageView(img);
+	                    	ZoomableScrollPane zm = new ZoomableScrollPane(imageView);
+	                    	Scene sce = new Scene(zm);
+	                    	try {
+								Stage s = new Stage();
+								s.setScene(sce);
+								s.show();
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();

@@ -8,7 +8,7 @@ import java.util.*;
 public abstract class Animal 
 extends Meat 
 {
-	private static AnimalSpeciesSpecification animalSpeciesSpecification;
+	private AnimalSpeciesSpecification animalSpeciesSpecification;
 	private Duration TIME_OF_BIRTH; 
 	private Gender GENDER; // płeć
 

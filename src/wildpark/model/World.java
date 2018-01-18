@@ -90,7 +90,8 @@ public class World {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		worldImg.getScaledInstance(WIDTH*8, HEIGHT*8, 0);
+		//java.awt.Image i = worldImg.getScaledInstance(WIDTH*8, HEIGHT*8, 0);
 		return SwingFXUtils.toFXImage(worldImg, null);
 	}
 
