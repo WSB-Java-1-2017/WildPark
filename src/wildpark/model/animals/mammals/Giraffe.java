@@ -11,12 +11,12 @@ import wildpark.model.AnimalSpeciesSpecification;
 import wildpark.model.Food;
 import wildpark.model.Gender;
 import wildpark.model.WildParkAreaCell;
-import wildpark.model.animals.BirthGivingAnimal;
-import wildpark.model.animals.HerbivorousAnimal;
+import wildpark.model.animals.IBirthGivingAnimal;
+import wildpark.model.animals.IHerbivorousAnimal;
 import wildpark.model.animals.Mammal;
-import wildpark.model.animals.RunningAnimal;
+import wildpark.model.animals.IRunningAnimal;
 
-public class Giraffe extends Mammal implements RunningAnimal, BirthGivingAnimal, HerbivorousAnimal {
+public class Giraffe extends Mammal implements IRunningAnimal, IBirthGivingAnimal, IHerbivorousAnimal {
 
 	private final static AnimalSpeciesSpecification animalSpeciesSpecification = new GiraffeSpeciesSpecification();
 	
@@ -55,7 +55,7 @@ public class Giraffe extends Mammal implements RunningAnimal, BirthGivingAnimal,
 	int hungerEnergyPercent = 70; // Hungry
 
 	@Override
-	public Food ssack(Food food) {
+	public Food suck(Food food) {
 		// TODO Auto-generated method stub
 		return null;
 	}

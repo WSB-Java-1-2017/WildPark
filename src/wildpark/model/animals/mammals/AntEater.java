@@ -6,7 +6,7 @@ import wildpark.model.*;
 import wildpark.model.animals.*;
 import wildpark.model.animals.mammals.*;
 
-public class AntEater extends Mammal implements SwallowingAnimal{
+public class AntEater extends Mammal implements ISwallowingAnimal{
 	
     public AntEater(AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell,
 			boolean isNewborn) {
@@ -64,7 +64,7 @@ public class AntEater extends Mammal implements SwallowingAnimal{
     }
 
 	@Override
-	public Food ssack(Food food) {
+	public Food suck(Food food) {
 		// TODO Auto-generated method stub
 		return null;
 	}

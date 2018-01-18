@@ -82,6 +82,7 @@ public class WildPark extends Application {
      * by this value - in method makeWildParkTimeStep().
      */
     private static final Duration WILD_PARK_TIME_STEP_DURATION = Duration.ofHours(1);
+	private static final String VERSION = "1.04";
 
     public static Duration getWildParkTimeStepDuration() {
         return WILD_PARK_TIME_STEP_DURATION;
@@ -113,8 +114,8 @@ public class WildPark extends Application {
         for( Animal animal : getAnimals() ) {
             animal.performTimeStep();
         }
-        //diagram.updateList(getAnimals());
-        //diagram.nextStep();
+        diagram.updateList(animals);
+        diagram.update();
     }
 
     /**
@@ -137,9 +138,9 @@ public class WildPark extends Application {
         return animals;
     }
 
-    public static void addAnimal( Animal animal ) {
-        getAnimals().add( animal ); 
-        label_NumberOfAnimals.setText( String.format( "Number of animals: %10d", getAnimals().size() ) );
+    public static void addAnimal(Animal animal) {
+        getAnimals().add(animal); 
+        label_NumberOfAnimals.setText(String.format( "Number of animals: %10d", getAnimals().size()));
     } 
 
     // final Background BACKGROUND_GREEN = new Background( new BackgroundFill( Paint.valueOf( "0x00ff0088" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
@@ -232,7 +233,6 @@ public class WildPark extends Application {
         }
     };       
 
-
     Button toolBarButton_Run = new Button("Run");
     
     Button toolBarButton_Settings = new Button("Settings");
@@ -247,7 +247,6 @@ public class WildPark extends Application {
 
     Stage stage;
     GridPane wildParkGrid = new GridPane();
-
 
     @Override
     public void start( Stage stage ) {
@@ -273,14 +272,14 @@ public class WildPark extends Application {
         slider.setShowTickLabels(true);
         slider.setMajorTickUnit(0.25f);
         slider.setBlockIncrement(0.1f);
-//        slider.setSnapToTicks(true);
+//      slider.setSnapToTicks(true);
         wildParkGrid.scaleXProperty().bind(slider.valueProperty());
         wildParkGrid.scaleYProperty().bind(slider.valueProperty());
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent( wildParkGrid );
-//  scrollPane.setPannable(true);
-//  scrollPane.setFitToWidth(true);
+	//  scrollPane.setPannable(true);
+	//  scrollPane.setFitToWidth(true);
         scrollPane.setHvalue(0.5);        
         scrollPane.setVvalue(0.5);        
 
@@ -340,20 +339,20 @@ public class WildPark extends Application {
         statusBar.setAlignment(Pos.BOTTOM_CENTER);
         statusBar.getChildren().addAll( label_NumberOfAnimals, label_FindAnimal, textField_FindAnimal, button_SearchAnimal );    
 
-        stage.setTitle("Wild Park 1.04");
+        stage.setTitle("Wild Park " + VERSION);
 
 
-// anchorPane.getChildren().addAll(scrollPane, label);
-// AnchorPane.setTopAnchor(scrollPane, 0.0);
-// AnchorPane.setLeftAnchor(scrollPane, 0.0);
-// AnchorPane.setRightAnchor(scrollPane, 0.0);
-// AnchorPane.setBottomAnchor(scrollPane, 0.0);
-// AnchorPane.setLeftAnchor(label, 0.0);
-
-// DoubleBinding labelLayoutYBinding = Bindings.createDoubleBinding(
-// () -> scrollPane.getViewportBounds().getHeight() - wildParkGrid.getHeight(),
-// wildParkGrid.heightProperty(),
-// scrollPane.viewportBoundsProperty());
+		// anchorPane.getChildren().addAll(scrollPane, label);
+		// AnchorPane.setTopAnchor(scrollPane, 0.0);
+		// AnchorPane.setLeftAnchor(scrollPane, 0.0);
+		// AnchorPane.setRightAnchor(scrollPane, 0.0);
+		// AnchorPane.setBottomAnchor(scrollPane, 0.0);
+		// AnchorPane.setLeftAnchor(label, 0.0);
+		
+		// DoubleBinding labelLayoutYBinding = Bindings.createDoubleBinding(
+		// () -> scrollPane.getViewportBounds().getHeight() - wildParkGrid.getHeight(),
+		// wildParkGrid.heightProperty(),
+		// scrollPane.viewportBoundsProperty());
 
                                     // BorderPane( center                                                   , top, right, bottom  , left )
                                                     // BorderPane( center    , top   , right, bottom, left ) 
@@ -371,15 +370,6 @@ public class WildPark extends Application {
         textField_NumberOfStepsToRun.setAlignment(Pos.CENTER_RIGHT); // setAlignment MUST be called after the TextField was added to the scene
 
     }
-
-
-
-
-
-
-
-
-
 
     void initializeWildParkArea() {
         //WildParkAreaCell areaCell;
@@ -425,15 +415,6 @@ public class WildPark extends Application {
             }
         }
     }
-
-
-
-
-
-
-
-
-
 
     void newWildParkArea() {
         int currentOceanRightRandom;
@@ -523,16 +504,6 @@ public class WildPark extends Application {
     }
 
 
-
-
-
-
-
-
-
-
-
-
     // Fill Wild Park with animals
     void populateWildPark() {
 
@@ -600,14 +571,6 @@ public class WildPark extends Application {
         //     addAnimal( polarBear ); 
         // }
     }
-    
-
-
-
-
-
-
-
 
 
     void clearWildPark() {
@@ -627,14 +590,6 @@ public class WildPark extends Application {
     }
 
 
-
-
-
-
-
-
-
-
     void saveWildPark() {
         for( Animal animal : WildParkArea.getAnimals() ) {
             //Save Animal Specification
@@ -644,27 +599,9 @@ public class WildPark extends Application {
         }
     }
 
-
-
-
-
-
-
-
-
-
     public static WildParkAreaCell getWildParkAreaCell( int x, int y ) {
         return cellArray[x][y];
     }
-
-
-
-
-
-
-
-
-
 
     /**
      * Listeners to menu items, buttons and other controls of UI
@@ -778,7 +715,7 @@ public class WildPark extends Application {
             public void handle( ActionEvent e ) {
                 System.out.println("toolBarButton_Open clicked");
                 // Opens the file explorer window to find the Wild Park Log File saved in previous sessions.
-                
+                new Horse();
             }
         });
 
@@ -828,8 +765,6 @@ public class WildPark extends Application {
                
                 // Perform the single Time step
                 makeWildParkTimeStep();
-                diagram.updateList(animals);
-                diagram.nextStep();
             }
         });
 
@@ -873,7 +808,11 @@ public class WildPark extends Application {
                     	if (result.get() == "Diagram") {
 	                    	//Diagram01 ra = new Diagram01(getAnimals()); // Just as-is but working report list
 	                    	try {
-								diagram.show();
+	                    		if (diagram.isShowing()) {
+	                    			diagram.focus();
+	                    		} else {
+	                    			diagram.show();
+	                    		}
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();

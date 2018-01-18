@@ -8,7 +8,7 @@ import wildpark.model.Movement;
 import wildpark.model.WildParkAreaCell;
 import wildpark.model.*;
 import wildpark.model.animals.Animal;
-import wildpark.model.animals.NocturnalAnimal;
+import wildpark.model.animals.INocturnalAnimal;
 import wildpark.model.animals.Predator;
 import wildpark.*;
 import java.util.Random;
@@ -16,7 +16,7 @@ import java.util.Random;
 /**
  * The REAL animal class. This contains implementations of all abstract methods declared in all superclasses.
  */
-public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
+public class InsectEatingBat extends Bat implements INocturnalAnimal, Predator {
 	private static final AnimalSpeciesSpecification animalSpeciesSpecification = new InsectEatingBatSpecification();
 
 	//	Inherited from Meat:
@@ -96,7 +96,7 @@ public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
 		return 0;		
 	}
 
-	public Food ssack( Food food ) {
+	public Food suck( Food food ) {
 		return null;
 	}
 

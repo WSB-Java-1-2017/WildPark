@@ -8,15 +8,15 @@ import wildpark.model.Food;
 import wildpark.model.Meat;
 import wildpark.model.WildParkAreaCell;
 import wildpark.model.animals.Animal;
-import wildpark.model.animals.CarnivorousAnimal;
-import wildpark.model.animals.ChewingAnimal;
-import wildpark.model.animals.CrawlingAnimal;
-import wildpark.model.animals.DivingAnimal;
-import wildpark.model.animals.EggBearingAnimal;
+import wildpark.model.animals.ICarnivorousAnimal;
+import wildpark.model.animals.IChewingAnimal;
+import wildpark.model.animals.ICrawlingAnimal;
+import wildpark.model.animals.IDivingAnimal;
+import wildpark.model.animals.IEggBearingAnimal;
 import wildpark.model.animals.Predator;
 import wildpark.model.animals.Reptile;
 
-public class Crocodile extends Reptile implements Predator, CarnivorousAnimal, ChewingAnimal, CrawlingAnimal, DivingAnimal, EggBearingAnimal {
+public class Crocodile extends Reptile implements Predator, ICarnivorousAnimal, IChewingAnimal, ICrawlingAnimal, IDivingAnimal, IEggBearingAnimal {
 	private final static AnimalSpeciesSpecification animalSpeciesSpecification = new CrocodileSpecification();
 
 	public Crocodile(WildParkAreaCell wildParkAreaCell, boolean isNewborn) {

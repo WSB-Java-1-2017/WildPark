@@ -2,7 +2,7 @@ package wildpark.model.animals;
 
 import wildpark.model.*;
 
-public interface SwallowingAnimal {
+public interface ISwallowingAnimal {
 	public Food swallow( Food food );
 }
  
