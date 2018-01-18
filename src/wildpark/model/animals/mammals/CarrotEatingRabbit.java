@@ -1,4 +1,4 @@
-package wildpark.model.animals.mammals;
+/*package wildpark.model.animals.mammals;
 
 import java.time.Duration;
 import wildpark.model.Food;
@@ -86,4 +86,4 @@ public class CarrotEatingRabbit extends Rabbit implements NocturnalAnimal, Preda
 
 
 
-}
+}*/
