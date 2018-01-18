@@ -75,8 +75,13 @@ public class Diagram01{
 		insectEatingBatCount = 0;
 		giraffeCount = 0;
 		
-		step = WildPark.getWildParkTime().toHours();
-		getCount();			
+		if(WildPark.getWildParkTime()!=null) {			
+			step = WildPark.getWildParkTime().toHours();			
+		}
+		else 			
+			step=0;
+		
+		getCount();	
 		series1.getData().add(new XYChart.Data(step, horseCount));	
 		series2.getData().add(new XYChart.Data(step, insectEatingBatCount));
 		series3.getData().add(new XYChart.Data(step, giraffeCount));		
