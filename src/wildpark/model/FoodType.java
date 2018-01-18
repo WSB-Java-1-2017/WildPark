@@ -7,5 +7,7 @@ public enum FoodType {
 	RABBIT,	
 	TIGER, 
 	SEAL,
-	HORSE
+	HORSE,
+	LION,
+	LEOPARD
 }

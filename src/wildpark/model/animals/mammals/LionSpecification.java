@@ -2,6 +2,8 @@ package wildpark.model.animals.mammals;
 
 import java.time.Duration;
 import wildpark.model.*;
+import wildpark.*;
+import java.util.Random;
 
 /**
  * Absract class used to set the particular animal specification parameters.
@@ -27,15 +29,69 @@ import wildpark.model.*;
 
 
 
-	public enum AcceptableCellType {
-		FOREST,
-		GRASS,
-		MOUNTAIN		
+
+	private static final CellType[] acceptableCellTypes = {
+		CellType.FOREST,
+		CellType.GRASS,
+		CellType.MOUNTAIN		
+	};
+
+	public static CellType[] getAcceptableCellTypes() {
+		return acceptableCellTypes;
 	}
 
-	// public AcceptableCellType[] getAcceptableCellTypes() {
-	// 	return AcceptableCellType.values();
-	// }
+	public static boolean acceptsCellType( CellType cellType ) {
+		boolean accepts = false;
+		for( CellType type : acceptableCellTypes ) {
+			System.out.println( "OK - ISBSpecification: "+type );
+			if( type == cellType ) {
+				accepts = true;
+				break;
+			}
+		}
+		return accepts;
+	}
+
+
+	public static WildParkAreaCell selectRandomCell() {   
+        WildParkAreaCell areaCell = null;
+        // Get a random WildParkAreaCell acceptable for the particular species
+        boolean isAcceptable = false;
+        do {
+            areaCell =  WildPark.cellArray[ new Random().nextInt( WildPark.WILD_PARK_AREA_WIDTH ) ][ new Random().nextInt( WildPark.WILD_PARK_AREA_HEIGHT ) ];      
+            if( acceptsCellType( areaCell.getCellType() ) ) {
+                isAcceptable = true;
+            } 
+            System.out.println( "Random cell for " + "Lion" + " ----- cellType: " + areaCell.getCellType() + " --- " + isAcceptable );    
+        } while( !isAcceptable );
+
+        return areaCell;
+	}
+
+
+	private static final FoodType[] edibleFoodTypes = {
+		FoodType.RABBIT
+	};
+
+	public static FoodType[] getEdibleFoodTypes() {
+		return edibleFoodTypes;
+	}
+
+	/**
+ 	 * Determines if this species eats particular type of Food/Meat/Animal/Plant
+	 * @param  foodType FoodType object 
+	 * @return          boolean - true if this species eats given FoodType
+	 */
+	public static boolean eatsFoodType( FoodType foodType ) {
+		boolean eats = false;
+		for( FoodType type : edibleFoodTypes ) {
+			if( type == foodType ) {
+				eats = true;
+				break;
+			}
+		}
+		return eats;
+	}
 
 
 	public String getSPECIES_NAME() {
@@ -105,5 +161,8 @@ import wildpark.model.*;
 	public int getCALORIC_EFFICIENCY_PER_KILO() {
 		return CALORIC_EFFICIENCY_PER_KILO;
 	}
+
+
+
 
 }

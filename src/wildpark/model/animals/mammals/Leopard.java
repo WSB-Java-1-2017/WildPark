@@ -1,7 +1,11 @@
 package wildpark.model.animals.mammals;
 
 import java.time.Duration;
-
+import wildpark.model.Food;
+import wildpark.model.Gender;
+import wildpark.model.Meat;
+import wildpark.model.Movement;
+import wildpark.model.WildParkAreaCell;
 import wildpark.model.*;
 import wildpark.model.animals.Animal;
 import wildpark.model.animals.Predator;
@@ -18,7 +22,7 @@ import wildpark.model.animals.SwallowingAnimal;
  * The REAL animal class. This contains implementations of all abstract methods declared in all superclasses.
  */
 public class Leopard extends Mammal implements NocturnalAnimal, Predator, BirthGivingAnimal, CarnivorousAnimal, ChewingAnimal, SwallowingAnimal{
-	private final AnimalSpeciesSpecification animalSpeciesSpecification = new LionSpecification();
+	private static final AnimalSpeciesSpecification animalSpeciesSpecification = new LeopardSpecification();
 
 	//	Inherited from Meat:
 	// public Duration TIME_OF_DEATH = null;
@@ -30,15 +34,35 @@ public class Leopard extends Mammal implements NocturnalAnimal, Predator, BirthG
 	public Leopard( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
 		super( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
 	}
+	public Leopard( WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
+		this( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
+	}
 
-
-
+	public Leopard() {
+		this( animalSpeciesSpecification, InsectEatingBatSpecification.selectRandomCell(), false );
+	}
 
 
 	public CellType[] getAcceptableCellTypes() {
-        return LeopardSpecification.getAcceptableCellTypes();
-   }
+         return LeopardSpecification.getAcceptableCellTypes();
+    }
+
+	public boolean acceptsCellType( CellType cellType ) {
+		return LeopardSpecification.acceptsCellType( cellType );
+	}
+
+
+
+
+	// public AnimalSpeciesSpecification.AcceptableCellType[] getAcceptableCellTypes() {
+ //         return animalSpeciesSpecification.getAcceptableCellTypes();
+ //    }
+
 	public Food getFood( WildParkAreaCell cell ) {
+		return null;
+	}
+
+	public Food eat( Food food ) {
 		return null;
 	}
 	
@@ -55,10 +79,6 @@ public class Leopard extends Mammal implements NocturnalAnimal, Predator, BirthG
 	}
 	
 	public Food chew( Food food ) {
-		return null;
-	}
-
-	public Food eat( Food food ) {
 		return null;
 	}
 

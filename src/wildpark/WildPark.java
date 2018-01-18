@@ -589,8 +589,8 @@ public class WildPark extends Application {
     // Fill Wild Park with animals
     void populateWildPark() {
         final int INSECT_EATING_BAT_COUNT = 30; // Count of all bats to be generated in Wild Park 
-       	final int LEOPARD_COUNT=10;
-        final int LION_COUNT = 10;
+       	final int LEOPARD_COUNT=30;
+        final int LION_COUNT = 30;
         final int CROCODILE_COUNT = 10;
         final int POLAR_BEAR_COUNT = 10;
 
@@ -598,6 +598,27 @@ public class WildPark extends Application {
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
             Animal bat = new InsectEatingBat();
 			new Horse();
+        }
+
+         // 5 single animals - pojedyncze egzemplarze:
+        for( int i=0; i<LION_COUNT; i++ ) {
+            Animal lion = new Lion();
+        }
+
+        // A herd/pack in a single WildParkCell- stado w jednej komórce:
+         WildParkAreaCell areaCell = LionSpecification.selectRandomCell();
+        for( int i=0; i<5; i++ ) {
+            Animal lion = new Lion( areaCell, false );
+        }
+
+        for( int i=0; i<LEOPARD_COUNT; i++ ) {
+            Animal leopard = new Leopard();
+        }
+
+        // A herd/pack in a single WildParkCell- stado w jednej komórce:
+        areaCell = LeopardSpecification.selectRandomCell();
+        for( int i=0; i<5; i++ ) {
+            Animal leopard = new Leopard( areaCell, false );
         }
 
         // A herd/pack in a single WildParkCell- stado w jednej komórce:
