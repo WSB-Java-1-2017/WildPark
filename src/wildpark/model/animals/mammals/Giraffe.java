@@ -1,5 +1,6 @@
 /**
- * @author Xtry333
+ * @author Marcin "marlepo" Potrykus
+ *
  */
 package wildpark.model.animals.mammals;
 
