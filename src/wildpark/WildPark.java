@@ -875,7 +875,7 @@ public class WildPark extends Application {
                 List<String> choices = new ArrayList<>();
                 choices.add("Report 1");
                 choices.add("World");
-                choices.add("Report 3");
+                choices.add("Diagram");
                 choices.add("WildPark");
                 ChoiceDialog<String> dialog = new ChoiceDialog<>("Report 1", choices);
                 dialog.setTitle("Report Choice");
@@ -886,6 +886,15 @@ public class WildPark extends Application {
                     if (result.isPresent()){
                     	if (result.get() == "WildPark") {
 	                    	ReportAnimals ra = new ReportAnimals(getAnimals(), "WildPark"); // Just as-is but working report list
+	                    	try {
+								ra.show();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+                    	}
+                    	if (result.get() == "Diagram") {
+	                    	Diagram01 ra = new Diagram01(getAnimals()); // Just as-is but working report list
 	                    	try {
 								ra.show();
 							} catch (Exception e1) {
