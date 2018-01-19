@@ -4,7 +4,7 @@ import wildpark.model.*;
 import wildpark.model.animals.*;
 
 public abstract class Bat extends Mammal 
-implements IFloatingAnimal, INestingAnimal, IFlyingAnimal
+implements FloatingAnimal, NestingAnimal, FlyingAnimal
 {
 	public Bat( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
 		super( animalSpeciesSpecification, wildParkAreaCell, isNewborn );

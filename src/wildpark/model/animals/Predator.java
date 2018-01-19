@@ -1,5 +1,5 @@
 package wildpark.model.animals;
 
-public interface IPredator extends ICarnivorousAnimal {
+public interface Predator extends CarnivorousAnimal {
 	public boolean hunt( Animal animal );
 }

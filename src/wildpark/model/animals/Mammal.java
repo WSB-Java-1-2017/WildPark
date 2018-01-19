@@ -3,7 +3,7 @@ package wildpark.model.animals;
 import wildpark.model.*;
 
 public abstract class Mammal extends Animal
-implements ISuckingAnimal, IChewingAnimal, IBirthGivingAnimal
+implements SuckingAnimal, ChewingAnimal, BirthGivingAnimal
 {
 	public Mammal( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
 		super( animalSpeciesSpecification, wildParkAreaCell, isNewborn );

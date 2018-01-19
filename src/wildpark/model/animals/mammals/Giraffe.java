@@ -11,12 +11,12 @@ import wildpark.model.AnimalSpeciesSpecification;
 import wildpark.model.Food;
 import wildpark.model.Gender;
 import wildpark.model.WildParkAreaCell;
-import wildpark.model.animals.IBirthGivingAnimal;
-import wildpark.model.animals.IHerbivorousAnimal;
+import wildpark.model.animals.BirthGivingAnimal;
+import wildpark.model.animals.HerbivorousAnimal;
 import wildpark.model.animals.Mammal;
-import wildpark.model.animals.IRunningAnimal;
+import wildpark.model.animals.RunningAnimal;
 
-public class Giraffe extends Mammal implements IRunningAnimal, IBirthGivingAnimal, IHerbivorousAnimal {
+public class Giraffe extends Mammal implements RunningAnimal, BirthGivingAnimal, HerbivorousAnimal {
 
 	private final static AnimalSpeciesSpecification animalSpeciesSpecification = new GiraffeSpeciesSpecification();
 	

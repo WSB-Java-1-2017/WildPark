@@ -8,7 +8,7 @@ import wildpark.model.*;
 import wildpark.model.animals.*;
 import wildpark.model.animals.mammals.*;
 
-public class Elephant extends Mammal implements IRunningAnimal, IWalkingAnimal, IBirthGivingAnimal, IHerbivorousAnimal, IDiurnalAnimal, IFruitEatingAnimal {
+public class Elephant extends Mammal implements RunningAnimal, WalkingAnimal, BirthGivingAnimal, HerbivorousAnimal, DiurnalAnimal, FruitEatingAnimal {
 	public Elephant(AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell,
 			boolean isNewborn) {
 		super(animalSpeciesSpecification, wildParkAreaCell, isNewborn);

@@ -1,5 +1,5 @@
 package wildpark.model.animals;
 
-public interface ISoaringAnimal{
+public interface SoaringAnimal{
 	public void soar();
 }
