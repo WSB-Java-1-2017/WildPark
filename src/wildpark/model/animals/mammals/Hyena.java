@@ -1,4 +1,4 @@
-package wildpark.model.animals.mammals;
+/**package wildpark.model.animals.mammals;
 
 import java.time.Duration;
 import wildpark.model.Food;
@@ -90,3 +90,4 @@ public class Hyena extends Mammal implements RunningAnimal, Scavenger, ChewingAn
 	}
 
 }
+*/
