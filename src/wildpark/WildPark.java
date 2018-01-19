@@ -66,7 +66,6 @@ public class WildPark extends Application {
     final int WILD_PARK_CELL_WIDTH = 54;
     final int WILD_PARK_CELL_HEIGHT = 54;
 
-    public static Diagram01 diagram = new Diagram01(getAnimals());
 
     /**
      * Duration Time of the existance of current Wild Park.
@@ -76,6 +75,11 @@ public class WildPark extends Application {
      */
     private static Duration wildParkTime = Duration.ZERO;
 
+    
+    
+    public static Diagram01 diagram = new Diagram01(getAnimals());
+    
+    
     /**
      * This defines the duration of a single step of Wild Park Duration Time. 
      * In each Step the value of wildParkTime attribute is increased 
@@ -119,10 +123,18 @@ public class WildPark extends Application {
     }
 
     /**
-	 * Main 2-dimension Array of WildParkArea Cells
+	 * Main 2-dimension Array of WildParkAreaCells
 	 */
 	public static WildParkAreaCell[][] cellArray = new WildParkAreaCell[WILD_PARK_AREA_WIDTH][WILD_PARK_AREA_HEIGHT];
-
+	
+	/**
+	 * Getter for WildParkAreaCell array
+	 * @return WildParkAreaCell array
+	 */
+	public static WildParkAreaCell[][] getWildParkArea() {
+		return cellArray;
+	}
+	
     /**
      * The collection of all animals in Wild Park. It also contains dead animals - animals 
      * are not removed from this collection after death but are treated as Meat == Food. 
@@ -519,7 +531,7 @@ public class WildPark extends Application {
         final int LION_COUNT = 10;
         final int CROCODILE_COUNT = 10;
         final int POLAR_BEAR_COUNT = 10;
-        final int HORSE_COUNT = 15;
+        final int HORSE_COUNT = 1500;
         final int GIRAFFE_COUNT = 5;
 
         // single animals - pojedyncze egzemplarze:

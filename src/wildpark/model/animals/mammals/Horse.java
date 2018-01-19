@@ -8,6 +8,7 @@ import java.time.Duration;
 import wildpark.model.AnimalSpeciesSpecification;
 import wildpark.model.Food;
 import wildpark.model.Gender;
+import wildpark.model.WildParkArea;
 import wildpark.model.WildParkAreaCell;
 import wildpark.model.animals.BirthGivingAnimal;
 import wildpark.model.animals.HerbivorousAnimal;
@@ -17,33 +18,21 @@ import wildpark.model.animals.RunningAnimal;
 public class Horse extends Mammal implements RunningAnimal, BirthGivingAnimal, HerbivorousAnimal {
 
 	private final static AnimalSpeciesSpecification animalSpeciesSpecification = new HorseSpeciesSpecification();
-	
-	public Horse(WildParkAreaCell wildParkAreaCell,
-			boolean isNewborn) {
+
+	public Horse(WildParkAreaCell wildParkAreaCell, boolean isNewborn) {
 		super(animalSpeciesSpecification, wildParkAreaCell, isNewborn);
 		// TODO Auto-generated constructor stub
 	}
 
 	public Horse() {
-		this( animalSpeciesSpecification, HorseSpeciesSpecification.selectRandomCell(), false);
+		this(animalSpeciesSpecification,
+				WildParkArea.getRandomAcceptableCell(HorseSpeciesSpecification.getAcceptableCellTypes()), false);
 	}
 
-	public Horse( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
-		super( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
+	public Horse(AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell,
+			boolean isNewborn) {
+		super(animalSpeciesSpecification, wildParkAreaCell, isNewborn);
 	}
-
-	public String NAME = "Horse";
-	public float FOOD_QUANTITY_REQUIRED_PER_HOUR = 9 / 24f;// KG
-	public int MAX_STARVING_HOURS_BEFORE_DEATH = 14 * 24; // HOURS
-	public int STANDARD_SPEED = 7; // KMH
-	public int MAX_SPEED = 60; // KMH
-	public int MAX_STAMINA = 300; // SECONDS
-	public int AVERAGE_SCION_COUNT_IN_LITTER = 1; // Offspring
-	public int MAX_AGE = 30 * 365; // DAYS
-	public int MIN_BREEDING_AGE = 5 * 365; // DAYS
-	public int MAX_BREEDING_AGE = MAX_AGE - 5 * 365; // DAYS
-	public int MAX_AGE_IN_NEST; // DAYS
-	public int MIN_SELF_GOVERNMENT_AGE = 3 * 365; // DAYS
 
 	Gender gender;
 
@@ -97,6 +86,6 @@ public class Horse extends Mammal implements RunningAnimal, BirthGivingAnimal, H
 	@Override
 	public void move(Duration duration) {
 		// TODO Auto-generated method stub
-//		WildParkArea.moveAnimal( this, getStandardSpeed() );
+		// WildParkArea.moveAnimal( this, getStandardSpeed() );
 	}
 }
