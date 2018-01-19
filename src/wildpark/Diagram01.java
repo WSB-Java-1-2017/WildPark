@@ -15,8 +15,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 import wildpark.model.animals.Animal;
  
  
@@ -33,23 +33,26 @@ public class Diagram01{
 	@SuppressWarnings("rawtypes")
 	XYChart.Series series5 = new XYChart.Series();	
 	
-	public static long step;
+	public long step = 0;
 	
-	private List <Animal> animal;
+	private List <Animal> animals;
 	
 	private int horseCount = 0;
 	private int insectEatingBatCount = 0;
 	private int giraffeCount = 0;
 	
 	
-	public Diagram01( List <Animal> _animal ) {
-		this.animal = _animal;
-		this.nextStep();
+	public Diagram01( List <Animal> _animals ) {
+		//this.animal = _animals;
+		//this.nextStep();
 	}
 	
+	public void updateList(List<Animal> _animals) {
+		this.animals = _animals;
+	}
 	public void getCount() {
 		
-		for(Animal a : animal) {			
+		for(Animal a : animals) {			
 			if(a.getSPECIES_NAME() == "Horse") {
 				horseCount +=1;
 				//System.out.println(++horseCount);
@@ -69,22 +72,16 @@ public class Diagram01{
 	
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void nextStep(){	
-		
+	public void nextStep() {	
 		horseCount = 0;
 		insectEatingBatCount = 0;
 		giraffeCount = 0;
 		
-		if(WildPark.getWildParkTime()!=null) {			
-			step = WildPark.getWildParkTime().toHours();			
-		}
-		else 			
-			step=0;
-		
-		getCount();	
-		series1.getData().add(new XYChart.Data(step, horseCount));	
+		step++;// = WildPark.getWildParkTimeHours();
+		getCount();			
+		series1.getData().add(new XYChart.Data(step, horseCount));
 		series2.getData().add(new XYChart.Data(step, insectEatingBatCount));
-		series3.getData().add(new XYChart.Data(step, giraffeCount));		
+		series3.getData().add(new XYChart.Data(step, giraffeCount));
 	}
 	
     
@@ -93,6 +90,14 @@ public class Diagram01{
     	
     	Stage stage = new Stage();
         stage.setTitle("Wild Park Diagram Beta");
+
+        try {
+            stage.getIcons().add(new Image("wildpark/favicon-32x32.png"));
+        } catch( IllegalArgumentException e ) {
+            System.out.println( "Error loading favicon-32x32.png. Should be in \'wildpark\' directory together with WildPark.class file." );
+            // System.exit(-1);
+        }
+        
         //defining the axes
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
@@ -102,14 +107,14 @@ public class Diagram01{
                 
        
                 
-        Button step = new Button("next step");
+        /*Button step = new Button("next step");
         step.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				nextStep();
 			}
-		});
+		});*/
         
         series1.setName("Horse");
         series2.setName("Insect Eating Bat");
@@ -119,7 +124,7 @@ public class Diagram01{
         
         //Scene scene  = new Scene( new BorderPane( lineChart, step, null, null, null ), 800,600 );
         Scene scene = new Scene( lineChart, 800, 600 );
-        lineChart.setTitle("Wild Park Diagram Beta");
+        //lineChart.setTitle("Wild Park Diagram Beta");
         lineChart.getData().addAll( series1, series2, series3, series4, series5 );    
       
         stage.setScene(scene);

@@ -63,13 +63,10 @@ public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
  //        return areaCell;
 	// }
 
-
-<<<<<<< HEAD
+	@Override
 	public String getSPECIES_NAME() {
 		return animalSpeciesSpecification.getSPECIES_NAME();
 	}
-=======
->>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
 
 
 	public Food getFood( WildParkAreaCell cell ) {
@@ -81,7 +78,7 @@ public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
 	}
 
 	public void move( Duration time ) {
-		WildParkArea.moveAnimal( this );
+		move( time, getStandardSpeed() );
 	}
 
 	public void proliferate(  ) {

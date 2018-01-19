@@ -18,21 +18,13 @@ public abstract class AnimalSpeciesSpecification {
 	private int MAX_STAMINA; 
 	private int AVERAGE_SCION_COUNT_IN_LITTER; // średnia liczba potomków w miocie
 	private int MAX_SCION_COUNT_IN_LITTER;	// na tej podstawie określimy widełki RANDOMa określającego liczbę potomków w danym miocie
-<<<<<<< HEAD
 	private Duration MAX_AGE; //[days]
 	private Duration MIN_BREEDING_AGE; // [days] minimalny wiek rozrodczy
 	private Duration MAX_BREEDING_AGE; // [days] maksymalny wiek rozrodczy
 	private Duration MAX_AGE_IN_NEST; // [days] specifies the number of days/hours after which a young animal leaves the nest 
 	private Duration MIN_SELF_GOVERNMENT_AGE; // [days] minimalny wiek usamodzielnienia się
 	private float CALORIC_EFFICIENCY_PER_KILO;
-=======
-	private Duration MAX_AGE; 
-	private Duration MIN_BREEDING_AGE; // minimalny wiek rozrodczy
-	private Duration MAX_BREEDING_AGE; // maksymalny wiek rozrodczy
-	private Duration MAX_AGE_IN_NEST; // specifies the number of days/hours after which a young animal leaves the nest 
-	private Duration MIN_SELF_GOVERNMENT_AGE; // minimalny wiek usamodzielnienia się
-	private int CALORIC_EFFICIENCY_PER_KILO;
->>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
+
 
 	/**
 	 * The following array MUST be overriden in the real animal species specification class inherited fromm this 

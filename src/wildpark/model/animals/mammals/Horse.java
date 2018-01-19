@@ -8,6 +8,7 @@ import java.time.Duration;
 import wildpark.model.AnimalSpeciesSpecification;
 import wildpark.model.Food;
 import wildpark.model.Gender;
+import wildpark.model.WildParkArea;
 import wildpark.model.WildParkAreaCell;
 import wildpark.model.animals.BirthGivingAnimal;
 import wildpark.model.animals.HerbivorousAnimal;
@@ -97,6 +98,6 @@ public class Horse extends Mammal implements RunningAnimal, BirthGivingAnimal, H
 	@Override
 	public void move(Duration duration) {
 		// TODO Auto-generated method stub
-		//return null;
+//		WildParkArea.moveAnimal( this, getStandardSpeed() );
 	}
 }

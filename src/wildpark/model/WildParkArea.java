@@ -16,36 +16,28 @@ public class WildParkArea {
 		animalList.add( animal );
 	}
 
-	public static void moveAnimal( Animal animal ) {
-		float speed = animal.getStandardSpeed();
-		int angle = animal.getDirection();
+	// public static void moveAnimal( Animal animal, float speed ) {
+	// 	int currentX = animal.getWildParkAreaCell().getX();
+	// 	int currentY = animal.getWildParkAreaCell().getY();
 
-		int currentX = animal.getWildParkAreaCell().getX();
-		int currentY = animal.getWildParkAreaCell().getY();
+	// 	int angle, newX, newY;
+	// 	double radians;
+	// 	do {
+	// 		angle = animal.getDirection();
+	// 		System.out.printf( "WildParkArea moveAnimal(): ID %6d   speed: %7.1f    angle: %03d   Original %s\r\n", animal.getId(), speed, angle, animal.getAnimalState().getWildParkAreaCell().toString() );
 
-		System.out.printf( "WildParkArea moveAnimal(): ID %6d   speed: %7.1f    angle: %03d   Original %s\r\n", animal.getId(), speed, angle, animal.getAnimalState().getWildParkAreaCell().toString() );
+	// 		radians = Math.toRadians(angle);
 
-		double radians = Math.toRadians(angle);
+	// 		newX = currentX + (int) Math.round( speed * Math.sin(radians) );
+	// 		newY = currentY + (int) Math.round( speed * Math.cos(radians) );			
 
-		int x = currentX + (int) Math.round(speed * Math.sin(radians));
-		int y = currentY + (int) Math.round(speed * Math.cos(radians));
+	// 		System.out.println( "Target: " + newX + ":" + newY );	
+	// 	} while( newX >= WildPark.WILD_PARK_AREA_WIDTH || newX < 0 
+	// 		|| newY >= WildPark.WILD_PARK_AREA_HEIGHT || newY < 0 
+	// 		|| !animal.acceptsCellType( WildPark.getWildParkAreaCell( newX, newY ).getCellType() ) );
 
-		do {
-			angle = new Random().nextInt(360);
-			radians = Math.toRadians(angle);
-
-			x = currentX + (int) Math.round( speed * Math.sin(radians) );
-			y = currentY + (int) Math.round( speed * Math.cos(radians) );			
-
-			System.out.println( "Target: " + x + ":" + y );	
-		} while( x >= WildPark.WILD_PARK_AREA_WIDTH || x < 0 
-			|| y >= WildPark.WILD_PARK_AREA_HEIGHT || y < 0 );
-
-		System.out.println( "Target: " + x + ":" + y );	
-		animal.move(x,y);
-		
-		//
-	}
+	// 	animal.move(newX,newY);		
+	// }
 
 	public static ArrayList<Animal> getAnimals() {
 		return animalList;

@@ -78,7 +78,7 @@ public class TestBat extends Bat implements NocturnalAnimal, Predator {
 	}
 
 	public void move( Duration time ) {
-		WildParkArea.moveAnimal( this );
+		move( time, getStandardSpeed() );
 	}
 
 	public void proliferate(  ) {
@@ -100,16 +100,18 @@ public class TestBat extends Bat implements NocturnalAnimal, Predator {
 		return null;
 	}
 
-	public Food swollow( Food food ) {
-		return null;
-	}
-
 	public Food chew( Food food ) {
 		return null;
 	}
 
 	public boolean isNocturnal() {
 		return false; //isActiveDuringTheNight;
+	}
+
+	@Override
+	public Food swallow(Food food) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

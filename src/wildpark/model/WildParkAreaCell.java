@@ -3,18 +3,13 @@
  */
 package wildpark.model;
 
-<<<<<<< HEAD
-import java.util.ArrayList;
-import java.util.List;
-=======
->>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
 import java.util.LinkedHashSet;
 
-import javafx.scene.text.Font;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 import wildpark.model.animals.Animal;
+import javafx.scene.control.*;
 
 public class WildParkAreaCell extends Button {
 	
@@ -24,6 +19,8 @@ public class WildParkAreaCell extends Button {
 	
 	private int x;
 	private int y;
+
+	private Tooltip tooltip = new Tooltip();
 	
 	/**
 	 * LinkedHashSet is used because we want to know the sequence of animals arrival to particular WildParkAreaCell 
@@ -31,21 +28,6 @@ public class WildParkAreaCell extends Button {
 	 */
 	private LinkedHashSet<Animal> animals = new LinkedHashSet<>();
 
-
-	// public WildParkAreaCell() {
-	// }
-
-<<<<<<< HEAD
-	public WildParkAreaCell( String label ) {
-		super( label );
-	}
-
-	public WildParkAreaCell( int x, int y, String label ) {
-		super( label );
-//		this.cellType = _type;
-		this.x = x;
-		this.y = y;
-=======
 	public WildParkAreaCell( String string ) {
 		super( string );
 	}
@@ -55,11 +37,13 @@ public class WildParkAreaCell extends Button {
 //		this.cellType = _type;
 		this.x = _x;
 		this.y = _y;
->>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
 		this.setAlignment(Pos.TOP_LEFT);
 		this.setFont( Font.font(7) );
 //		this.setBackground(null);
-		// TODO: Set background color dependant on cellType; 
+		
+		tooltip.setText( String.format( "%02d:%02d", x, y ) );
+		this.setTooltip( tooltip );
+		tooltip.setFont( new Font( "Lucida Console", 11 ) );
 	}
 	
 	public void setCellType( CellType cellType ) {
@@ -98,32 +82,30 @@ public class WildParkAreaCell extends Button {
 		update();
 	}
 
-<<<<<<< HEAD
-=======
-	/*public String toString() {
-		return "X: " + this.getX() + ", Y: " + this.getY(); 
-	}*/
-	
->>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
+
 	/**
 	 * Update cell label
 	 */
 	public void update() {
-		String coords = x + ": " + y;
+		String coords = String.format( "%02d:%02d", x, y );
 		String animalNames = "";
+		String toolTipText = "\nNAME               ID      ENERGY      WEIGHT      hSinceLastMeal";
 		for( Animal animal : animals ) {
-			animalNames += "\n" + animal.getSPECIES_NAME();
+			animalNames += String.format("\n%-18s", animal.getSPECIES_NAME() );
+			toolTipText += String.format("\n%-18s %05d  %s", animal.getSPECIES_NAME(), animal.getId(), animal.getAnimalState().toStringForTooltip() );
 		}		
 		this.setText(coords + animalNames);
+		tooltip.setText(coords + toolTipText);
 	}
 
-<<<<<<< HEAD
+
 
 	public String toString() {
 		return String.format( "Cell %03d:%03d", x, y );
-=======
+	}
+
 	public String getPosition() {
 		return "X: " + this.x + ", Y: " + this.y;
->>>>>>> a287d74bd5a0f2d6001c7eb261cb5cc82fbe0e6e
+
 	}
 }

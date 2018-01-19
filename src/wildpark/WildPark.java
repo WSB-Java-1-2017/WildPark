@@ -51,16 +51,6 @@ import wildpark.model.animals.birds.*;
 import wildpark.model.animals.reptiles.*;
 //import wildpark.model.animals.fish.*;
 
-
-
-
-
-
-
-
-
-
-
 public class WildPark extends Application {
     
     public static final int WILD_PARK_AREA_WIDTH = 100;
@@ -76,15 +66,7 @@ public class WildPark extends Application {
     final int WILD_PARK_CELL_WIDTH = 54;
     final int WILD_PARK_CELL_HEIGHT = 54;
 
-    Diagram01 diagram = new Diagram01(getAnimals());
-
-
-
-
-
-
-
-
+    public static Diagram01 diagram = new Diagram01(getAnimals());
 
     /**
      * Duration Time of the existance of current Wild Park.
@@ -92,7 +74,7 @@ public class WildPark extends Application {
      * In each Time Step of the Wild Park this value is increased by the amount of time 
      * defined in WILD_PARK_TIME_STEP_DURATION constant.
      */
-    private static Duration wildParkTime = Duration.ZERO; 
+    private static Duration wildParkTime = Duration.ZERO;
 
     /**
      * This defines the duration of a single step of Wild Park Duration Time. 
@@ -110,7 +92,12 @@ public class WildPark extends Application {
      * @return wildParkTime value - the current time counter of Wild Park
      */
     public static Duration getWildParkTime() {
+    	//System.out.println("Access to park time: " + wildParkTime.toHours());
         return wildParkTime;
+    }
+    
+    public static int getWildParkTimeHours() {
+    	return (int) wildParkTime.toHours();
     }
 
     /**
@@ -118,6 +105,7 @@ public class WildPark extends Application {
      */
     public static void makeWildParkTimeStep() {
         wildParkTime = wildParkTime.plus( WILD_PARK_TIME_STEP_DURATION );
+    	//System.out.println("Addition to park time: " + wildParkTime.toHours());
 
         // Update Step Counter in UI
         toolBarLabel_CurrentStep.setText( String.format( "%8d", wildParkTime.toHours() ) );
@@ -125,33 +113,14 @@ public class WildPark extends Application {
         for( Animal animal : getAnimals() ) {
             animal.performTimeStep();
         }
+        //diagram.updateList(getAnimals());
+        //diagram.nextStep();
     }
 
-
-
-
-
-
-
-
-
-
-
-
     /**
-     * Main 2-dimension Array of WildParkArea Cells
-     */
-    public static WildParkAreaCell[][] cellArray = new WildParkAreaCell[WILD_PARK_AREA_WIDTH][WILD_PARK_AREA_HEIGHT];
-
-
-
-
-
-
-
-
-
-
+	 * Main 2-dimension Array of WildParkArea Cells
+	 */
+	public static WildParkAreaCell[][] cellArray = new WildParkAreaCell[WILD_PARK_AREA_WIDTH][WILD_PARK_AREA_HEIGHT];
 
     /**
      * The collection of all animals in Wild Park. It also contains dead animals - animals 
@@ -161,27 +130,17 @@ public class WildPark extends Application {
 
 
     /**
-     * Getter for animals attribute. animals array contins all animals in the park.
+     * Getter for animals attribute. animals array contains all animals in the park.
      * @return ArrayList of all animals in the park.
      */
     static ArrayList<Animal> getAnimals() {
         return animals;
     }
 
-
-
     public static void addAnimal( Animal animal ) {
         getAnimals().add( animal ); 
         label_NumberOfAnimals.setText( String.format( "Number of animals: %10d", getAnimals().size() ) );
     } 
-
-
-
-
-
-
-
-
 
     // final Background BACKGROUND_GREEN = new Background( new BackgroundFill( Paint.valueOf( "0x00ff0088" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
     final Background BACKGROUND_GREEN = new Background( new BackgroundFill( Paint.valueOf( "linear-gradient(from 0px 54px to 0px 0px, #44ff55 20%, 0x44ff5555 100%)" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
@@ -189,25 +148,15 @@ public class WildPark extends Application {
     final Background BACKGROUND_POLAR_WHITE = new Background( new BackgroundFill( Paint.valueOf( "linear-gradient(from 0px 54px to 0px 0px, #eeeeee 20%, 0xffffffff 100%)" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
     final Background BACKGROUND_LAKE_BLUE = new Background( new BackgroundFill( Paint.valueOf( "linear-gradient(from 0px 54px to 0px 0px, #66ddff 20%, 0x66ddff55 100%)" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
 
- 
-
-
-
-
-
-
-
-
-
     // MENU
     MenuItem menu1_New = new MenuItem("New");
     MenuItem menu1_Open = new MenuItem("Open...");
     MenuItem menu1_Save = new MenuItem("Save...");
     MenuItem menu1_Exit = new MenuItem("Exit");
     //---------------------
-    MenuItem menu2_SpeciesReport = new MenuItem("Species Report...");
-    MenuItem menu2_AnimalsReport = new MenuItem("Animals Report...");
-    MenuItem menu2_StepsReport = new MenuItem("Steps Report...");
+    MenuItem menu2_AnimalList = new MenuItem("Animal List...");
+    MenuItem menu2_AnimalCountDiagram = new MenuItem("Animal Count Diagram...");
+    MenuItem menu2_GenerateWildParkArea = new MenuItem("Generate Wild Park Area...");
     //---------------------
     MenuItem menu3_AnimalSettings = new MenuItem("Animal Settings...");
     MenuItem menu3_WildParkSettings = new MenuItem("Wild Park Settings...");
@@ -310,16 +259,26 @@ public class WildPark extends Application {
 
 
 
+
+
+
+
+
     @Override
     public void start( Stage stage ) {
  //       Group root = new Group();
         this.stage = stage;
 
         try {
-            stage.getIcons().add(new Image("file:favicon-32x32.png"));
+            //stage.getIcons().add(new Image(this.getClass().getResource("login.png").toString()));
+            
+            //Image applicationIcon = new Image(getClass().getResourceAsStream("dukes_36x36.png"));
+            // primaryStage.getIcons().add(applicationIcon);            
+            stage.getIcons().add(new Image("wildpark/favicon-32x32.png"));
+
         } catch( IllegalArgumentException e ) {
             System.out.println( "Error loading favicon-32x32.png. Should be in \'wildpark\' directory together with WildPark.class file." );
-            System.exit(-1);
+            // System.exit(-1);
         }
 
         addUIEventListeners();
@@ -348,7 +307,7 @@ public class WildPark extends Application {
         final Menu menu1 = new Menu("File");
         menu1.getItems().addAll( menu1_New, menu1_Open, menu1_Save, new SeparatorMenuItem(), menu1_Exit );
         final Menu menu2 = new Menu("Reports");
-        menu2.getItems().addAll( menu2_SpeciesReport, menu2_AnimalsReport, menu2_StepsReport );
+        menu2.getItems().addAll( menu2_AnimalList, menu2_AnimalCountDiagram,  menu2_GenerateWildParkArea );
         final Menu menu3 = new Menu("Settings");
         menu3.getItems().addAll( menu3_AnimalSettings, menu3_WildParkSettings );
         final Menu menu4 = new Menu("Help");
@@ -604,7 +563,8 @@ public class WildPark extends Application {
         final int LION_COUNT = 10;
         final int CROCODILE_COUNT = 10;
         final int POLAR_BEAR_COUNT = 10;
-
+        final int HORSE_COUNT = 15;
+        final int GIRAFFE_COUNT = 5;
 
         // single animals - pojedyncze egzemplarze:
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
@@ -622,7 +582,14 @@ public class WildPark extends Application {
         for( int i=0; i<TEST_BAT_COUNT; i++ ) {
             Animal testBat = new TestBat();
         }
-
+        
+        for( int i=0; i<HORSE_COUNT; i++ ) {
+            new Horse();
+        }
+        
+        for(int i = 0; i < GIRAFFE_COUNT; i++) {
+        	new Giraffe();
+        }
         //WildParkAreaCell areaCell = InsectEatingBatSpecification.selectRandomCell();
 
         /*WildParkAreaCell areaCell = new WildParkAreaCell("Cell1");
@@ -668,14 +635,14 @@ public class WildPark extends Application {
 
         // Reset Meat/Animal identifier base value 
         Meat.lastAnimalID = 0;
+        wildParkTime = Duration.ZERO;
+        toolBarLabel_CurrentStep.setText( String.format( "%8d", wildParkTime.toHours() ) );
 
         for( int y=0; y<WILD_PARK_AREA_HEIGHT; y++ ) {
             for( int x=0; x<WILD_PARK_AREA_WIDTH; x++ ) {
                 cellArray[x][y].clear();
             }
         }
-
-        wildParkTime = Duration.ZERO;
 
     }
 
@@ -706,9 +673,51 @@ public class WildPark extends Application {
 
 
 
+
+
+
     public static WildParkAreaCell getWildParkAreaCell( int x, int y ) {
         return cellArray[x][y];
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Generate sample Wild Park Area
+     */
+    private void GenerateWildParkArea() {
+        World.SEED = new Random().nextLong();
+        Image img = World.generate();
+        ImageView imageView = new ImageView(img);
+        ZoomableScrollPane zm = new ZoomableScrollPane(imageView);
+        Scene sce = new Scene(zm);
+        try {
+            Stage s = new Stage();
+            s.getIcons().add(new Image("wildpark/favicon-32x32.png"));
+
+            s.setScene(sce);
+            s.show();
+        } catch( IllegalArgumentException e ) {
+            System.out.println( "Error loading favicon-32x32.png. Should be in \'wildpark\' directory together with WildPark.class file." );
+            // System.exit(-1);
+        } catch (Exception e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+    }
+
+
+
 
 
 
@@ -760,32 +769,43 @@ public class WildPark extends Application {
 
         //------------------
 
-        menu2_SpeciesReport.setOnAction( new EventHandler<ActionEvent>() {
+        menu2_AnimalList.setOnAction( new EventHandler<ActionEvent>() {
             @Override 
             public void handle( ActionEvent e ) {
-                System.out.println("menu2_SpeciesReport clicked");
-                // Species Report page
-                
-            }        
-
-        });
-
-        menu2_AnimalsReport.setOnAction( new EventHandler<ActionEvent>() {
-            @Override 
-            public void handle( ActionEvent e ) {
-                System.out.println("menu2_AnimalsReport clicked");
-                // Animal Report page
-                
+                System.out.println("menu2_AnimalList clicked");
+                // Animal List page
+                ReportAnimals ra = new ReportAnimals(getAnimals(), "Animal List"); // Just as-is but working report list
+                try {
+                    ra.show();
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }                
             }        
         });
 
-        menu2_StepsReport.setOnAction( new EventHandler<ActionEvent>() {
+        menu2_AnimalCountDiagram.setOnAction( new EventHandler<ActionEvent>() {
             @Override 
             public void handle( ActionEvent e ) {
-                System.out.println("menu2_StepsReport clicked");
-                // Time Steps Report page
-                
+                System.out.println("menu2_AnimalCountDiagram clicked");
+                // Animal Count Diagram page
+                try {
+                    diagram.show();
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
             }        
+        });
+
+        menu2_GenerateWildParkArea.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("menu2_GenerateWildParkArea clicked");
+                // Generate sample Wild Park Area
+                GenerateWildParkArea();                
+            }        
+
         });
 
 
@@ -860,7 +880,7 @@ public class WildPark extends Application {
             public void handle( ActionEvent e ) {
                 System.out.println("toolBarButton_Play clicked");
                 // Let the Park performs steps automatically with the speed specified in textField_PlaySpeed text field.
-                // Change the button Labbel to Stop and perform Time Steps until the Stop button is clicked.
+                // Change the button Label to Stop and perform Time Steps until the Stop button is clicked.
                 if( stopButtonClicked ) {
                     toolBarButton_Play.setText( "Stop" );
                     stopButtonClicked = false;
@@ -881,6 +901,7 @@ public class WildPark extends Application {
                
                 // Perform the single Time step
                 makeWildParkTimeStep();
+                diagram.updateList(animals);
                 diagram.nextStep();
             }
         });
@@ -902,19 +923,26 @@ public class WildPark extends Application {
             public void handle( ActionEvent e ) {
                 System.out.println("toolBarButton_Reports clicked");
                 List<String> choices = new ArrayList<>();
-                choices.add("Report 1");
-                choices.add("World");
-                choices.add("Diagram");
-                choices.add("WildPark");
-                ChoiceDialog<String> dialog = new ChoiceDialog<>("Report 1", choices);
+                choices.add("Animal List");
+                choices.add("Animal Count Diagram");
+                choices.add("Generate Wild Park Area");
+                ChoiceDialog<String> dialog = new ChoiceDialog<>("Animal List", choices);
                 dialog.setTitle("Report Choice");
                 dialog.setHeaderText("Choose Report");
                 dialog.setContentText("Report:");
+                try {
+                    Stage stg = (Stage) dialog.getDialogPane().getScene().getWindow();
+                    stg.getIcons().add(new Image("wildpark/favicon-32x32.png"));
+                } catch( IllegalArgumentException ex ) {
+                    System.out.println( "Error loading favicon-32x32.png. Should be in \'wildpark\' directory together with WildPark.class file." );
+                    // System.exit(-1);
+                }
+
 
                 Optional<String> result = dialog.showAndWait();
                     if (result.isPresent()){
-                    	if (result.get() == "WildPark") {
-	                    	ReportAnimals ra = new ReportAnimals(getAnimals(), "WildPark"); // Just as-is but working report list
+                    	if (result.get() == "Animal List") {
+	                    	ReportAnimals ra = new ReportAnimals(getAnimals(), "Animal List"); // Just as-is but working report list
 	                    	try {
 								ra.show();
 							} catch (Exception e1) {
@@ -922,29 +950,17 @@ public class WildPark extends Application {
 								e1.printStackTrace();
 							}
                     	}
-                    	if (result.get() == "Diagram") {
-	                    	Diagram01 ra = new Diagram01(getAnimals()); // Just as-is but working report list
+                    	if (result.get() == "Animal Count Diagram") {
+	                    	//Diagram01 ra = new Diagram01(getAnimals()); // Just as-is but working report list
 	                    	try {
-								ra.show();
+								diagram.show();
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
                     	}
-                    	if (result.get() == "World") {
-                    		World.SEED = new Random().nextLong();
-                    		Image img = World.generate();
-	                    	ImageView imageView = new ImageView(img);
-	                    	ZoomableScrollPane zm = new ZoomableScrollPane(imageView);
-	                    	Scene sce = new Scene(zm);
-	                    	try {
-								Stage s = new Stage();
-								s.setScene(sce);
-								s.show();
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
+                    	if (result.get() == "Generate Wild Park Area") {
+                            GenerateWildParkArea();
                     	}
                         /*System.out.println("Your choice: " + result.get());
                         Stage stage2 = new Stage();
@@ -983,14 +999,6 @@ public class WildPark extends Application {
 
 
     }
-
-
-
-
-
-
-
-
  
     public static void main(String[] args) {
         launch(args);
