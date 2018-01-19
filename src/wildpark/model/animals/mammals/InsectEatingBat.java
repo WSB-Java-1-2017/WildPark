@@ -78,7 +78,7 @@ public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
 	}
 
 	public void move( Duration time ) {
-		WildParkArea.moveAnimal( this );
+		move( time, getStandardSpeed() );
 	}
 
 	public void proliferate(  ) {

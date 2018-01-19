@@ -97,6 +97,6 @@ public class Horse extends Mammal implements RunningAnimal, BirthGivingAnimal, H
 	@Override
 	public void move(Duration duration) {
 		// TODO Auto-generated method stub
-		//return null;
+//		WildParkArea.moveAnimal( this, getStandardSpeed() );
 	}
 }

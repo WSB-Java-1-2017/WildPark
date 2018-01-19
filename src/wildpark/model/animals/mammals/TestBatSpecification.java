@@ -9,23 +9,23 @@ import java.util.Random;
  * Absract class used to set the particular animal specification parameters.
  */
 public final class TestBatSpecification extends AnimalSpeciesSpecification {
-	private final String NAME = "TestBat";
-	private final float ADULT_WEIGHT = 0.007f;	// weight in kg 
-	private final float NEWBORN_WEIGHT = 0.001f; // in kg
-	private final float FOOD_QUANTITY_REQUIRED_PER_DAY = 0.001f; // in kg
-	private final int MAX_STARVING_DAYS_BEFORE_DEATH = 50;
-	private final int HUNGER_ENERGY_PERCENT = 70; // poniżej tej wartości zwierze poszukuje jedzenia. Powyżej zwierze nie jest zainteresowane jedzeniem 
-	private final float STANDARD_SPEED = 1.5f;	// km/h, sprawdzamy jaką odległość zwierzę standardowo pokonuje w ciągu dnia (w czasie godzin aktywności) i na tej podstawie obliczamy stardard w km/h
-	private final int MAX_SPEED = 40;	// km/h
-	private final int MAX_STAMINA = 100; 	//
-	private final int AVERAGE_SCION_COUNT_IN_LITTER = 1; // średnia liczba potomków w miocie
-	private final int MAX_SCION_COUNT_IN_LITTER = 2;	// na tej podstawie określimy widełki RANDOMa określającego liczbę potomków w danym miocie
-	private final Duration MAX_AGE = Duration.ofDays(20*365); // 20 years
-	private final Duration MIN_BREEDING_AGE = Duration.ofDays(6*30); // minimalny wiek rozrodczy
-	private final Duration MAX_BREEDING_AGE = Duration.ofDays(15*365); // maksymalny wiek rozrodczy
-	private final Duration MAX_AGE_IN_NEST = Duration.ofDays(3*30); // po ilu 
-	private final Duration MIN_SELF_GOVERNMENT_AGE = Duration.ofDays(3*30); // minimalny wiek usamodzielnienia się
-	private int CALORIC_EFFICIENCY_PER_KILO = 1000; // Cal/kg
+	private static final String SPECIES_NAME = "TestBat";
+	private static final float ADULT_WEIGHT = 0.007f;	// weight in kg 
+	private static final float NEWBORN_WEIGHT = 0.001f; // in kg
+	private static final float FOOD_QUANTITY_REQUIRED_PER_DAY = 0.001f; // in kg
+	private static final int MAX_STARVING_DAYS_BEFORE_DEATH = 1;
+	private static final int HUNGER_ENERGY_PERCENT = 70; // poniżej tej wartości zwierze poszukuje jedzenia. Powyżej zwierze nie jest zainteresowane jedzeniem 
+	private static final float STANDARD_SPEED = 1.5f;	// km/h, sprawdzamy jaką odległość zwierzę standardowo pokonuje w ciągu dnia (w czasie godzin aktywności) i na tej podstawie obliczamy stardard w km/h
+	private static final int MAX_SPEED = 40;	// km/h
+	private static final int MAX_STAMINA = 100; 	//
+	private static final int AVERAGE_SCION_COUNT_IN_LITTER = 1; // średnia liczba potomków w miocie
+	private static final int MAX_SCION_COUNT_IN_LITTER = 2;	// na tej podstawie określimy widełki RANDOMa określającego liczbę potomków w danym miocie
+	private static final Duration MAX_AGE = Duration.ofDays(20*365); // 20 years
+	private static final Duration MIN_BREEDING_AGE = Duration.ofDays(6*30); // minimalny wiek rozrodczy
+	private static final Duration MAX_BREEDING_AGE = Duration.ofDays(15*365); // maksymalny wiek rozrodczy
+	private static final Duration MAX_AGE_IN_NEST = Duration.ofDays(3*30); // po ilu 
+	private static final Duration MIN_SELF_GOVERNMENT_AGE = Duration.ofDays(3*30); // minimalny wiek usamodzielnienia się
+	private static int CALORIC_EFFICIENCY_PER_KILO = 1000; // Cal/kg
 
 
 	private static final CellType[] acceptableCellTypes = {
@@ -89,7 +89,7 @@ public final class TestBatSpecification extends AnimalSpeciesSpecification {
             if( acceptsCellType( areaCell.getCellType() ) ) {
                 isAcceptable = true;
             } 
-            System.out.println( "Random cell for " + "InsectEatingBat" + " ----- cellType: " + areaCell.getCellType() + " --- " + isAcceptable );    
+            System.out.println( "Random cell for " + SPECIES_NAME + " ----- cellType: " + areaCell.getCellType() + " --- " + isAcceptable );    
         } while( !isAcceptable );
 
         return areaCell;
@@ -98,7 +98,7 @@ public final class TestBatSpecification extends AnimalSpeciesSpecification {
 
 
 	public String getSPECIES_NAME() {
-		return NAME;
+		return SPECIES_NAME;
 	}
 
 	public float getADULT_WEIGHT() {

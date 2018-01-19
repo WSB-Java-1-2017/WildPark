@@ -111,7 +111,7 @@ public class Elephant extends Mammal implements RunningAnimal, WalkingAnimal, Bi
 	 * @param  cellType [description]
 	 * @return          true if this species accepts the specified cellType (environment)
 	 */
-	public static boolean acceptsCellType( CellType cellType ) {
+	public boolean acceptsCellType( CellType cellType ) {
 		return false;
 	}
 

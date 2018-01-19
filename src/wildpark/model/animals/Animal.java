@@ -105,11 +105,39 @@ extends Meat
 	
 	public abstract void move( Duration time );
 
-	public void move( int x, int y ) {
+	protected void move( Duration time, float speed ) {
+		int currentX = getWildParkAreaCell().getX();
+		int currentY = getWildParkAreaCell().getY();
+
+		int angle, newX, newY;
+		double radians;
+		do {
+			angle = getDirection();
+			System.out.printf( "WildParkArea moveAnimal(): ID %6d   speed: %7.1f    angle: %03d   Original %s\r\n", getId(), speed, angle, getAnimalState().getWildParkAreaCell().toString() );
+
+			radians = Math.toRadians(angle);
+
+			newX = currentX + (int) Math.round( speed * Math.sin(radians) );
+			newY = currentY + (int) Math.round( speed * Math.cos(radians) );			
+
+			System.out.println( "Target: " + newX + ":" + newY );	
+		} while( newX >= WildPark.WILD_PARK_AREA_WIDTH || newX < 0 
+			|| newY >= WildPark.WILD_PARK_AREA_HEIGHT || newY < 0 
+			|| !acceptsCellType( WildPark.getWildParkAreaCell( newX, newY ).getCellType() ) );
+
+		move(newX,newY);		
+	}
+
+
+	protected void move( int x, int y ) {
 		if( getAnimalState().isAlive ) {
 				//Remove animal from current WildParkCell
 
-				System.out.println( "ID: " + getId() + ", " + getAnimalState().toString() );
+				//System.out.println( "ID: " + getId() + ", " + getAnimalState().toString() );
+
+				//System.out.printf( "Animal.move("+x+","+y+"):  ID %6d   %-18s \r\n%s\r\n", getId(), getSPECIES_NAME(), getAnimalState().toString() );
+
+				System.out.printf( "Animal.move("+x+","+y+"):  ID %6d   %-18s \r\n%s\r\n", getId(), getSPECIES_NAME(), getAnimalState().toString() );
 
 				getAnimalState().getWildParkAreaCell().removeAnimal( this );	
 		
@@ -130,6 +158,10 @@ extends Meat
 		return animalSpeciesSpecification;
 	}
 
+	public boolean acceptsCellType( CellType cellType ) {
+		return animalSpeciesSpecification.acceptsCellType( cellType );
+	}
+
 	public float getStandardSpeed() {
 		return animalSpeciesSpecification.getSTANDARD_SPEED();
 	}
@@ -143,8 +175,33 @@ extends Meat
 	}
 
 	public void performTimeStep() {
+		// Loose energy just because of passing time
+		
+		float energyPercent=0;
+		try {
+			energyPercent = 100 / ( getAnimalSpeciesSpecification().getMAX_STARVING_DAYS_BEFORE_DEATH() * 24 );
+		} catch( ArithmeticException e ) {
+			System.out.printf( "Animal.performTimeStep(): %s \r\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx", getAnimalSpeciesSpecification().getSPECIES_NAME()  );
+		}
+
+		getAnimalState().useEnergy( energyPercent );
+
 		move( WildPark.getWildParkTimeStepDuration() );
+
+		// Loose energy on move
+		getAnimalState().useEnergy( energyPercent * 10 );
+
+		getAnimalState().hoursSinceLastMeal = getAnimalState().hoursSinceLastMeal.plus( WildPark.getWildParkTimeStepDuration() );
+
+		if( getAnimalState().energyPercent < getAnimalSpeciesSpecification().getHUNGER_ENERGY_PERCENT() ) { //Zaczyna chudnąć
+			reduceWeight( getAnimalState().getWeight() * energyPercent ); // chudnie procentowo tyle, co traci energii
+			getAnimalState().setWeight( getWeight() );
+		}
 	}
+
+
+
+
 
 }
 

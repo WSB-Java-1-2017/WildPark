@@ -13,12 +13,16 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 import wildpark.model.animals.Animal;
+import javafx.geometry.Insets;
+import wildpark.util.YearsDaysHoursDuration;
 
 public class ReportAnimals {
 
@@ -30,7 +34,7 @@ public class ReportAnimals {
 	 * @param animals Animals list
 	 */
 	ReportAnimals(List<Animal> _animals) {
-		this(_animals, "Animals Report");
+		this(_animals, "Animal List");
 	}
 	/** 
 	 * Opens list view of animals
@@ -44,12 +48,23 @@ public class ReportAnimals {
 	
 	public void show() throws Exception {
 		Stage stage = new Stage(); // Creating a stage (window)
+
+        try {
+            stage.getIcons().add(new Image("wildpark/favicon-32x32.png"));
+        } catch( IllegalArgumentException e ) {
+            System.out.println( "Error loading favicon-32x32.png. Should be in \'wildpark\' directory together with WildPark.class file." );
+            // System.exit(-1);
+        }
+
 		HBox root = new HBox(); // Creating master parent
 		Scene scene = new Scene(root);
 		
 		VBox boxListContainer = new VBox(); // Animals list on the left
 		VBox paneDetailInfoContainer = new VBox(); // Detailed info on the right
+		boxListContainer.setPrefHeight(600);
 		paneDetailInfoContainer.setMinWidth(300);
+
+		paneDetailInfoContainer.setPadding( new Insets(10, 10, 10, 10) );		
 
 		root.getChildren().add(boxListContainer);
 		root.getChildren().add(paneDetailInfoContainer);
@@ -57,15 +72,16 @@ public class ReportAnimals {
 		ListView<Animal> listView = new ListView<Animal>(); // Animal List
 		
 		boxListContainer.getChildren().add(listView);
-		
+		boxListContainer.setVgrow( listView, Priority.ALWAYS );
+
 		Label labelBigName = new Label(); // Big species name label
 		labelBigName.setFont(new Font("Arial", 25));
-		labelBigName.setPrefWidth(400);
+		labelBigName.setPrefWidth(470);
 		labelBigName.setAlignment(Pos.BASELINE_CENTER);
 
 		Label labelDetailInfoName = new Label(); // Big species name label
 		labelDetailInfoName.setFont(new Font("Arial", 13));
-		labelDetailInfoName.setPrefWidth(400);
+		labelDetailInfoName.setPrefWidth(470);
 		//labelDetailInfoName.setAlignment(Pos.BASELINE_CENTER);
 		
 		paneDetailInfoContainer.getChildren().add(labelBigName);
@@ -86,9 +102,12 @@ public class ReportAnimals {
 			@Override
 			public void changed(ObservableValue<? extends Animal> observable, Animal oldAnimal, Animal newAnimal) {
 				labelBigName.setText(newAnimal.getSPECIES_NAME());
-				labelDetailInfoName.setText(" Pos: " + newAnimal.getWildParkAreaCell().getPosition() +
-						"\n Age: " + newAnimal.getAge().toDays()/365 +
-						"\n isAlive: " + newAnimal.getAnimalState().isAlive);
+				//labelDetailInfoName.setText(" Pos: " + newAnimal.getWildParkAreaCell().getPosition() +
+				//		"\n Age: " + newAnimal.getAge().toDays()/365 +
+				//		"\n isAlive: " + newAnimal.getAnimalState().isAlive);
+				labelBigName.setText( newAnimal.getSPECIES_NAME() );
+				YearsDaysHoursDuration age = new YearsDaysHoursDuration( newAnimal.getAge().toHours() );
+				labelDetailInfoName.setText( String.format( "ID: %6d\r\n%s\r\nAge: %03d years %03d days %02d hours\r\n", newAnimal.getId(), newAnimal.getWildParkAreaCell().toString(), age.getYears(), age.getDays(), age.getHours() ) );
 				System.out.println("Changed selection on report list: " + newAnimal.getClass().getSimpleName());
 				/* TODO: Display more information about animals */
 			}
@@ -96,8 +115,9 @@ public class ReportAnimals {
 		
 		stage.setTitle(label);
 		stage.setScene(scene);
-		stage.setMaxWidth(1600);
-		stage.setMaxHeight(900);
+		//stage.setHeight(900);
+		// stage.setMaxWidth(1600);
+		// stage.setMaxHeight(900);
 		stage.show();
 	}
 }

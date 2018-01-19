@@ -28,7 +28,7 @@ public class HorseSpeciesSpecification extends AnimalSpeciesSpecification {
 	public static final Duration MIN_BREEDING_AGE = Duration.ofDays(5 * 365); // DAYS
 	public static final Duration MAX_BREEDING_AGE = Duration.ofDays(25 * 365); // DAYS
 	public static final Duration MAX_AGE_IN_NEST = Duration.ofDays(0 * 365); // DAYS
-	public static final Duration MIN_SELF_GOVERNMENT_AGE = Duration.ofDays(3 * 365); // DAYS
+	public static final Duration MIN_SELF_GOVERNMENT_AGE = Duration.ofDays(10 * 30); // DAYS
 	public static final int CALORIC_EFFICIENCY_PER_KILO = 1750;
 	
 	private static final CellType[] acceptableCellTypes = {
