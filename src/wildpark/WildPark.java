@@ -531,7 +531,7 @@ public class WildPark extends Application {
         final int LION_COUNT = 10;
         final int CROCODILE_COUNT = 10;
         final int POLAR_BEAR_COUNT = 10;
-        final int HORSE_COUNT = 1500;
+        final int HORSE_COUNT = 15;
         final int GIRAFFE_COUNT = 5;
 
         // single animals - pojedyncze egzemplarze:

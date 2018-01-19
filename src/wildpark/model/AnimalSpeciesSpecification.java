@@ -81,10 +81,6 @@ public abstract class AnimalSpeciesSpecification {
 		return false;
 	}
 
-
-
-
-
 	public String toString() {
 		return String.format( "Species Name: %1$s\r\nAdult Weight: %2$8.3f kg\r\n...\r\nStandard Speed: %6$5.1f km/h\r\n", SPECIES_NAME, ADULT_WEIGHT, FOOD_QUANTITY_REQUIRED_PER_DAY, MAX_STARVING_DAYS_BEFORE_DEATH, HUNGER_ENERGY_PERCENT, STANDARD_SPEED  );
 	}
@@ -106,5 +102,4 @@ public abstract class AnimalSpeciesSpecification {
 	public abstract Duration getMAX_AGE_IN_NEST(); // specifies the number of days/hours after which a young animal leaves the nest 
 	public abstract Duration getMIN_SELF_GOVERNMENT_AGE(); // minimalny wiek usamodzielnienia się
 	public abstract int getCALORIC_EFFICIENCY_PER_KILO();
-
 }

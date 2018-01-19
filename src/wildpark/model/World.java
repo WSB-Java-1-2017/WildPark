@@ -14,24 +14,56 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
 public class World {
-	public static int WIDTH = 200;
-	public static int HEIGHT = 100;
+	public static int WIDTH = 50; // Pixels, width of generated map, affected by scale
+	public static int HEIGHT = 20; // Pixels, height of generated map, affected by scale
 
-	public static long SEED = 0;
+	public static long SEED = 0; // Generation seed
+	private static int PIXEL_SIZE = 32; // Size of one pixel, ie. width = 200, scale = 2 then actual width = 400 pixels
 
-	public static double DISTANCE_EXPO = 1.33f;
-	public static double ELEVATION_SCALE = 0.007f;
-
-	public static int DISTANCE_CALCULATION_METHOD = 3;
+	public static double DISTANCE_EXPO = 1.0f; // The height of our island, higher means more land
+	public static double ELEVATION_SCALE = 0.01f; // Overall scale of map, the lower the more rounded edges, the higher the more ragged edges
 
 	static OpenSimplexNoise openSimplexNoise;
+
+	public enum MapBase {
+		CIRCLE, SQUARE, SLOPE
+	}
+
+	private static MapBase mapBase = MapBase.SLOPE;
+
+	/**
+	 * World can be generated using different calculation methods, such that it
+	 * generates the island as a CIRCLE, a SQUARE or a SLOPE
+	 */
+	public static void setMapBase(MapBase mapBase) {
+		World.mapBase = mapBase;
+	}
+
+	public static void setSize(int width, int height) {
+		World.WIDTH = width;
+		World.HEIGHT = height;
+	}
+
+	/**
+	 * Set size of one pixel, ie. width = 200, scale = 2 then actual width = 400
+	 * pixels
+	 * 
+	 * @param scale
+	 */
+	public static void setScale(int pixelSize) {
+		if (pixelSize > 0) {
+			World.PIXEL_SIZE = pixelSize;
+		} else {
+			World.PIXEL_SIZE = 1;
+		}
+	}
 
 	public static Image generate() {
 
 		openSimplexNoise = new OpenSimplexNoise(SEED);
 
 		// double[][] elevation = new double[WIDTH][HEIGHT];
-		BufferedImage worldImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+		BufferedImage worldImg = new BufferedImage(WIDTH * PIXEL_SIZE, HEIGHT * PIXEL_SIZE, BufferedImage.TYPE_INT_RGB);
 
 		int centerX = WIDTH / 2;
 		int centerY = HEIGHT / 2;
@@ -44,11 +76,11 @@ public class World {
 				double disty = centerY - y;
 
 				double d = -1;
-				if (DISTANCE_CALCULATION_METHOD == 1)
+				if (mapBase == MapBase.SQUARE)
 					d = Math.hypot(distx, disty) / maxDistance;
-				else if (DISTANCE_CALCULATION_METHOD == 2)
+				else if (mapBase == MapBase.CIRCLE)
 					d = Math.max(Math.abs(distx), Math.abs(disty)) / maxDistance;
-				else if (DISTANCE_CALCULATION_METHOD == 3)
+				else if (mapBase == MapBase.SLOPE)
 					d = 1 - (1.0 * x / WIDTH);
 
 				if (DISTANCE_EXPO != 1.0 && d != -1)
@@ -69,17 +101,17 @@ public class World {
 				// System.out.println(d);
 
 				if (e < .2)
-					worldImg.setRGB(x, y, new Color(29, 37, 186).getRGB()); // OCEAN
+					fillPixel(worldImg, x, y, new Color(29, 37, 186)); // OCEAN
 				else if (e < .30)
-					worldImg.setRGB(x, y, new Color(30, 42, 255).getRGB()); // OCEAN
+					fillPixel(worldImg, x, y, new Color(30, 42, 255));// OCEAN
 				else if (e < .315)
-					worldImg.setRGB(x, y, Color.YELLOW.getRGB()); // BEACH
+					fillPixel(worldImg, x, y, new Color(255, 255, 71)); // BEACH
 				else if (e < .40)
-					worldImg.setRGB(x, y, new Color(51, 204, 0).getRGB()); // LAND 1
-				else if (e < .55)
-					worldImg.setRGB(x, y, new Color(45, 179, 0).getRGB()); // LAND 2
+					fillPixel(worldImg, x, y, new Color(51, 204, 0));// LAND 1
+				else if (e < .65)
+					fillPixel(worldImg, x, y, new Color(45, 179, 0));// LAND 2
 				else
-					worldImg.setRGB(x, y, Color.ORANGE.getRGB()); // MOUNTAINS
+					fillPixel(worldImg, x, y, new Color(112, 92, 58));// MOUNTAINS
 			}
 		}
 
@@ -90,10 +122,12 @@ public class World {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		worldImg.getScaledInstance(WIDTH*8, HEIGHT*8, 0);
-		//java.awt.Image i = worldImg.getScaledInstance(WIDTH*8, HEIGHT*8, 0);
+		// worldImg.getScaledInstance(WIDTH*8, HEIGHT*8, 0);
+		// java.awt.Image i = worldImg.getScaledInstance(WIDTH*8, HEIGHT*8, 0);
 		return SwingFXUtils.toFXImage(worldImg, null);
 	}
+
+	// public Image
 
 	public static Image getImage(int[][] worldArray) {
 
@@ -118,5 +152,17 @@ public class World {
 
 	static double noise(double x, double y) {
 		return (openSimplexNoise.eval(x, y) / 2.0f + 0.5f);
+	}
+
+	static void fillPixel(BufferedImage w, int x, int y, Color c) {
+		if (PIXEL_SIZE == 1) {
+			w.setRGB(x, y, c.getRGB());
+		} else {
+			for (int i = 0; i < PIXEL_SIZE; i++) {
+				for (int j = 0; j < PIXEL_SIZE; j++) {
+					w.setRGB(x*PIXEL_SIZE + j, y*PIXEL_SIZE + i, c.getRGB());
+				}
+			}
+		}
 	}
 }
