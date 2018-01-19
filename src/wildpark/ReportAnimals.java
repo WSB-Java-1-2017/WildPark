@@ -71,27 +71,30 @@ public class ReportAnimals {
 		paneDetailInfoContainer.getChildren().add(labelBigName);
 		paneDetailInfoContainer.getChildren().add(labelDetailInfoName);
 		
-		listView.setMinWidth(300);
-		listView.setMaxWidth(300);
+		listView.setMinWidth(350);
+		listView.setMaxWidth(350);
 		
-		ObservableList<Animal> oList = FXCollections.observableArrayList();
+		//ObservableList<Animal> oList = FXCollections.observableArrayList();
 		for (Animal a : animals) {
-			oList.add(a);
+			//oList.add(a);
+			listView.getItems().add(a);
 		}
 		
-		listView.setItems(oList);
+		//listView.setItems(oList);
 		
 		listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Animal>() {
 			@Override
 			public void changed(ObservableValue<? extends Animal> observable, Animal oldAnimal, Animal newAnimal) {
 				labelBigName.setText(newAnimal.getSPECIES_NAME());
-				labelDetailInfoName.setText(" Pos: " + newAnimal.getWildParkAreaCell().getPosition() + "\n Age:" + newAnimal.getAge().toHours() + "\n");
+				labelDetailInfoName.setText(" Pos: " + newAnimal.getWildParkAreaCell().getPosition() +
+						"\n Age: " + newAnimal.getAge().toDays()/365 +
+						"\n isAlive: " + newAnimal.getAnimalState().isAlive);
 				System.out.println("Changed selection on report list: " + newAnimal.getClass().getSimpleName());
 				/* TODO: Display more information about animals */
 			}
 		});
 		
-		stage.setTitle("Animals Report");
+		stage.setTitle(label);
 		stage.setScene(scene);
 		stage.setMaxWidth(1600);
 		stage.setMaxHeight(900);

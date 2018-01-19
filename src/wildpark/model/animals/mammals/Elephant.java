@@ -61,10 +61,7 @@ public class Elephant extends Mammal implements IRunningAnimal, IWalkingAnimal, 
  * Mammal
  */
 	
-	
-	public Food ssackMilk() {
-		return null;
-}
+
 	
 	public Food swallow( Food food ) {
 		return null;
