@@ -1,3 +1,4 @@
+/**
 package wildpark.model.animals.mammals;
 import java.time.Duration;
 import wildpark.model.*;
@@ -54,11 +55,7 @@ public final class HyenaSpecification extends AnimalSpeciesSpecification {
 			return edibleFoodTypes;
 		}
 
-		/**
-	 	 * Determines if this species eats particular type of Food/Meat/Animal/Plant
-		 * @param  foodType FoodType object 
-		 * @return          boolean - true if this species eats given FoodType
-		 */
+		
 		public static boolean eatsFoodType( FoodType foodType ) {
 			boolean eats = false;
 			for( FoodType type : edibleFoodTypes ) {
@@ -157,3 +154,4 @@ public final class HyenaSpecification extends AnimalSpeciesSpecification {
 			return CALORIC_EFFICIENCY_PER_KILO;
 		}	
 }
+*/
