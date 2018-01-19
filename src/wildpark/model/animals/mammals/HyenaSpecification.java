@@ -8,22 +8,22 @@ import wildpark.model.*;
 
 public final class HyenaSpecification extends AnimalSpeciesSpecification {
 	private final String NAME = "Hyena";
-	private final float ADULT_WEIGHT =63f;	// weight in kg 
+	private final float ADULT_WEIGHT =63f;
 	private final float NEWBORN_WEIGHT = 70f; // in kg
-	private final float FOOD_QUANTITY_REQUIRED_PER_DAY = 4f; // in kg
+	private final float FOOD_QUANTITY_REQUIRED_PER_DAY = 4f;
 	private final int MAX_STARVING_DAYS_BEFORE_DEATH = 5;
-	private final int HUNGER_ENERGY_PERCENT = 70; // poniР•С�ej tej wartoР•вЂєci zwierze poszukuje jedzenia. PowyР•С�ej zwierze nie jest zainteresowane jedzeniem 
-	private final float STANDARD_SPEED = 10;	// km/h, sprawdzamy jakР”вЂ¦ odlegР•вЂљoР•вЂєР”вЂЎ zwierzР”в„ў standardowo pokonuje w ciР”вЂ¦gu dnia (w czasie godzin aktywnoР•вЂєci) i na tej podstawie obliczamy stardard w km/h
-	private final int MAX_SPEED = 60;	// km/h
-	private final int MAX_STAMINA = 100; 	//
-	private final int AVERAGE_SCION_COUNT_IN_LITTER = 4; // Р•вЂєrednia liczba potomkР“С–w w miocie
-	private final int MAX_SCION_COUNT_IN_LITTER = 8;	// na tej podstawie okreР•вЂєlimy wideР•вЂљki RANDOMa okreР•вЂєlajР”вЂ¦cego liczbР”в„ў potomkР“С–w w danym miocie
+	private final int HUNGER_ENERGY_PERCENT = 70;
+	private final float STANDARD_SPEED = 10;	
+	private final int MAX_SPEED = 60;	
+	private final int MAX_STAMINA = 100; 	
+	private final int AVERAGE_SCION_COUNT_IN_LITTER = 4; 
+	private final int MAX_SCION_COUNT_IN_LITTER = 8;	
 	private final Duration MAX_AGE = Duration.ofDays(25*365); 
-	private final Duration MIN_BREEDING_AGE = Duration.ofDays(2*365); // minimalny wiek rozrodczy
-	private final Duration MAX_BREEDING_AGE = Duration.ofDays(20*365); // maksymalny wiek rozrodczy
-	private final Duration MAX_AGE_IN_NEST = Duration.ofDays(2*365); // po ilu 
-	private final Duration MIN_SELF_GOVERNMENT_AGE = Duration.ofDays(2*365); // minimalny wiek usamodzielnienia siР”в„ў
-	private int CALORIC_EFFICIENCY_PER_KILO = 2320; // Cal/kg
+	private final Duration MIN_BREEDING_AGE = Duration.ofDays(2*365); 
+	private final Duration MAX_BREEDING_AGE = Duration.ofDays(20*365);
+	private final Duration MAX_AGE_IN_NEST = Duration.ofDays(2*365);
+	private final Duration MIN_SELF_GOVERNMENT_AGE = Duration.ofDays(2*365); 
+	private int CALORIC_EFFICIENCY_PER_KILO = 2320; 
 	
 	
 	private static final CellType[] acceptableCellTypes = {
