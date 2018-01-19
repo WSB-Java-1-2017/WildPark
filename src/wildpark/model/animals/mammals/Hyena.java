@@ -1,20 +1,15 @@
-/**package wildpark.model.animals.mammals;
+/**
+package wildpark.model.animals.mammals;
 
 import java.time.Duration;
-import wildpark.model.Food;
-import wildpark.model.Gender;
-import wildpark.model.Meat;
-import wildpark.model.Movement;
-import wildpark.model.WildParkAreaCell;
+
 import wildpark.model.*;
 import wildpark.model.animals.Animal;
-import wildpark.model.animals.NocturnalAnimal;
-import wildpark.model.animals.Predator;
 import wildpark.model.animals.mammals.*;
 import wildpark.model.animals.*;
 
-public class Hyena extends Mammal implements RunningAnimal, Scavenger, ChewingAnimal, FloatingAnimal, MetaturnalAnimal {
-
+public class Hyena extends Mammal implements IRunningAnimal, IChewingAnimal, IFloatingAnimal, IMetaturnalAnimal {
+	private static final AnimalSpeciesSpecification animalSpeciesSpecification = new HyenaSpecification();
 
 	public Hyena(AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell,
 			boolean isNewborn) {
@@ -31,12 +26,12 @@ public class Hyena extends Mammal implements RunningAnimal, Scavenger, ChewingAn
 	}
 	
 	
-	public AnimalSpeciesSpecification.AcceptableCellType[] getAcceptableCellTypes() {
-        return animalSpeciesSpecification.getAcceptableCellTypes();
+	public CellType[] getAcceptableCellTypes() {
+        return HyenaSpecification.getAcceptableCellTypes();
    }
 	
 	public boolean acceptsCellType( CellType cellType ) {
-		return InsectEatingBatSpecification.acceptsCellType( cellType );
+		return HyenaSpecification.acceptsCellType( cellType );
 	}
 
 	public String getSPECIES_NAME() {
@@ -89,5 +84,16 @@ public class Hyena extends Mammal implements RunningAnimal, Scavenger, ChewingAn
 		return null;
 	}
 
+	@Override
+	public boolean isMetaturnal() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Movement floatOnWater(float time) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 */
