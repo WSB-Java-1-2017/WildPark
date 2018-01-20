@@ -565,7 +565,7 @@ public class WildPark extends Application {
         final int POLAR_BEAR_COUNT = 10;
         final int HORSE_COUNT = 15;
         final int GIRAFFE_COUNT = 5;
-
+        final int EAGLE_COUNT = 30;
         // single animals - pojedyncze egzemplarze:
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
             Animal bat = new InsectEatingBat();
@@ -573,6 +573,9 @@ public class WildPark extends Application {
 
         // A herd/pack in a single WildParkCell- stado w jednej komórce:
         WildParkAreaCell areaCell = InsectEatingBatSpecification.selectRandomCell();
+        for( int i=0; i<EAGLE_COUNT; i++ ) {
+            Animal eagle = new Eagle();
+        }
         for( int i=0; i<5; i++ ) {
             Animal bat = new InsectEatingBat( areaCell, false );
         }
@@ -590,6 +593,7 @@ public class WildPark extends Application {
         for(int i = 0; i < GIRAFFE_COUNT; i++) {
         	new Giraffe();
         }
+        
         //WildParkAreaCell areaCell = InsectEatingBatSpecification.selectRandomCell();
 
         /*WildParkAreaCell areaCell = new WildParkAreaCell("Cell1");
