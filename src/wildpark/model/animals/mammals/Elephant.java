@@ -8,7 +8,7 @@ import wildpark.model.*;
 import wildpark.model.animals.*;
 import wildpark.model.animals.mammals.*;
 
-public class Elephant extends Mammal implements IRunningAnimal, IWalkingAnimal, IBirthGivingAnimal, IHerbivorousAnimal, IDiurnalAnimal, IFruitEatingAnimal {
+public class Elephant extends Mammal implements RunningAnimal, WalkingAnimal, BirthGivingAnimal, HerbivorousAnimal, DiurnalAnimal, FruitEatingAnimal {
 	public Elephant(AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell,
 			boolean isNewborn) {
 		super(animalSpeciesSpecification, wildParkAreaCell, isNewborn);
@@ -61,10 +61,7 @@ public class Elephant extends Mammal implements IRunningAnimal, IWalkingAnimal, 
  * Mammal
  */
 	
-	
-	public Food ssackMilk() {
-		return null;
-}
+
 	
 	public Food swallow( Food food ) {
 		return null;
@@ -114,7 +111,7 @@ public class Elephant extends Mammal implements IRunningAnimal, IWalkingAnimal, 
 	 * @param  cellType [description]
 	 * @return          true if this species accepts the specified cellType (environment)
 	 */
-	public static boolean acceptsCellType( CellType cellType ) {
+	public boolean acceptsCellType( CellType cellType ) {
 		return false;
 	}
 

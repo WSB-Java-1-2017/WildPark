@@ -8,14 +8,10 @@ package wildpark;
 
 import java.util.List;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Data;
-import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import wildpark.model.animals.Animal;
  
@@ -79,12 +75,20 @@ public class Diagram01{
     	
     	//Stage stage = new Stage();
         stage.setTitle("Wild Park Diagram Beta");
+
+        try {
+            stage.getIcons().add(new Image("wildpark/favicon-32x32.png"));
+        } catch( IllegalArgumentException e ) {
+            System.out.println( "Error loading favicon-32x32.png. Should be in \'wildpark\' directory together with WildPark.class file." );
+            // System.exit(-1);
+        }
+        
         //defining the axes
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
         
-        //xAxis.tickLabelFormatterProperty() = NumberAxis.DefaultFormatter;
         xAxis.setLabel("Hours");
+        
         //creating the chart
         final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
         lineChart.setCreateSymbols(false);

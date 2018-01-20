@@ -5,12 +5,12 @@ import java.time.Duration;
 import wildpark.model.AnimalSpeciesSpecification;
 import wildpark.model.Food;
 import wildpark.model.WildParkAreaCell;
-import wildpark.model.animals.IBirthGivingAnimal;
-import wildpark.model.animals.IChewingAnimal;
-import wildpark.model.animals.IMetaturnalAnimal;
+import wildpark.model.animals.BirthGivingAnimal;
+import wildpark.model.animals.ChewingAnimal;
+import wildpark.model.animals.MetaturnalAnimal;
 import wildpark.model.animals.Mammal;
 
-public class GuineaPig extends Mammal implements IBirthGivingAnimal, IMetaturnalAnimal, IChewingAnimal {
+public class GuineaPig extends Mammal implements BirthGivingAnimal, MetaturnalAnimal, ChewingAnimal {
 
 	
 	public GuineaPig(AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell,

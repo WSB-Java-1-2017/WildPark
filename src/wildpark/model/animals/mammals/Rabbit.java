@@ -3,7 +3,7 @@ package wildpark.model.animals.mammals;
 import wildpark.model.*;
 import wildpark.model.animals.*;
 
-public abstract class Rabbit extends Mammal implements IFloatingAnimal, INestingAnimal, IFlyingAnimal
+public abstract class Rabbit extends Mammal implements FloatingAnimal, NestingAnimal, FlyingAnimal
 {
 	public Rabbit( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
 		super( animalSpeciesSpecification, wildParkAreaCell, isNewborn );

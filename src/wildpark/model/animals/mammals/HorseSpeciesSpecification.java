@@ -14,6 +14,7 @@ public class HorseSpeciesSpecification extends AnimalSpeciesSpecification {
 	public static final Object ADULT_WEIGHT = null;
 	
 	public static final String SPECIES_NAME = "Horse";
+	public static final String WIKI_URL = "https://en.wikipedia.org/wiki/Horse";
 	public static final float FOOD_QUANTITY_REQUIRED_PER_HOUR = 9 / 24f;// KG
 	public static final int MAX_STARVING_HOURS_BEFORE_DEATH = 14 * 24; // HOURS
 	public static final int STANDARD_SPEED = 7; // KMH
@@ -28,7 +29,7 @@ public class HorseSpeciesSpecification extends AnimalSpeciesSpecification {
 	public static final Duration MIN_BREEDING_AGE = Duration.ofDays(5 * 365); // DAYS
 	public static final Duration MAX_BREEDING_AGE = Duration.ofDays(25 * 365); // DAYS
 	public static final Duration MAX_AGE_IN_NEST = Duration.ofDays(0 * 365); // DAYS
-	public static final Duration MIN_SELF_GOVERNMENT_AGE = Duration.ofDays(3 * 365); // DAYS
+	public static final Duration MIN_SELF_GOVERNMENT_AGE = Duration.ofDays(10 * 30); // DAYS
 	public static final int CALORIC_EFFICIENCY_PER_KILO = 1750;
 	
 	private static final CellType[] acceptableCellTypes = {
