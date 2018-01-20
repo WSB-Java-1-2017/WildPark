@@ -50,6 +50,7 @@ import wildpark.model.animals.mammals.*;
 import wildpark.model.animals.birds.*;
 import wildpark.model.animals.reptiles.*;
 //import wildpark.model.animals.fish.*;
+import wildpark.world.World;
 
 public class WildPark extends Application {
     
@@ -631,6 +632,8 @@ public class WildPark extends Application {
         Image img = World.generate();
         ImageView imageView = new ImageView(img);
         ZoomableScrollPane zm = new ZoomableScrollPane(imageView);
+        zm.setVvalue(0.5);
+        zm.setHvalue(0.5);
         Scene sce = new Scene(zm);
         try {
             Stage s = new Stage();

@@ -1,29 +1,30 @@
 /**
  * @author Xtry333
  */
-package wildpark.model;
+package wildpark.world;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
 public class World {
-	public static int WIDTH = 50; // Pixels, width of generated map, affected by scale
-	public static int HEIGHT = 20; // Pixels, height of generated map, affected by scale
+	public static int WIDTH = 200; // Pixels, width of generated map, affected by scale
+	public static int HEIGHT = 100; // Pixels, height of generated map, affected by scale
 
 	public static long SEED = 0; // Generation seed
 	private static int PIXEL_SIZE = 32; // Size of one pixel, ie. width = 200, scale = 2 then actual width = 400 pixels
 
 	public static double DISTANCE_EXPO = 1.0f; // The height of our island, higher means more land
-	public static double ELEVATION_SCALE = 0.01f; // Overall scale of map, the lower the more rounded edges, the higher the more ragged edges
+	public static double ELEVATION_SCALE = 0.01f; // Overall scale of map, the lower the more rounded edges, the higher
+													// the more ragged edges
 
 	static OpenSimplexNoise openSimplexNoise;
+
+	static List<Biome> biomes;
 
 	public enum MapBase {
 		CIRCLE, SQUARE, SLOPE
@@ -59,6 +60,17 @@ public class World {
 	}
 
 	public static Image generate() {
+		if (biomes == null) {
+			biomes = new ArrayList<Biome>();
+			biomes.add(new Biome("Ocean", new Color(29, 37, 186), .2));
+			biomes.add(new Biome("Shallow", new Color(30, 42, 255), .3));
+			biomes.add(new Biome("Beach", new Color(255, 255, 71), .315));
+			biomes.add(new Biome("Plains", new Color(51, 204, 0), .40));
+			biomes.add(new Biome("Light Forest", new Color(50, 190, 0), .50));
+			biomes.add(new Biome("Forest", new Color(45, 179, 0), .65));
+			biomes.add(new Biome("Mountain", new Color(112, 92, 58), .9));
+			biomes.add(new Biome("Sky Mountain", new Color(0, 195, 255), 1.0));
+		}
 
 		openSimplexNoise = new OpenSimplexNoise(SEED);
 
@@ -100,28 +112,30 @@ public class World {
 				// int eI = (int)(e * 255);
 				// System.out.println(d);
 
-				if (e < .2)
-					fillPixel(worldImg, x, y, new Color(29, 37, 186)); // OCEAN
-				else if (e < .30)
-					fillPixel(worldImg, x, y, new Color(30, 42, 255));// OCEAN
-				else if (e < .315)
-					fillPixel(worldImg, x, y, new Color(255, 255, 71)); // BEACH
-				else if (e < .40)
-					fillPixel(worldImg, x, y, new Color(51, 204, 0));// LAND 1
-				else if (e < .65)
-					fillPixel(worldImg, x, y, new Color(45, 179, 0));// LAND 2
-				else
-					fillPixel(worldImg, x, y, new Color(112, 92, 58));// MOUNTAINS
+				/*
+				 * if (e < .2) fillPixel(worldImg, x, y, new Color(29, 37, 186)); // OCEAN else
+				 * if (e < .30) fillPixel(worldImg, x, y, new Color(30, 42, 255));// OCEAN else
+				 * if (e < .315) fillPixel(worldImg, x, y, new Color(255, 255, 71)); // BEACH
+				 * else if (e < .40) fillPixel(worldImg, x, y, new Color(51, 204, 0));// LAND 1
+				 * else if (e < .65) fillPixel(worldImg, x, y, new Color(45, 179, 0));// LAND 2
+				 * else fillPixel(worldImg, x, y, new Color(112, 92, 58));// MOUNTAINS
+				 */
+				for (Biome biome : biomes) { // We iterate through each layer and set our colors depending on elevation
+					if (biome.isHeightDependant()) {
+						if (e >= biome.getMinHeight() && e <= biome.getMaxHeight()) {
+							fillPixel(worldImg, x, y, biome.getColor());
+							break;
+						}
+					}
+				}
 			}
 		}
 
-		File file = new File("map.png");
-		try {
-			ImageIO.write(worldImg, "png", file);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		/*
+		 * File file = new File("map.png"); try { ImageIO.write(worldImg, "png", file);
+		 * } catch (IOException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); }
+		 */
 		// worldImg.getScaledInstance(WIDTH*8, HEIGHT*8, 0);
 		// java.awt.Image i = worldImg.getScaledInstance(WIDTH*8, HEIGHT*8, 0);
 		return SwingFXUtils.toFXImage(worldImg, null);
@@ -160,7 +174,7 @@ public class World {
 		} else {
 			for (int i = 0; i < PIXEL_SIZE; i++) {
 				for (int j = 0; j < PIXEL_SIZE; j++) {
-					w.setRGB(x*PIXEL_SIZE + j, y*PIXEL_SIZE + i, c.getRGB());
+					w.setRGB(x * PIXEL_SIZE + j, y * PIXEL_SIZE + i, c.getRGB());
 				}
 			}
 		}

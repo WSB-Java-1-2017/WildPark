@@ -1,4 +1,4 @@
-package wildpark.model;
+package wildpark.world;
 /*
  * OpenSimplex Noise in Java.
  * by Kurt Spencer
