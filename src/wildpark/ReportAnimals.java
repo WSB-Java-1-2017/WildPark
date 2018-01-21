@@ -72,7 +72,7 @@ public class ReportAnimals {
 		ListView<Animal> listView = new ListView<Animal>(); // Animal List
 		
 		boxListContainer.getChildren().add(listView);
-		boxListContainer.setVgrow( listView, Priority.ALWAYS );
+		VBox.setVgrow( listView, Priority.ALWAYS );
 
 		Label labelBigName = new Label(); // Big species name label
 		labelBigName.setFont(new Font("Arial", 25));

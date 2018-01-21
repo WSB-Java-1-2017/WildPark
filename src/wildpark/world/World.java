@@ -16,18 +16,19 @@ import wildpark.model.Coords;
 public class World {
 	public static int WIDTH = 200; // Pixels, width of generated map, affected by scale
 	public static int HEIGHT = 100; // Pixels, height of generated map, affected by scale
-	
+
 	public static int OFFSETX = 0; // Pixels, width of generated map, affected by scale
 	public static int OFFSETY = 0; // Pixels, height of generated map, affected by scale
-	
+
 	public static long SEED = 0; // Generation seed
 	private static int PIXEL_SIZE = 32; // Size of one pixel, ie. width = 200, scale = 2 then actual width = 400 pixels
 
 	public static double DISTANCE_EXPO = 1.0f; // The height of our island, higher means more land
-	public static double ELEVATION_SCALE = 0.01f; // Overall scale of map, the lower the more rounded edges and zoomed in terrain,
+	public static double ELEVATION_SCALE = 0.01f; // Overall scale of map, the lower the more rounded edges and zoomed
+													// in terrain,
 													// the higher the more ragged edges and zoomed out terrain
-	//public boolean isInfinite = true;
-	
+	// public boolean isInfinite = true;
+
 	static OpenSimplexNoise openSimplexNoise;
 
 	static List<Biome> biomes;
@@ -37,11 +38,11 @@ public class World {
 	}
 
 	private static MapBase mapBase = MapBase.INFINITE;
-	
+
 	private static double[][] elevation;
-	
+
 	private static Biome riverBiome = new Biome("River", Color.BLUE);
-	
+
 	public static double[][] getTerrain() {
 		return elevation;
 	}
@@ -58,12 +59,12 @@ public class World {
 		World.WIDTH = width;
 		World.HEIGHT = height;
 	}
-	
+
 	public static void setOffset(int offsetX, int offsetY) {
 		World.OFFSETX = offsetX;
 		World.OFFSETY = offsetY;
 	}
-	
+
 	/**
 	 * Set size of one pixel, ie. width = 200, scale = 2 then actual width = 400
 	 * pixels
@@ -99,7 +100,10 @@ public class World {
 		int centerX = WIDTH / 2;
 		int centerY = HEIGHT / 2;
 		double maxDistance = Math.hypot(centerX, centerY);
-
+		
+		/**
+		 * TERRAIN GENERATION BELOW
+		 */
 		for (int y = 0; y < HEIGHT; y++) {
 			for (int x = 0; x < WIDTH; x++) {
 				double nx = x * ELEVATION_SCALE, ny = y * ELEVATION_SCALE;
@@ -127,7 +131,7 @@ public class World {
 					e = (e + 0.05) * (1 - 1.00 * Math.pow(d, 2.00));
 
 				// e = Math.pow(e, 4.00f);
-				 elevation[x][y] = e;
+				elevation[x][y] = e;
 				// int eI = (int)(e * 255);
 				// System.out.println(d);
 
@@ -149,35 +153,42 @@ public class World {
 				}
 			}
 		}
-		
-		Random apple = new Random(SEED);
-		for (int rivers = 0; rivers < 10; rivers++) {
-		Coords riverStart = new Coords(apple.nextInt(WIDTH), apple.nextInt(HEIGHT));
-		fillPixel(worldImg, riverStart, riverBiome.getColor());
-		Coords riverNextPoint = riverStart;
-		double riverNextPointElevation = 1;
-		try {
-			for(int i = 0; i < 100; i++) {
-				beginLoop:
-				for(int j = -1; j <= 1; j++) {
-					for(int k = -1; k <= 1; k++) {
-						if (!(j == 0 && k == 0)) {
-							if (elevation[riverNextPoint.getX() + k][riverNextPoint.getY() + j] <= riverNextPointElevation) {
-								riverNextPointElevation = elevation[riverNextPoint.getX() + k][riverNextPoint.getY() + j];
-								riverNextPoint = new Coords(riverNextPoint.getX() + k, riverNextPoint.getY() + j);
-								break beginLoop;
+
+		/**
+		 * RIVER GENERATION ALPHA BELOW
+		 */
+		{
+			Random apple = new Random(SEED);
+			for (int rivers = 0; rivers < 10; rivers++) {
+				Coords riverStart = new Coords(apple.nextInt(WIDTH), apple.nextInt(HEIGHT));
+				fillPixel(worldImg, riverStart, riverBiome.getColor());
+				Coords riverNextPoint = riverStart;
+				double riverNextPointElevation = 1;
+				try {
+					for (int i = 0; i < 100; i++) {
+						beginLoop: for (int j = -1; j <= 1; j++) {
+							for (int k = -1; k <= 1; k++) {
+								if (!(j == 0 && k == 0)) {
+									if (elevation[riverNextPoint.getX() + k][riverNextPoint.getY()
+											+ j] <= riverNextPointElevation) {
+										riverNextPointElevation = elevation[riverNextPoint.getX() + k][riverNextPoint
+												.getY() + j];
+										riverNextPoint = new Coords(riverNextPoint.getX() + k,
+												riverNextPoint.getY() + j);
+										break beginLoop;
+									}
+								}
 							}
 						}
+						System.out.println(riverNextPoint);
+						fillPixel(worldImg, riverNextPoint, riverBiome.getColor());
 					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				System.out.println(riverNextPoint);
-				fillPixel(worldImg, riverNextPoint, riverBiome.getColor());
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}}
-		
+		}
 		/*
 		 * File file = new File("map.png"); try { ImageIO.write(worldImg, "png", file);
 		 * } catch (IOException e) { // TODO Auto-generated catch block
