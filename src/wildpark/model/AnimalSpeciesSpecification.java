@@ -8,19 +8,23 @@ import wildpark.model.*;
  */
 public abstract class AnimalSpeciesSpecification {
 	private String SPECIES_NAME;
-	private float ADULT_WEIGHT; // weight in kg 
-	private float NEWBORN_WEIGHT; // in kg
+	private float ADULT_WEIGHT; // average adult weight in kg 
+	private float NEWBORN_WEIGHT; // average newborn in kg
 	private float FOOD_QUANTITY_REQUIRED_PER_DAY; // in kg 
 	private int MAX_STARVING_DAYS_BEFORE_DEATH; 
-	private int HUNGER_ENERGY_PERCENT; // [%] below this value the animal starts seeking food. Above this level the animal is not interested in food. 
+	private float ENERGY_LOSS_ON_IDLE; //= (float) 100 / (MAX_STARVING_DAYS_BEFORE_DEATH * 24); // [%] Energy lost by this species even without any move - just because of passing time
+	private float ENERGY_LOSS_ON_STANDARD_SPEED_MOVE; //= (float) 100/24; // [%] Energy lost by this species while moving with STANDARD_SPEED for 1 hour (assumption - 100% energy == 24 hrs of moving)	
 	private float STANDARD_SPEED;	// [km/h] sprawdzamy jaką odległość zwierzę standardowo pokonuje w ciągu dnia (w czasie godzin aktywności) i na tej podstawie obliczamy stardard w km/h
 	private int MAX_SPEED;	// [km/h]
-	private int MAX_STAMINA; 
+	private int MAX_STAMINA; // [sec] The abity to sustain MAX_SPEED for the specified time.
+	private int HUNGER_ENERGY_PERCENT; // [%] below this value the animal starts seeking food. Above this level the animal is not interested in food. 
 	private int AVERAGE_SCION_COUNT_IN_LITTER; // średnia liczba potomków w miocie
 	private int MAX_SCION_COUNT_IN_LITTER;	// na tej podstawie określimy widełki RANDOMa określającego liczbę potomków w danym miocie
 	private Duration MAX_AGE; //[days]
 	private Duration MIN_BREEDING_AGE; // [days] minimalny wiek rozrodczy
 	private Duration MAX_BREEDING_AGE; // [days] maksymalny wiek rozrodczy
+	private Duration PROLIFERATION_DURATION; // [days] Duration of pregnancy or bearing and incubating eggs - czas trwania ciąży lub znoszenia i wysiadywania jaj
+	//
 	private Duration MAX_AGE_IN_NEST; // [days] specifies the number of days/hours after which a young animal leaves the nest 
 	private Duration MIN_SELF_GOVERNMENT_AGE; // [days] minimalny wiek usamodzielnienia się
 	private float CALORIC_EFFICIENCY_PER_KILO;
@@ -94,6 +98,8 @@ public abstract class AnimalSpeciesSpecification {
 	public abstract float getNEWBORN_WEIGHT(); // in kg
 	public abstract float getFOOD_QUANTITY_REQUIRED_PER_DAY(); // in kg 
 	public abstract int getMAX_STARVING_DAYS_BEFORE_DEATH(); 
+	public abstract float getENERGY_LOSS_ON_IDLE();
+	public abstract float getENERGY_LOSS_ON_STANDARD_SPEED_MOVE();
 	public abstract int getHUNGER_ENERGY_PERCENT(); // below this value the animal starts seeking food. Above this level the animal is not interested in food. 
 	public abstract float getSTANDARD_SPEED();	// sprawdzamy jaką odległość zwierzę standardowo pokonuje w ciągu dnia (w czasie godzin aktywności) i na tej podstawie obliczamy stardard w km/h
 	public abstract int getMAX_SPEED();	

@@ -10,22 +10,25 @@ import java.util.Random;
  */
 public final class InsectEatingBatSpecification extends AnimalSpeciesSpecification {
 	private static final String SPECIES_NAME = "Insect Eating Bat";
-	private static final float ADULT_WEIGHT = 0.007f;	// weight in kg 
-	private static final float NEWBORN_WEIGHT = 0.001f; // in kg
+	private static final float ADULT_WEIGHT = 0.007f;	// average weight in kg 
+	private static final float NEWBORN_WEIGHT = 0.001f; // average in kg
 	private static final float FOOD_QUANTITY_REQUIRED_PER_DAY = 0.001f; // in kg
 	private static final int MAX_STARVING_DAYS_BEFORE_DEATH = 50;	
+	private static final float ENERGY_LOSS_ON_IDLE = (float) 100 / (MAX_STARVING_DAYS_BEFORE_DEATH * 24); // [%] Energy lost by this species even without any move - just because of passing time
+	private static final float ENERGY_LOSS_ON_STANDARD_SPEED_MOVE = (float) 100/24; // [%] Energy lost by this species while moving with STANDARD_SPEED for 1 hour (assumption - 100% energy == 24 hrs of moving)	
 	private static final int HUNGER_ENERGY_PERCENT = 70; // poniżej tej wartości zwierze poszukuje jedzenia. Powyżej zwierze nie jest zainteresowane jedzeniem 
 	private static final float STANDARD_SPEED = 40;	// km/h, sprawdzamy jaką odległość zwierzę standardowo pokonuje w ciągu dnia (w czasie godzin aktywności) i na tej podstawie obliczamy stardard w km/h
 	private static final int MAX_SPEED = 40;	// km/h
-	private static final int MAX_STAMINA = 100; 	//
+	private static final int MAX_STAMINA = 30; 	// in seconds. The abity to sustain MAX_SPEED for the specified time.
 	private static final int AVERAGE_SCION_COUNT_IN_LITTER = 1; // średnia liczba potomków w miocie
 	private static final int MAX_SCION_COUNT_IN_LITTER = 2;	// na tej podstawie określimy widełki RANDOMa określającego liczbę potomków w danym miocie
-	private static final Duration MAX_AGE = Duration.ofDays(20*365); // 20 years
+	private static final Duration MAX_AGE = Duration.ofDays(25*365); // 20 years - 21 years in Poland - 38 years World Record
 	private static final Duration MIN_BREEDING_AGE = Duration.ofDays(6*30); // minimalny wiek rozrodczy
 	private static final Duration MAX_BREEDING_AGE = Duration.ofDays(15*365); // maksymalny wiek rozrodczy
+	private static final Duration PROLIFERATION_DURATION = Duration.ofDays(170); // [days] Duration of pregnancy or bearing and incubating eggs. Bats copulate in Autumn and give birth in late Spring.
 	private static final Duration MAX_AGE_IN_NEST = Duration.ofDays(3*30); // po ilu 
 	private static final Duration MIN_SELF_GOVERNMENT_AGE = Duration.ofDays(3*30); // minimalny wiek usamodzielnienia się
-	private static final int CALORIC_EFFICIENCY_PER_KILO = 1000; // Cal/kg
+	private static final int CALORIC_EFFICIENCY_PER_KILO = 941; // Cal/kg
 
 
 	private static final CellType[] acceptableCellTypes = {
@@ -43,7 +46,7 @@ public final class InsectEatingBatSpecification extends AnimalSpeciesSpecificati
 	public static boolean acceptsCellType( CellType cellType ) {
 		boolean accepts = false;
 		for( CellType type : acceptableCellTypes ) {
-			System.out.println( "OK - Real Animal Specification: " + type );
+//			System.out.println( "OK - Real Animal Specification: " + type );
 			if( type == cellType ) {
 				accepts = true;
 				break;
@@ -55,7 +58,9 @@ public final class InsectEatingBatSpecification extends AnimalSpeciesSpecificati
 
 
 	private static final FoodType[] edibleFoodTypes = {
-		FoodType.FLY
+		FoodType.FLY,
+		FoodType.MOSQUITO,
+		FoodType.MOTH
 	};
 
 	public static FoodType[] getEdibleFoodTypes() {
@@ -116,6 +121,14 @@ public final class InsectEatingBatSpecification extends AnimalSpeciesSpecificati
 	public int getMAX_STARVING_DAYS_BEFORE_DEATH() {
 		return MAX_STARVING_DAYS_BEFORE_DEATH;
 	}
+
+	public float getENERGY_LOSS_ON_IDLE() {
+		return ENERGY_LOSS_ON_IDLE;
+	}
+
+	public float getENERGY_LOSS_ON_STANDARD_SPEED_MOVE() {
+		return ENERGY_LOSS_ON_STANDARD_SPEED_MOVE;
+	}	
 
 	public int getHUNGER_ENERGY_PERCENT() {
 		return HUNGER_ENERGY_PERCENT;

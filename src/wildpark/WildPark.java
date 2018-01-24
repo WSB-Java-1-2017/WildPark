@@ -44,6 +44,7 @@ import javafx.geometry.Pos;
 import javafx.scene.paint.Paint;
 
 import wildpark.controller.*;
+import wildpark.view.*;
 import wildpark.model.*;
 import wildpark.model.animals.*;
 import wildpark.model.animals.mammals.*;
@@ -63,11 +64,24 @@ public class WildPark extends Application {
     final int WILD_PARK_LAKE_AVERAGE_WIDTH = 35;
     final int WILD_PARK_LAKE_HEIGHT = 15;
 
+    final int WILD_PARK_MOUNTAIN_AVERAGE_WIDTH = 40;
+    final int WILD_PARK_MOUNTAIN_HEIGHT = 50;
+
+    final int WILD_PARK_FOREST_AVERAGE_WIDTH = 30;
+    final int WILD_PARK_FOREST_HEIGHT = 25;
+
     final int WILD_PARK_CELL_WIDTH = 54;
     final int WILD_PARK_CELL_HEIGHT = 54;
 
-    public static Diagram01 diagram = new Diagram01(getAnimals());
 
+
+
+    public static CHART_SpeciesTotalWeight_LINE chart_SpeciesTotalWeight_Line = null;
+    public static CHART_SpeciesTotalWeight_PIE chart_SpeciesTotalWeight_Pie = null;
+
+
+
+    
     /**
      * Duration Time of the existance of current Wild Park.
      * Initially it is ZERO. 
@@ -83,6 +97,11 @@ public class WildPark extends Application {
      */
     private static final Duration WILD_PARK_TIME_STEP_DURATION = Duration.ofHours(1);
 
+    /**
+     * DEPRECATED - Use util.WildParkTime.getWildParkTimeStepDuration() instead
+     * //@deprecated Use util.WildParkTime.getWildParkTimeStepDuration() instead
+     * @return [description]
+     */
     public static Duration getWildParkTimeStepDuration() {
         return WILD_PARK_TIME_STEP_DURATION;
     }
@@ -92,12 +111,12 @@ public class WildPark extends Application {
      * @return wildParkTime value - the current time counter of Wild Park
      */
     public static Duration getWildParkTime() {
-    	//System.out.println("Access to park time: " + wildParkTime.toHours());
+        //System.out.println("Access to park time: " + wildParkTime.toHours());
         return wildParkTime;
     }
     
     public static int getWildParkTimeHours() {
-    	return (int) wildParkTime.toHours();
+        return (int) wildParkTime.toHours();
     }
 
     /**
@@ -105,22 +124,50 @@ public class WildPark extends Application {
      */
     public static void makeWildParkTimeStep() {
         wildParkTime = wildParkTime.plus( WILD_PARK_TIME_STEP_DURATION );
-    	//System.out.println("Addition to park time: " + wildParkTime.toHours());
+        //System.out.println("Addition to park time: " + wildParkTime.toHours());
 
-        // Update Step Counter in UI
-        toolBarLabel_CurrentStep.setText( String.format( "%8d", wildParkTime.toHours() ) );
-
+        // Let each living animal perform the Time Step
         for( Animal animal : getAnimals() ) {
+            System.out.println( "-------------------------------------------------------------------------------------------------" );
+            System.out.println("TimeStep: " + wildParkTime.toHours() + " --- WildPark.makeWildParkTimeStep(): foreach Animal: " + animal.getId() );
             animal.performTimeStep();
         }
-        //diagram.updateList(getAnimals());
-        //diagram.nextStep();
+
+        // Remove animals that died in this time step
+        for( Animal animal : WildParkArea.getDeadInLastTimeStepAnimals() ) {
+            getAnimals().remove( animal );
+        }
+
+        updateUI_label_NumberOfAnimals(); 
+
+        // Check each dead animal (each Meat object) if it is still suitable for consumption.
+        // If the meat is rotten - remove it from  Dead Bodies List
+        ArrayList<Meat> rottenMeatList = new ArrayList<>();
+        for( Meat meat : WildParkArea.getDeadBodies() ) {
+            if( meat.isRotten() )
+                rottenMeatList.add( meat );
+        }
+
+        // Totlly remove rotten meat from the park. 
+        for( Meat meat : rottenMeatList ) {
+            WildParkArea.getDeadBodies().remove( meat );
+        }
+        
+        updateUI_label_NumberOfDeadBodies(); 
+
+        // Update UI
+        toolBarLabel_CurrentStep.setText( String.format( "%8d", wildParkTime.toHours() ) );
+
+        // Update all charts
+        chart_SpeciesTotalWeight_Line.update();
+        chart_SpeciesTotalWeight_Pie.update();
     }
 
+
     /**
-	 * Main 2-dimension Array of WildParkArea Cells
-	 */
-	public static WildParkAreaCell[][] cellArray = new WildParkAreaCell[WILD_PARK_AREA_WIDTH][WILD_PARK_AREA_HEIGHT];
+     * Main 2-dimension Array of WildParkArea Cells
+     */
+    public static WildParkAreaCell[][] cellArray = new WildParkAreaCell[WILD_PARK_AREA_WIDTH][WILD_PARK_AREA_HEIGHT];
 
     /**
      * The collection of all animals in Wild Park. It also contains dead animals - animals 
@@ -133,21 +180,44 @@ public class WildPark extends Application {
      * Getter for animals attribute. animals array contains all animals in the park.
      * @return ArrayList of all animals in the park.
      */
-    static ArrayList<Animal> getAnimals() {
+    public static ArrayList<Animal> getAnimals() {
         return animals;
     }
 
     public static void addAnimal( Animal animal ) {
         getAnimals().add( animal ); 
-        label_NumberOfAnimals.setText( String.format( "Number of animals: %10d", getAnimals().size() ) );
+        // updateUI_label_NumberOfAnimals( getAnimals().size() );
     } 
+
+    public static void removeAnimal( Animal animal ) {
+        getAnimals().remove( animal ); 
+        // updateUI_label_NumberOfAnimals( getAnimals().size() );
+    } 
+
+
+
+
+
+
+
+
+
+
+
+
 
     // final Background BACKGROUND_GREEN = new Background( new BackgroundFill( Paint.valueOf( "0x00ff0088" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
     final Background BACKGROUND_GREEN = new Background( new BackgroundFill( Paint.valueOf( "linear-gradient(from 0px 54px to 0px 0px, #44ff55 20%, 0x44ff5555 100%)" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
     final Background BACKGROUND_OCEAN_BLUE = new Background( new BackgroundFill( Paint.valueOf( "linear-gradient(from 0px 54px to 0px 0px, #2299ff 20%, 0x2299ff55 100%)" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
     final Background BACKGROUND_POLAR_WHITE = new Background( new BackgroundFill( Paint.valueOf( "linear-gradient(from 0px 54px to 0px 0px, #eeeeee 20%, 0xffffffff 100%)" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
     final Background BACKGROUND_LAKE_BLUE = new Background( new BackgroundFill( Paint.valueOf( "linear-gradient(from 0px 54px to 0px 0px, #66ddff 20%, 0x66ddff55 100%)" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
+    final Background BACKGROUND_RIVER_BLUE = new Background( new BackgroundFill( Paint.valueOf( "linear-gradient(from 0px 54px to 0px 0px, #66ddff 20%, 0x66ddff55 100%)" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
+//    final Background BACKGROUND_MOUNTAIN_DARK = new Background( new BackgroundFill( Paint.valueOf( "linear-gradient(from 0px 54px to 0px 0px, #ff7722 20%, 0xff994455 100%)" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
+    final Background BACKGROUND_MOUNTAIN_DARK = new Background( new BackgroundFill( Paint.valueOf( "linear-gradient(from 0px 54px to 0px 0px, #ff9a31 20%, 0xffcd6455 100%)" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
+    final Background BACKGROUND_FOREST_GREEN = new Background( new BackgroundFill( Paint.valueOf( "linear-gradient(from 0px 54px to 0px 0px, #11bb11 20%, 0x11cc2255 100%)" ), new CornerRadii( 5 ), new Insets(1,1,0,0) ) );
 
+    
+    
     // MENU
     MenuItem menu1_New = new MenuItem("New");
     MenuItem menu1_Open = new MenuItem("Open...");
@@ -155,7 +225,9 @@ public class WildPark extends Application {
     MenuItem menu1_Exit = new MenuItem("Exit");
     //---------------------
     MenuItem menu2_AnimalList = new MenuItem("Animal List...");
-    MenuItem menu2_AnimalCountDiagram = new MenuItem("Animal Count Diagram...");
+    MenuItem menu2_AnimalSpeciesTotalWeight_LineChart =  new MenuItem("Animal Species Total Weight LINE Chart...");
+    MenuItem menu2_AnimalSpeciesTotalWeight_PieChart =  new MenuItem("Animal Species Total Weight PIE Chart...");
+    MenuItem menu2_AnimalCountChart = new MenuItem("Animal Count Chart...");
     MenuItem menu2_GenerateWildParkArea = new MenuItem("Generate Wild Park Area...");
     //---------------------
     MenuItem menu3_AnimalSettings = new MenuItem("Animal Settings...");
@@ -241,11 +313,16 @@ public class WildPark extends Application {
 
     
     // STATUS BAR:
-    static Label label_NumberOfAnimals = new Label( String.format( "Number of animals: %10d", 0 ) );
+    public static Label label_NumberOfAnimals = new Label( String.format( "Number of animals: %10d", 0 ) );
+    public static Label label_NumberOfDeadBodies = new Label( String.format( "Number of dead bodies: %10d", 0 ) );   
     Button button_SearchAnimal = new Button("Search"); 
 
 
-    Stage stage;
+
+
+
+    // Main application stage
+    public static Stage stage;
     GridPane wildParkGrid = new GridPane();
 
 
@@ -287,12 +364,14 @@ public class WildPark extends Application {
         wildParkGrid.setVgap(0);    // gap between cells
         wildParkGrid.setHgap(0);    // gap between cells
  
-        Slider slider = new Slider( 0.34, 2, 0.34 );    // Slider( min, max, initial_value )
+        Slider slider = new Slider( 0.15, 2, 0.34 );    // Slider( min, max, initial_value )
         slider.setOrientation( Orientation.VERTICAL );
         slider.setShowTickMarks(true);
         slider.setShowTickLabels(true);
         slider.setMajorTickUnit(0.25f);
         slider.setBlockIncrement(0.1f);
+        BorderPane.setMargin( slider, new Insets(9,3,9,9) );
+
 //        slider.setSnapToTicks(true);
         wildParkGrid.scaleXProperty().bind(slider.valueProperty());
         wildParkGrid.scaleYProperty().bind(slider.valueProperty());
@@ -307,7 +386,7 @@ public class WildPark extends Application {
         final Menu menu1 = new Menu("File");
         menu1.getItems().addAll( menu1_New, menu1_Open, menu1_Save, new SeparatorMenuItem(), menu1_Exit );
         final Menu menu2 = new Menu("Reports");
-        menu2.getItems().addAll( menu2_AnimalList, menu2_AnimalCountDiagram,  menu2_GenerateWildParkArea );
+        menu2.getItems().addAll( menu2_AnimalList, menu2_AnimalSpeciesTotalWeight_LineChart,  menu2_AnimalSpeciesTotalWeight_PieChart, menu2_AnimalCountChart, new SeparatorMenuItem(), menu2_GenerateWildParkArea );
         final Menu menu3 = new Menu("Settings");
         menu3.getItems().addAll( menu3_AnimalSettings, menu3_WildParkSettings );
         final Menu menu4 = new Menu("Help");
@@ -351,6 +430,7 @@ public class WildPark extends Application {
         toolBarLabel_CurrentStep.setMinWidth(40);
 
         HBox statusBar = new HBox(10);  // HBox( spacing )
+        HBox.setMargin( label_NumberOfDeadBodies, new Insets(6,4,4,43) );    // Insets( top, right, bottom, left )
         HBox.setMargin( label_NumberOfAnimals, new Insets(6,4,4,43) );    // Insets( top, right, bottom, left )
         Label label_FindAnimal = new Label("Find animal:");
         HBox.setMargin( label_FindAnimal, new Insets(6,0,4,40) );    // Insets( top, right, bottom, left )
@@ -358,7 +438,7 @@ public class WildPark extends Application {
         HBox.setMargin( textField_FindAnimal, new Insets(2,0,2,0) );    // Insets( top, right, bottom, left )       
         HBox.setMargin( button_SearchAnimal, new Insets(2,0,2,0) );    // Insets( top, right, bottom, left )
         statusBar.setAlignment(Pos.BOTTOM_CENTER);
-        statusBar.getChildren().addAll( label_NumberOfAnimals, label_FindAnimal, textField_FindAnimal, button_SearchAnimal );    
+        statusBar.getChildren().addAll( label_NumberOfAnimals, label_NumberOfDeadBodies, label_FindAnimal, textField_FindAnimal, button_SearchAnimal );    
 
         stage.setTitle("Wild Park 1.04");
 
@@ -424,7 +504,7 @@ public class WildPark extends Application {
                     }
                 });
 
-                areaCell.addEventHandler( MouseEvent.MOUSE_ENTERED,
+                areaCell.addEventHandler( MouseEvent.MOUSE_CLICKED,
                     new EventHandler<MouseEvent>() {
                       @Override
                       public void handle(MouseEvent e) {
@@ -461,6 +541,10 @@ public class WildPark extends Application {
         int currentPolarRightRandom;
         int currentLakeLeftRandom;
         int currentLakeRightRandom;
+        int currentMountainLeftRandom;
+        int currentMountainRightRandom;
+        int currentForestLeftRandom;
+        int currentForestRightRandom;
         WildParkAreaCell areaCell;
         Random random = new Random();
 
@@ -472,6 +556,12 @@ public class WildPark extends Application {
         int previousLakeLeftRandom = WILD_PARK_OCEAN_AVERAGE_WIDTH + (int)(0.20*WILD_PARK_AREA_WIDTH); // initial lake left edge - from Ocean Average Righ Edge 20% of Wild Park Width
         int previousLakeRightRandom = previousLakeLeftRandom + random.nextInt( WILD_PARK_LAKE_AVERAGE_WIDTH );
 
+        int previousMountainLeftRandom = WILD_PARK_OCEAN_AVERAGE_WIDTH + (int)(0.60*WILD_PARK_AREA_WIDTH); // initial lake left edge - from Ocean Average Righ Edge 20% of Wild Park Width
+        int previousMountainRightRandom = previousMountainLeftRandom + random.nextInt( WILD_PARK_MOUNTAIN_AVERAGE_WIDTH );
+
+        int previousForestLeftRandom = WILD_PARK_FOREST_AVERAGE_WIDTH + (int)(0.40*WILD_PARK_AREA_WIDTH);
+        int previousForestRightRandom = previousForestLeftRandom + random.nextInt( WILD_PARK_FOREST_AVERAGE_WIDTH ) + 7;
+        
         stage.getScene().setCursor(Cursor.WAIT);
 
         for( int y=0; y<WILD_PARK_AREA_HEIGHT; y++ ) {
@@ -500,12 +590,35 @@ public class WildPark extends Application {
             if( y==10+WILD_PARK_LAKE_HEIGHT-2 ) currentLakeRightRandom = currentLakeLeftRandom+10;
             if( y==10+WILD_PARK_LAKE_HEIGHT-1 ) currentLakeRightRandom = currentLakeLeftRandom+5;
 
+            // Mountain left and right limits            
+            currentMountainLeftRandom = previousMountainLeftRandom - 1 + random.nextInt(3);
+            if( currentMountainLeftRandom > WILD_PARK_AREA_WIDTH-3 )
+                currentMountainLeftRandom = previousMountainLeftRandom-1;
+            currentMountainRightRandom = previousMountainRightRandom - 1 + random.nextInt(3);
+            if( currentMountainRightRandom-currentMountainLeftRandom < 3 )
+                currentMountainRightRandom = previousMountainRightRandom+3;
+            if( y==11 ) currentMountainRightRandom = currentMountainLeftRandom+5;
+            if( y==12 ) currentMountainRightRandom = currentMountainLeftRandom+10;
+            if( y==10+WILD_PARK_MOUNTAIN_HEIGHT-2 ) currentMountainRightRandom = currentMountainLeftRandom+10;
+            if( y==10+WILD_PARK_MOUNTAIN_HEIGHT-1 ) currentMountainRightRandom = currentMountainLeftRandom+5;
+
+            // Forest left and right limits            
+            currentForestLeftRandom = previousForestLeftRandom - 1 + random.nextInt(3);
+            currentForestRightRandom = previousForestRightRandom - 1 + random.nextInt(3);
+            if( currentForestRightRandom-currentForestLeftRandom < 7 )
+                currentForestRightRandom = previousForestRightRandom+4;
+            if( y==0 ) currentForestRightRandom = currentForestLeftRandom+20;   // Real initial width of the Forest
+            // if( y==24 ) currentForestRightRandom = currentForestLeftRandom+7;
+            if( y==0+WILD_PARK_FOREST_HEIGHT-2 ) currentForestRightRandom = currentForestLeftRandom+7;
+            if( y==0+WILD_PARK_FOREST_HEIGHT-1 ) currentForestRightRandom = currentForestLeftRandom+4;
+
+
+            
             for( int x=0; x<WILD_PARK_AREA_WIDTH; x++ ) {
                 areaCell = cellArray[x][y];
                 areaCell.setMinSize( WILD_PARK_CELL_WIDTH, WILD_PARK_CELL_HEIGHT );
                 areaCell.setMaxSize( WILD_PARK_CELL_WIDTH, WILD_PARK_CELL_HEIGHT );
 
-//                areaCell.setBackground( Background.EMPTY );
                 // cellArray[x][y].setBackground( new Background( new BackgroundFill( Paint.valueOf( "0x00FF00" ), CornerRadii.EMPTY, Insets.EMPTY ) ) );
 
                 if( x < currentOceanRightRandom ) {
@@ -526,6 +639,16 @@ public class WildPark extends Application {
                     areaCell.setCellType( CellType.LAKE );
                     areaCell.setBackground( BACKGROUND_LAKE_BLUE ); //jezioro
                 }
+                
+                if( x>currentMountainLeftRandom && x<currentMountainRightRandom && y>10 && y<10+WILD_PARK_MOUNTAIN_HEIGHT ) {
+                    areaCell.setCellType( CellType.MOUNTAIN );
+                    areaCell.setBackground( BACKGROUND_MOUNTAIN_DARK );
+                }
+
+                if( x>currentForestLeftRandom && x<currentForestRightRandom && y>=0 && y<0+WILD_PARK_FOREST_HEIGHT ) {
+                    areaCell.setCellType( CellType.FOREST );
+                    areaCell.setBackground( BACKGROUND_FOREST_GREEN ); //las
+                }
 
                 //areaCell.setBorder( null );
 
@@ -534,7 +657,59 @@ public class WildPark extends Application {
                 previousPolarRightRandom = currentPolarRightRandom;
                 previousLakeLeftRandom = currentLakeLeftRandom;
                 previousLakeRightRandom = currentLakeRightRandom;
+                previousMountainLeftRandom = currentMountainLeftRandom;
+                previousMountainRightRandom = currentMountainRightRandom;
+                previousForestLeftRandom = currentForestLeftRandom;
+                previousForestRightRandom = currentForestRightRandom;
             }
+        }
+
+        int currentRiverYRandom;
+        int previousRiverY = -1;
+        for(int x=0;x<WILD_PARK_AREA_WIDTH;x++) {
+            if(previousRiverY == -1) { // untill ocean
+                for(int y=11;y<11+WILD_PARK_LAKE_HEIGHT;y++) {
+               
+                    areaCell = getWildParkAreaCell(x,y);
+
+                    if( areaCell.getCellType() == CellType.GRASS ) {
+                        areaCell.setCellType( CellType.RIVER );
+                        areaCell.setBackground( BACKGROUND_RIVER_BLUE );
+                        areaCell = getWildParkAreaCell(x,y+1);
+                        areaCell.setCellType( CellType.RIVER );
+                        areaCell.setBackground( BACKGROUND_RIVER_BLUE );
+                        previousRiverY = y;
+                        break;
+                    }
+                }    
+            }
+            else {  // if already the first "pixel" of river was printed    
+                currentRiverYRandom = previousRiverY - 1 + random.nextInt(3);
+                if( currentRiverYRandom < 11 )
+                    currentRiverYRandom += 2;
+                else
+                if( currentRiverYRandom > 11 + WILD_PARK_LAKE_HEIGHT )
+                    currentRiverYRandom -= 2;
+
+                areaCell=getWildParkAreaCell(x,currentRiverYRandom);
+
+                if( areaCell.getCellType() == CellType.LAKE ) {
+                    areaCell=getWildParkAreaCell(x,currentRiverYRandom-1);
+                    areaCell.setCellType( CellType.RIVER );
+                    areaCell.setBackground( BACKGROUND_RIVER_BLUE );
+                    areaCell=getWildParkAreaCell(x,currentRiverYRandom+1);
+                    areaCell.setCellType( CellType.RIVER );
+                    areaCell.setBackground( BACKGROUND_RIVER_BLUE );
+                    break;
+                }   
+                
+                areaCell.setCellType( CellType.RIVER );
+                areaCell.setBackground( BACKGROUND_RIVER_BLUE );
+                areaCell=getWildParkAreaCell(x,currentRiverYRandom+1);
+                areaCell.setCellType( CellType.RIVER );
+                areaCell.setBackground( BACKGROUND_RIVER_BLUE );
+                previousRiverY = currentRiverYRandom;
+            }        
         }
 
         populateWildPark();
@@ -556,15 +731,19 @@ public class WildPark extends Application {
     // Fill Wild Park with animals
     void populateWildPark() {
 
-        final int INSECT_EATING_BAT_COUNT = 30; // Count of all bats to be generated 
-        final int TEST_BAT_COUNT = 30; // Count of all bats to be generated in Wild Park 
+        final int INSECT_EATING_BAT_COUNT = 5; // Count of all bats to be generated 
+        final int TEST_BAT_COUNT = 5; // Count of all bats to be generated in Wild Park 
+        final int CHAMOIS_COUNT = 5; // Count of all bats to be generated in Wild Park 
 
-       	final int LEOPARD_COUNT=10;
+        final int LEOPARD_COUNT=10;
         final int LION_COUNT = 10;
         final int CROCODILE_COUNT = 10;
         final int POLAR_BEAR_COUNT = 10;
         final int HORSE_COUNT = 15;
         final int GIRAFFE_COUNT = 5;
+        final int TYRANOZAUR_COUNT = 1;
+
+        WildParkAreaCell areaCell;
 
         // single animals - pojedyncze egzemplarze:
         for( int i=0; i<INSECT_EATING_BAT_COUNT; i++ ) {
@@ -572,9 +751,9 @@ public class WildPark extends Application {
         }
 
         // A herd/pack in a single WildParkCell- stado w jednej komórce:
-        WildParkAreaCell areaCell = InsectEatingBatSpecification.selectRandomCell();
+        areaCell = InsectEatingBatSpecification.selectRandomCell();
         for( int i=0; i<5; i++ ) {
-            Animal bat = new InsectEatingBat( areaCell, false );
+    //        Animal bat = new InsectEatingBat( areaCell, false );
         }
         
 
@@ -582,25 +761,32 @@ public class WildPark extends Application {
         for( int i=0; i<TEST_BAT_COUNT; i++ ) {
             Animal testBat = new TestBat();
         }
-        
-        for( int i=0; i<HORSE_COUNT; i++ ) {
-            new Horse();
+
+        // A herd/pack in a single WildParkCell- stado w jednej komórce:
+        areaCell = ChamoisSpecification.selectRandomCell();
+        for( int i=0; i<CHAMOIS_COUNT; i++ ) {
+            Animal chamois = new Chamois( areaCell, false );
         }
+
         
-        for(int i = 0; i < GIRAFFE_COUNT; i++) {
-        	new Giraffe();
-        }
+        // for( int i=0; i<HORSE_COUNT; i++ ) {
+        //     new Horse();
+        // }
+        
+        // for(int i = 0; i < GIRAFFE_COUNT; i++) {
+        //     new Giraffe();
+        // }
         //WildParkAreaCell areaCell = InsectEatingBatSpecification.selectRandomCell();
 
         /*WildParkAreaCell areaCell = new WildParkAreaCell("Cell1");
         for( int i=0; i<5; i++ ) {
-			Animal bat = new InsectEatingBat( areaCell, false );
+            Animal bat = new InsectEatingBat( areaCell, false );
         }*/
         
 
 
 
-        // for( int i=0; i<LION_COUNT; i++ ) {
+        // for( Int i=0; i<LION_COUNT; i++ ) {
         //     Animal lion = new Lion( new LionSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
         //     addAnimal( lion );
         // }
@@ -619,6 +805,36 @@ public class WildPark extends Application {
         //     Animal polarBear = new PolarBear( new PolarBearSpecification(), new WildParkAreaCell( CellType.LAKE ), false );
         //     addAnimal( polarBear ); 
         // }
+        // 
+
+
+
+        // Update UI Counters:
+        updateUI_label_NumberOfAnimals();
+        updateUI_label_NumberOfDeadBodies();
+
+
+        // Create or update SpeciesTotalWeight LineChart
+        if( chart_SpeciesTotalWeight_Line == null )
+            chart_SpeciesTotalWeight_Line = new CHART_SpeciesTotalWeight_LINE( getAnimals() );
+        else
+            chart_SpeciesTotalWeight_Line.reset();
+
+        chart_SpeciesTotalWeight_Line.update();        
+        // EOF Create or update SpeciesTotalWeight LineChart
+
+
+        // Create or update SpeciesTotalWeight PieChart
+        if( chart_SpeciesTotalWeight_Pie == null )
+            chart_SpeciesTotalWeight_Pie = new CHART_SpeciesTotalWeight_PIE( getAnimals() );
+        else
+            chart_SpeciesTotalWeight_Pie.reset();
+
+        chart_SpeciesTotalWeight_Pie.update();        
+        // EOF Create or update SpeciesTotalWeight PieChart
+
+
+
     }
     
 
@@ -656,7 +872,7 @@ public class WildPark extends Application {
 
 
     void saveWildPark() {
-        for( Animal animal : WildParkArea.getAnimals() ) {
+        for( Animal animal : WildPark.getAnimals() ) {
             //Save Animal Specification
             //Save animal.getSpecification();
             //Save AnimalState list - a history of whole life of the animal
@@ -728,10 +944,64 @@ public class WildPark extends Application {
 
 
 
+    public static void updateUI_label_NumberOfAnimals() {
+        label_NumberOfAnimals.setText( String.format( "Number of animals: %10d", getAnimals().size() ) );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    public static void updateUI_label_NumberOfDeadBodies() {
+        label_NumberOfDeadBodies.setText( String.format( "Number of dead bodies: %10d", WildParkArea.getDeadBodies().size() ) );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * Listeners to menu items, buttons and other controls of UI
      */
     void addUIEventListeners() {
+        stage.addEventFilter( MouseEvent.ANY, e -> {
+                //CHART_SpeciesTotalWeight_LINE.getStage().toBack();
+//                if( CHART_SpeciesTotalWeight_LINE.isVisible ) 
+//                    CHART_SpeciesTotalWeight_LINE.getStage().setOpacity( 0.30 );
+                //stage.toFront();
+//                System.out.println( "MOUSE_ANY on main - " + e.getEventType() + " - SceneX:Y: " + e.getSceneX() + ":" + e.getSceneY()  );
+            });
+        // stage.addEventFilter( MouseEvent.MOUSE_PRESSED, e -> {
+        //         //CHART_SpeciesTotalWeight_LINE.getStage().toBack();
+        //         if( CHART_SpeciesTotalWeight_LINE.isVisible ) 
+        //             CHART_SpeciesTotalWeight_LINE.getStage().setOpacity( 0.30 );
+        //         //stage.toFront();
+        //         System.out.println( "MOUSE_PRESSED on main - " + e.getEventType() );
+        //     });
+
+        // stage.addEventFilter( MouseEvent.MOUSE_EXITED_TARGET, e -> {
+        //         //CHART_SpeciesTotalWeight_LINE.getStage().toBack();
+        //         if( CHART_SpeciesTotalWeight_LINE.isVisible ) 
+        //             CHART_SpeciesTotalWeight_LINE.getStage().setOpacity( 1.00 );
+        //         //stage.toFront();
+        //         System.out.println( "MOUSE_EXITED_TARGET on main - " + e.getEventType() );
+        //     });
+
+
         // Resets Wild Park life - The new terrain is randomly generated and life starts from the begining. 
         menu1_New.setOnAction( new EventHandler<ActionEvent>() {
             @Override 
@@ -755,7 +1025,7 @@ public class WildPark extends Application {
         menu1_Save.setOnAction( new EventHandler<ActionEvent>() {
             @Override 
             public void handle( ActionEvent e ) {
-            	System.out.println("menu1_Save_New clicked");
+                System.out.println("menu1_Save_New clicked");
             }
         });
 
@@ -784,13 +1054,50 @@ public class WildPark extends Application {
             }        
         });
 
-        menu2_AnimalCountDiagram.setOnAction( new EventHandler<ActionEvent>() {
+        menu2_AnimalSpeciesTotalWeight_LineChart.setOnAction( new EventHandler<ActionEvent>() {
             @Override 
             public void handle( ActionEvent e ) {
-                System.out.println("menu2_AnimalCountDiagram clicked");
+                System.out.println("menu2_AnimalSpeciesTotalWeight_LineChart clicked.");
+                // Animal Species Total Weight Chart
+                try {
+                    if( ! CHART_SpeciesTotalWeight_LINE.isVisible )
+                        chart_SpeciesTotalWeight_Line.show();
+                    else
+                        CHART_SpeciesTotalWeight_LINE.getStage().requestFocus();
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }        
+        });
+
+        menu2_AnimalSpeciesTotalWeight_PieChart.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("menu2_AnimalSpeciesTotalWeight_PieChart clicked");
+                // Animal Species Total Weight Chart
+                try {
+                    if( ! CHART_SpeciesTotalWeight_PIE.isVisible )
+                        chart_SpeciesTotalWeight_Pie.show();
+                    else
+                        CHART_SpeciesTotalWeight_PIE.getStage().requestFocus();
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }        
+        });
+
+        menu2_AnimalCountChart.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("menu2_AnimalCountChart clicked");
                 // Animal Count Diagram page
                 try {
-                    diagram.show();
+                    if( ! CHART_SpeciesTotalWeight_LINE.isVisible )
+                        chart_SpeciesTotalWeight_Line.show();
+                    else
+                        CHART_SpeciesTotalWeight_LINE.getStage().requestFocus();
                 } catch (Exception e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
@@ -901,8 +1208,6 @@ public class WildPark extends Application {
                
                 // Perform the single Time step
                 makeWildParkTimeStep();
-                diagram.updateList(animals);
-                diagram.nextStep();
             }
         });
 
@@ -924,7 +1229,8 @@ public class WildPark extends Application {
                 System.out.println("toolBarButton_Reports clicked");
                 List<String> choices = new ArrayList<>();
                 choices.add("Animal List");
-                choices.add("Animal Count Diagram");
+                choices.add("Animal Species Total Weight LINE Chart");
+                choices.add("Animal Species Total Weight PIE Chart");
                 choices.add("Generate Wild Park Area");
                 ChoiceDialog<String> dialog = new ChoiceDialog<>("Animal List", choices);
                 dialog.setTitle("Report Choice");
@@ -941,27 +1247,40 @@ public class WildPark extends Application {
 
                 Optional<String> result = dialog.showAndWait();
                     if (result.isPresent()){
-                    	if (result.get() == "Animal List") {
-	                    	ReportAnimals ra = new ReportAnimals(getAnimals(), "Animal List"); // Just as-is but working report list
-	                    	try {
-								ra.show();
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-                    	}
-                    	if (result.get() == "Animal Count Diagram") {
-	                    	//Diagram01 ra = new Diagram01(getAnimals()); // Just as-is but working report list
-	                    	try {
-								diagram.show();
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-                    	}
-                    	if (result.get() == "Generate Wild Park Area") {
+                        if (result.get() == "Animal List") {
+                            ReportAnimals ra = new ReportAnimals(getAnimals(), "Animal List"); // Just as-is but working report list
+                            try {
+                                ra.show();
+                            } catch (Exception e1) {
+                                // TODO Auto-generated catch block
+                                e1.printStackTrace();
+                            }
+                        }
+                        if (result.get() == "Animal Species Total Weight LINE Chart") {
+                            try {
+                                if( ! CHART_SpeciesTotalWeight_LINE.isVisible )
+                                    chart_SpeciesTotalWeight_Line.show();
+                                else
+                                    CHART_SpeciesTotalWeight_LINE.getStage().requestFocus();
+                            } catch (Exception e1) {
+                                // TODO Auto-generated catch block
+                                e1.printStackTrace();
+                            }
+                        }
+                        if (result.get() == "Animal Species Total Weight PIE Chart") {
+                            try {
+                                if( ! CHART_SpeciesTotalWeight_PIE.isVisible )
+                                    chart_SpeciesTotalWeight_Pie.show();
+                                else
+                                    CHART_SpeciesTotalWeight_PIE.getStage().requestFocus();
+                            } catch (Exception e1) {
+                                // TODO Auto-generated catch block
+                                e1.printStackTrace();
+                            }
+                        }
+                        if (result.get() == "Generate Wild Park Area") {
                             GenerateWildParkArea();
-                    	}
+                        }
                         /*System.out.println("Your choice: " + result.get());
                         Stage stage2 = new Stage();
                         TextArea textArea = new TextArea();
