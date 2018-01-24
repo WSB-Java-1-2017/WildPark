@@ -2,7 +2,7 @@
 
 Wild Park Simulation project at WSB Java Training Level 1.
 
-How to start application:
+How to start the application:
 1. Configure JDK at your computer == set PATH environment variable to be able to use javac and java tools. 
 2. Download src/wildpark package.
 3. Extract files. You will get 'src' folder with wildpark folder inside.
@@ -13,13 +13,13 @@ How to start application:
 mkdir out  
 
 
-5. Compile the application - enter the following command:
+6. Compile the application - enter the following command:
 
 
 javac -d out -cp src src/wildpark/WildPark.java
 
 
-6. Run the application - enter the following command:
+7. Run the application - enter the following command:
 
 
 java -cp out wildpark.WildPark
