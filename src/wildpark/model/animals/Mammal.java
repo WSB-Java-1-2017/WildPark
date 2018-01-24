@@ -16,7 +16,7 @@ implements SuckingAnimal, ChewingAnimal, BirthGivingAnimal
 
 	}
 
-	public Food ssackMilk() {
+	public Food suckMilk() {
 		return null;
 	}
 

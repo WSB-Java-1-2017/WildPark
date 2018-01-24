@@ -8,16 +8,17 @@ import wildpark.model.Movement;
 import wildpark.model.WildParkAreaCell;
 import wildpark.model.*;
 import wildpark.model.animals.Animal;
-import wildpark.model.animals.NocturnalAnimal;
-import wildpark.model.animals.Predator;
+import wildpark.model.animals.Mammal;
+import wildpark.model.animals.DiurnalAnimal;
 import wildpark.*;
 import java.util.Random;
 
 /**
  * The REAL animal class. This contains implementations of all abstract methods declared in all superclasses.
+ * Chamois - kozica górska.
  */
-public class TestBat extends Bat implements NocturnalAnimal, Predator {
-	private static final AnimalSpeciesSpecification animalSpeciesSpecification = new TestBatSpecification();
+public class Chamois extends Mammal implements DiurnalAnimal {
+	private static final AnimalSpeciesSpecification animalSpeciesSpecification = new ChamoisSpecification();
 
 	//	Inherited from Meat:
 	// public Duration TIME_OF_DEATH = null;
@@ -26,30 +27,30 @@ public class TestBat extends Bat implements NocturnalAnimal, Predator {
 	// public float weight;	// current animal weight
 	// private final float CALORIC_EFFICIENCY_PER_KILO = animalSpeciesSpecification.CALORIC_EFFICIENCY_PER_KILO; // określa liczbę kalorii z kilograma danego mięsa 
 
-	public TestBat( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
+	public Chamois( AnimalSpeciesSpecification animalSpeciesSpecification, WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
 		super( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
 	}
 
-	public TestBat( WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
+	public Chamois( WildParkAreaCell wildParkAreaCell, boolean isNewborn ) {
 		this( animalSpeciesSpecification, wildParkAreaCell, isNewborn );
 	}
 
-	public TestBat() {
-		this( animalSpeciesSpecification, InsectEatingBatSpecification.selectRandomCell(), false );
+	public Chamois() {
+		this( animalSpeciesSpecification, ChamoisSpecification.selectRandomCell(), false );
 	}
 
 
 	public CellType[] getAcceptableCellTypes() {
-         return InsectEatingBatSpecification.getAcceptableCellTypes();
+         return ChamoisSpecification.getAcceptableCellTypes();
     }
 
 	public boolean acceptsCellType( CellType cellType ) {
-		return InsectEatingBatSpecification.acceptsCellType( cellType );
+		return ChamoisSpecification.acceptsCellType( cellType );
 	}
 
 	// public static WildParkAreaCell selectRandomCell() {   
  //        WildParkAreaCell areaCell = null;
- //        InsectEatingBatSpecification ss = new InsectEatingBatSpecification();
+ //        ChamoisSpecification ss = new ChamoisSpecification();
  //        // Get a random WildParkAreaCell acceptable for the particular species
  //        boolean isAcceptable = false;
  //        do {
@@ -63,7 +64,7 @@ public class TestBat extends Bat implements NocturnalAnimal, Predator {
  //        return areaCell;
 	// }
 
-
+	@Override
 	public String getSPECIES_NAME() {
 		return animalSpeciesSpecification.getSPECIES_NAME();
 	}
@@ -84,7 +85,6 @@ public class TestBat extends Bat implements NocturnalAnimal, Predator {
 	 */
 	public float move( Duration time ) {
 		moveInRandomDirection( time, getStandardSpeed() );
-		System.out.printf( "TEST Bat getENERGY_LOSS_ON_STANDARD_SPEED_MOVE == %.4f \r\n", getAnimalSpeciesSpecification().getENERGY_LOSS_ON_STANDARD_SPEED_MOVE() );		
 		return getAnimalSpeciesSpecification().getENERGY_LOSS_ON_STANDARD_SPEED_MOVE();
 	}
 
@@ -107,18 +107,16 @@ public class TestBat extends Bat implements NocturnalAnimal, Predator {
 		return null;
 	}
 
+	public Food swallow( Food food ) {
+		return null;
+	}
+
 	public Food chew( Food food ) {
 		return null;
 	}
 
-	public boolean isNocturnal() {
-		return false; //isActiveDuringTheNight;
-	}
-
-	@Override
-	public Food swallow(Food food) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean isDiurnal() {
+		return true; //isActiveDuringTheDay;
 	}
 
 	@Override

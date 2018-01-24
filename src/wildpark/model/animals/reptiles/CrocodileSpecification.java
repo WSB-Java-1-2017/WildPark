@@ -120,6 +120,18 @@ public class CrocodileSpecification extends AnimalSpeciesSpecification {
 		return 0;
 	}
 
+	@Override
+	public float getENERGY_LOSS_ON_IDLE() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float getENERGY_LOSS_ON_STANDARD_SPEED_MOVE() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	/*public abstract String getSPECIES_NAME();
 	public abstract float getADULT_WEIGHT(); // weight in kg 
 	public abstract float getNEWBORN_WEIGHT(); // in kg

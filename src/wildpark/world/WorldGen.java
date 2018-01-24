@@ -13,7 +13,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import wildpark.model.Coords;
 
-public class World {
+public class WorldGen {
 	public static int WIDTH = 200; // Pixels, width of generated map, affected by scale
 	public static int HEIGHT = 100; // Pixels, height of generated map, affected by scale
 
@@ -52,17 +52,17 @@ public class World {
 	 * generates the island as a CIRCLE, a SQUARE, a SLOPE, or INFINITE land
 	 */
 	public static void setMapBase(MapBase mapBase) {
-		World.mapBase = mapBase;
+		WorldGen.mapBase = mapBase;
 	}
 
 	public static void setSize(int width, int height) {
-		World.WIDTH = width;
-		World.HEIGHT = height;
+		WorldGen.WIDTH = width;
+		WorldGen.HEIGHT = height;
 	}
 
 	public static void setOffset(int offsetX, int offsetY) {
-		World.OFFSETX = offsetX;
-		World.OFFSETY = offsetY;
+		WorldGen.OFFSETX = offsetX;
+		WorldGen.OFFSETY = offsetY;
 	}
 
 	/**
@@ -73,9 +73,9 @@ public class World {
 	 */
 	public static void setScale(int pixelSize) {
 		if (pixelSize > 0) {
-			World.PIXEL_SIZE = pixelSize;
+			WorldGen.PIXEL_SIZE = pixelSize;
 		} else {
-			World.PIXEL_SIZE = 1;
+			WorldGen.PIXEL_SIZE = 1;
 		}
 	}
 

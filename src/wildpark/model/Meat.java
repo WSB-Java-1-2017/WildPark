@@ -13,6 +13,11 @@ extends Food
     public static long lastAnimalID; // auto-incrementing Meat/Animal ID
     public long ID = ++lastAnimalID;
 
+    /**
+     * Time specified in hours. Time before the meat becomes rotten at 20 degreec Centigrade. Common to all meat - 3 days == 36 hours
+     */
+	protected int MAX_HOURS_OF_SUITABILITY_FOR_CONSUMPTION_SINCE_DEATH_IN_15_DEGREES_CENTIGRADE = 36; 
+
 	/**
 	 * Animal or Meat unique ID
 	 * @return long unique Meat/Animal ID
@@ -43,8 +48,18 @@ extends Food
 		return WildPark.getWildParkTime().minus( TIME_OF_DEATH );
 	}
 
+
 	// public long getSuitabilityForConsumption() {
 	// 	return getHoursSinceDeath();
 	// }
+
+
+	public boolean isRotten() {
+		System.out.printf( "Meat.isRotten(): DurationSinceDeath == %d hours\r\n", getDurationSinceDeath().toHours() );
+		if( getDurationSinceDeath().toHours() > MAX_HOURS_OF_SUITABILITY_FOR_CONSUMPTION_SINCE_DEATH_IN_15_DEGREES_CENTIGRADE ) 
+			return true;
+		else
+			return false;
+	}
 
 }

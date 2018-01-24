@@ -137,5 +137,15 @@ public class GuineaPigSpecification extends AnimalSpeciesSpecification {
 		// TODO Auto-generated method stub
 		return CALORIC_EFFICIENCY_PER_KILO;
 	}
+	@Override
+	public float getENERGY_LOSS_ON_IDLE() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public float getENERGY_LOSS_ON_STANDARD_SPEED_MOVE() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

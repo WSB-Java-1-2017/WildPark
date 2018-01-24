@@ -77,8 +77,14 @@ public class InsectEatingBat extends Bat implements NocturnalAnimal, Predator {
 		return null;
 	}
 
-	public void move( Duration time ) {
-		move( time, getStandardSpeed() );
+	/**
+	 * [move description]
+	 * @param  time [description]
+	 * @return      Returns the amount of energy required to make the specific move 
+	 */
+	public float move( Duration time ) {
+		moveInRandomDirection( time, getStandardSpeed() );
+		return getAnimalSpeciesSpecification().getENERGY_LOSS_ON_STANDARD_SPEED_MOVE();
 	}
 
 	public void proliferate(  ) {

@@ -164,7 +164,8 @@ public class Elephant extends Mammal implements RunningAnimal, WalkingAnimal, Bi
 	}
 
 	@Override
-	public void move(Duration time) {
+	public float move(Duration time) {
+		return 0;
 		// TODO Auto-generated method stub
 		
 	}

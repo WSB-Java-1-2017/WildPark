@@ -25,4 +25,6 @@ public class YearsDaysHoursDuration {
 	public long getHours() {
 		return hours;
 	}
+
+
 }

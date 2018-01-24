@@ -63,9 +63,6 @@ public class Lion extends Mammal implements NocturnalAnimal, Predator, BirthGivi
 		return null;
 	}
 
-	public void move( Duration time ) {
-	}
-
 	public void proliferate(  ) {
 	}
 
@@ -81,5 +78,15 @@ public class Lion extends Mammal implements NocturnalAnimal, Predator, BirthGivi
 
 	public Food swallow( Food food ) {
 		return null;
+	}
+
+
+
+
+
+	@Override
+	public float move(Duration time) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

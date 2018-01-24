@@ -62,7 +62,8 @@ public class Leopard extends Mammal implements NocturnalAnimal, Predator, BirthG
 		return null;
 	}
 
-	public void move( Duration time ) {
+	public float move( Duration time ) {
+		return 0;
 	}
 
 	public void proliferate(  ) {

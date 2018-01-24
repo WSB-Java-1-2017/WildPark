@@ -41,8 +41,6 @@ public class PolarBear extends Mammal implements MetaturnalAnimal, Predator {
 		return null;
 	}
 
-	public void move( Duration time ) {
-	}
 
 	public void proliferate(  ) {
 	}
@@ -73,6 +71,16 @@ public class PolarBear extends Mammal implements MetaturnalAnimal, Predator {
 
 	public boolean isMetaturnal() {
 		return false; //isActiveDuring Day and Night;
+	}
+
+
+
+
+
+	@Override
+	public float move(Duration time) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

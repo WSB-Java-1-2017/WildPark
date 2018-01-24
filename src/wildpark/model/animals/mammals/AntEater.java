@@ -94,7 +94,8 @@ public class AntEater extends Mammal implements SwallowingAnimal{
 	}
 
 	@Override
-	public void move(Duration time) {
+	public float move(Duration time) {
+		return 0;
 		// TODO Auto-generated method stub
 		
 	}

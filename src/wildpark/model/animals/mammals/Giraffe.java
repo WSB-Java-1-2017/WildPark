@@ -97,7 +97,8 @@ public class Giraffe extends Mammal implements RunningAnimal, BirthGivingAnimal,
 	}
 
 	@Override
-	public void move(Duration duration) {
+	public float move(Duration duration) {
+		return 0;
 		// TODO Auto-generated method stub
 		//return null;
 	}

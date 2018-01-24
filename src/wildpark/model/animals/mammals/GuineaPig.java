@@ -50,7 +50,8 @@ public class GuineaPig extends Mammal implements BirthGivingAnimal, MetaturnalAn
 	}
 
 	@Override
-	public void move(Duration time) {
+	public float move(Duration time) {
+		return 0;
 		// TODO Auto-generated method stub
 		
 	}
