@@ -18,7 +18,7 @@ mkdir out
 javac -d out -cp src src/wildpark/WildPark.java
 
 
-Run the application - enter the following command:
+7. Run the application - enter the following command:
 
 java -cp out wildpark.WildPark
 
