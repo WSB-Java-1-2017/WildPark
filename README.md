@@ -9,12 +9,18 @@ How to start application:
 3. Extract files. You will get 'src' folder with wildpark folder inside.
 4. In Command Prompt / Console go to the root folder in which 'src' folder exists. Use cd command to enter the right folder.
 5. Create 'out' folder - the foler named 'out'. This 'out' folder must be located in the same directory in which 'src' folder exists. Use the following console command:
+
 mkdir out
 
+
 6. Compile the application - enter the following command:
+
 javac -d out -cp src src/wildpark/WildPark.java
 
+
 Run the application - enter the following command:
+
 java -cp out wildpark.WildPark
+
 
 
