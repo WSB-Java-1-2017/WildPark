@@ -83,9 +83,19 @@ public class Horse extends Mammal implements RunningAnimal, BirthGivingAnimal, H
 
 	}
 
+	public String getUrl() {
+		return HorseSpeciesSpecification.WIKI_URL;
+	}
+	
 	@Override
 	public void move(Duration duration) {
 		// TODO Auto-generated method stub
 		// WildParkArea.moveAnimal( this, getStandardSpeed() );
+	}
+	
+	@Override
+	public String toString() {
+		return "Horse [gender=" + gender + ", age=" + age + ", hoursSinceLastMeal=" + hoursSinceLastMeal
+				+ ", energyPercent=" + energyPercent + ", hungerEnergyPercent=" + hungerEnergyPercent + "]";
 	}
 }
