@@ -157,7 +157,7 @@ public class WorldGen {
 		/**
 		 * RIVER GENERATION ALPHA BELOW
 		 */
-		{
+		/*{
 			Random apple = new Random(SEED);
 			for (int rivers = 0; rivers < 10; rivers++) {
 				Coords riverStart = new Coords(apple.nextInt(WIDTH), apple.nextInt(HEIGHT));
@@ -188,7 +188,7 @@ public class WorldGen {
 					e.printStackTrace();
 				}
 			}
-		}
+		}*/
 		/*
 		 * File file = new File("map.png"); try { ImageIO.write(worldImg, "png", file);
 		 * } catch (IOException e) { // TODO Auto-generated catch block
