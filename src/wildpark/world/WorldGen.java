@@ -14,14 +14,14 @@ import javafx.scene.image.Image;
 import wildpark.model.Coords;
 
 public class WorldGen {
-	public static int WIDTH = 200; // Pixels, width of generated map, affected by scale
-	public static int HEIGHT = 100; // Pixels, height of generated map, affected by scale
+	public static int WIDTH = 500; // Pixels, width of generated map, affected by scale
+	public static int HEIGHT = 500; // Pixels, height of generated map, affected by scale
 
 	public static int OFFSETX = 0; // Pixels, width of generated map, affected by scale
 	public static int OFFSETY = 0; // Pixels, height of generated map, affected by scale
 
 	public static long SEED = 0; // Generation seed
-	private static int PIXEL_SIZE = 32; // Size of one pixel, ie. width = 200, scale = 2 then actual width = 400 pixels
+	private static int PIXEL_SIZE = 16; // Size of one pixel, ie. width = 200, scale = 2 then actual width = 400 pixels
 
 	public static double DISTANCE_EXPO = 1.0f; // The height of our island, higher means more land
 	public static double ELEVATION_SCALE = 0.01f; // Overall scale of map, the lower the more rounded edges and zoomed
@@ -230,7 +230,7 @@ public class WorldGen {
 		return (openSimplexNoise.eval(x, y) / 2.0f + 0.5f);
 	}
 
-	static void fillPixel(BufferedImage w, int x, int y, Color c) {
+	private static void fillPixel(BufferedImage w, int x, int y, Color c) {
 		if (PIXEL_SIZE == 1) {
 			w.setRGB(x, y, c.getRGB());
 		} else {
