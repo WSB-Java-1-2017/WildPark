@@ -45,22 +45,14 @@ public class CHART_SpeciesTotalWeight_PIE {
 	private static Stage stage = new Stage();
 
 	private PieChart pieChart;
-    private ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-            new PieChart.Data("Chamois", 50),
-            new PieChart.Data("Test Bat", 25),
-            new PieChart.Data("Insect Eating Bat", 25)
-		);
+    private ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
 	
 	
 
-	public long step = 0;
 	
 	private List <Animal> animals;
 	
-	private int horseCount;
-	private int insectEatingBatCount;
-	private int giraffeCount;
 	private float chamoisTotalWeight;
 	private float insectEatingBatsTotalWeight;
 	private float testBatsTotalWeight;
@@ -105,7 +97,7 @@ public class CHART_SpeciesTotalWeight_PIE {
         
         //creating the chart
         pieChart = new PieChart(pieChartData);       
-        pieChart.setTitle("Species total weight in ecosystem [kg]");
+        pieChart.setTitle("Total percentage of weight of each species in ecosystem [%]");
         pieChart.setLegendSide(Side.LEFT);
 
         /*Button step = new Button("next step");
@@ -160,15 +152,7 @@ public class CHART_SpeciesTotalWeight_PIE {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void reset() {
-		// pieChart.getData().clear();
-		// step = 0;
-
-		// pieChartData = FXCollections.observableArrayList(
-  //           new PieChart.Data("Chamois", 13),
-  //           new PieChart.Data("Test Bat", 25),
-  //           new PieChart.Data("Insect Eating Bat", 10)
-		// );	
-
+		pieChart.getData().clear();
 	}
 
 
@@ -179,11 +163,6 @@ public class CHART_SpeciesTotalWeight_PIE {
 
 	@SuppressWarnings("unchecked")
 	public void show() {                     
-		pieChartData = FXCollections.observableArrayList(
-            new PieChart.Data("Chamois", 5),
-            new PieChart.Data("Test Bat", 12),
-            new PieChart.Data("Insect Eating Bat", 83)
-		);
        	stage.show();
         //stage.setAlwaysOnTop( true );
         
@@ -217,21 +196,27 @@ public class CHART_SpeciesTotalWeight_PIE {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void nextStep() {	
-		horseCount = 0;
-		giraffeCount = 0;
 		chamoisTotalWeight = 0;
 		testBatsTotalWeight = 0;
 		insectEatingBatsTotalWeight = 0;
 		
 		getCount();			
 
-		// series1.getData().add(new XYChart.Data(step, horseCount));
-		// series3.getData().add(new XYChart.Data(step, giraffeCount));
-		// series1.getData().add( new XYChart.Data( step, chamoisTotalWeight ) );
-		// series2.getData().add( new XYChart.Data( step, testBatsTotalWeight ) );
-		// series3.getData().add( new XYChart.Data( step, insectEatingBatsTotalWeight ) );
+		// ObservableList<Data> answer = FXCollections.observableArrayList();
+		// answer.addAll(new PieChart.Data("java", 17),
+  //           new PieChart.Data("JavaFx",31),
+  //           new PieChart.Data("Swing",10),
+  //           new PieChart.Data("IO",20),
+  //           new PieChart.Data("NIO",21)
+  //       );
 
-		step++;// = WildPark.getWildParkTimeHours();
+		pieChartData = FXCollections.observableArrayList(
+            new PieChart.Data("Chamois", chamoisTotalWeight),
+            new PieChart.Data("Test Bat", testBatsTotalWeight),
+            new PieChart.Data("Insect Eating Bat", insectEatingBatsTotalWeight)
+		);
+		pieChart.setData( pieChartData );
+
 	}
 	
     
@@ -250,14 +235,6 @@ public class CHART_SpeciesTotalWeight_PIE {
 				testBatsTotalWeight += a.getWeight();
 //				System.out.printf( "testBatsTotalWeight: %.4f\r\n", testBatsTotalWeight );
 			}
-			// if(a.getSPECIES_NAME() == "Horse") {
-			// 	horseCount +=1;
-			// 	//System.out.println(++horseCount);
-			// }
-			// if(a.getSPECIES_NAME() == "Giraffe") {
-			// 	giraffeCount +=1;
-			// 	//System.out.println(++horseCount);
-			// }
 			if(a.getSPECIES_NAME() == "Insect Eating Bat") { 
 				insectEatingBatsTotalWeight += a.getWeight();
 //				System.out.printf( "insectEatingBatsTotalWeight: %.4f\r\n", insectEatingBatsTotalWeight );
