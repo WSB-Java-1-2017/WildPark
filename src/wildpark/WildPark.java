@@ -349,7 +349,7 @@ public class WildPark extends Application {
 	// Main application stage
 	public static Stage stage;
 	GridPane wildParkGrid = new GridPane();
-
+	Slider slider;
 	@Override
 	public void start(Stage stage) {
 		// Group root = new Group();
@@ -376,7 +376,7 @@ public class WildPark extends Application {
 		wildParkGrid.setVgap(0); // gap between cells
 		wildParkGrid.setHgap(0); // gap between cells
 
-		Slider slider = new Slider(0.15, 2, 0.34); // Slider( min, max, initial_value )
+		slider = new Slider(0.15, 2, 0.34); // Slider( min, max, initial_value )
 		slider.setOrientation(Orientation.VERTICAL);
 		slider.setShowTickMarks(true);
 		slider.setShowTickLabels(true);
@@ -1261,7 +1261,19 @@ public class WildPark extends Application {
 				// Newwindow nw =new Newwindow();
 			}
 		});
-
+		
+		toolBarButton_Help.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				double oldVal = slider.getValue();
+				slider.adjustValue(4);
+				Sample glass = new Sample();
+				glass.setImage(wildParkGrid);
+				glass.start(new Stage());
+				slider.adjustValue(oldVal);
+			}
+		});
+		
 		button_SearchAnimal.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
