@@ -24,7 +24,7 @@ implements SuckingAnimal, ChewingAnimal, BirthGivingAnimal
 		return null;		
 	}
 
-	public Food swollow() {
+	public Food swallow() {
 		return null;		
 	}
 }

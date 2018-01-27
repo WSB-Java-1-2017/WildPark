@@ -6,7 +6,7 @@ import wildpark.*;
 import java.util.Random;
 
 /**
- * Absract class used to set the particular animal specification parameters.
+ * Real class used to set the particular animal specification parameters.
  * Chamois - kozica górska
  */
 public final class ChamoisSpecification extends AnimalSpeciesSpecification {

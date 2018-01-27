@@ -84,8 +84,10 @@ public class Chamois extends Mammal implements DiurnalAnimal {
 	 * @return      Returns the amount of energy required to make the specific move 
 	 */
 	public float move( Duration time ) {
+		float energyPercentLoss = getAnimalSpeciesSpecification().getENERGY_LOSS_ON_STANDARD_SPEED_MOVE();
+		useEenergy( energyPercentLoss );	
 		moveInRandomDirection( time, getStandardSpeed() );
-		return getAnimalSpeciesSpecification().getENERGY_LOSS_ON_STANDARD_SPEED_MOVE();
+		return energyPercentLoss;
 	}
 
 	public void proliferate(  ) {

@@ -10,8 +10,13 @@ package wildpark;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.time.Duration;
 import java.util.*;
+import java.time.Duration;
+
+// import javafx.util.Duration;
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
+import javafx.animation.Animation;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -22,7 +27,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Label;
@@ -30,6 +37,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Background;
@@ -77,6 +85,11 @@ public class WildPark extends Application {
 	public static CHART_SpeciesTotalWeight_LINE chart_SpeciesTotalWeight_Line = null;
 	public static CHART_SpeciesTotalWeight_PIE chart_SpeciesTotalWeight_Pie = null;
 
+    /**
+     * Variable used for timer actions
+     */
+    Timeline timeline = null;
+	
 	/**
 	 * Duration Time of the existance of current Wild Park. Initially it is ZERO. In
 	 * each Time Step of the Wild Park this value is increased by the amount of time
@@ -153,7 +166,7 @@ public class WildPark extends Application {
 				rottenMeatList.add(meat);
 		}
 
-		// Totlly remove rotten meat from the park.
+		// Totally remove rotten meat from the park.
 		for (Meat meat : rottenMeatList) {
 			WildParkArea.getDeadBodies().remove(meat);
 		}
@@ -263,33 +276,36 @@ public class WildPark extends Application {
 	static Label toolBarLabel_CurrentStep = new Label(String.format("%8d", wildParkTime.toHours()));
 	Button toolBarButton_Step = new Button("Step");
 
-	int playSpeed = 1; // Time Steps per second
+    int stepDelay = 3; // [seconds] - Default delay beetween subsequent TimeSteps 
 
-	TextField textField_PlaySpeed = new TextField() {
-		@Override
-		public void replaceText(int start, int end, String text) {
-			if (text.matches("[0-9]"))
-				if (textField_PlaySpeed.getLength() < 3) {
-					super.replaceText(start, end, text);
-					playSpeed = Integer.parseInt(super.getText());
-				} else
-					super.clear();
-		}
+    TextField textField_StepDelay = new TextField() {
+        @Override
+        public void replaceText(int start, int end, String text) {
+            if( text.matches("[0-9]") ) 
+                if( textField_StepDelay.getLength() < 3 ) {
+                super.replaceText(start, end, text);   
+                stepDelay = Integer.parseInt( super.getText() );                  
+            } 
+            else
+                super.clear(); 
+        }
 
-		@Override
-		public void replaceSelection(String text) {
-			if (text.matches("[0-9]"))
-				if (textField_PlaySpeed.getLength() < 3) {
-					super.replaceSelection(text);
-					playSpeed = Integer.parseInt(super.getText());
-				} else
-					super.clear();
-		}
-	};
+        @Override
+        public void replaceSelection(String text) {
+            if ( text.matches("[0-9]") ) 
+                if( textField_StepDelay.getLength() < 3 ) {
+                    super.replaceSelection(text);
+                    stepDelay = Integer.parseInt( super.getText() ); 
+                }
+                else
+                    super.clear();
+        }
+    };       
+
+
 
 	Button toolBarButton_Play = new Button("Play");
-	boolean stopButtonClicked = true; // This is set to false, when Play button is clicked. Then it is set to true,
-										// when Stop button is clicked. It is used by Play function.
+	boolean timeStepsAnimationStopped = true; // This is set to false, after Play button is clicked. It is set to true again, after Stop button is clicked. It is used by Play function.
 
 	int numberOfStepsToRun = 10; // when Run button is clicked
 
@@ -393,21 +409,38 @@ public class WildPark extends Application {
 		MenuBar menuBar = new MenuBar();
 		menuBar.getMenus().addAll(menu1, menu2, menu3, menu4);
 
-		textField_PlaySpeed.setPrefColumnCount(2);
-		textField_PlaySpeed.setText(String.format("%d", playSpeed));
+        textField_StepDelay.setPrefColumnCount(2);
+        textField_StepDelay.setText( String.format( "%d", stepDelay ) );
 		toolBarButton_Play.setMinWidth(42); // ...to avoid size change when "Play" is switched to "Stop"
 
 		textField_NumberOfStepsToRun.setPrefColumnCount(3);
 		textField_NumberOfStepsToRun.setText(String.format("%d", numberOfStepsToRun));
 
-		ToolBar toolBar = new ToolBar(toolBarButton_New, toolBarButton_Open, toolBarButton_Save, toolBarButton_Reset,
-				new Separator(Orientation.VERTICAL), new Label("Current Step:"), toolBarLabel_CurrentStep,
-				toolBarButton_Step, new Separator(Orientation.VERTICAL), new Label("Play Speed:"), textField_PlaySpeed,
-				new Label("steps/sec."), toolBarButton_Play, new Separator(Orientation.VERTICAL), new Label("Run"),
-				textField_NumberOfStepsToRun, new Label("steps"), toolBarButton_Run,
-				new Separator(Orientation.VERTICAL),
+        ToolBar toolBar = new ToolBar(
+                toolBarButton_New,
+                toolBarButton_Open,
+                toolBarButton_Save,
+                toolBarButton_Reset,
+                new Separator( Orientation.VERTICAL ),
+                new Label( "Current Step:"),
+                toolBarLabel_CurrentStep,
+                toolBarButton_Step,
+                new Separator( Orientation.VERTICAL ),
+                new Label( "Play Speed:"),
+                textField_StepDelay,
+                new Label( "sec./step"),
+                toolBarButton_Play,
+                new Separator( Orientation.VERTICAL ),
+                new Label( "Run"),
+                textField_NumberOfStepsToRun,
+                new Label( "steps"),
+                toolBarButton_Run,            
+                new Separator( Orientation.VERTICAL ),
 
-				toolBarButton_Reports, toolBarButton_Settings, toolBarButton_Help);
+                toolBarButton_Reports,
+                toolBarButton_Settings,
+                toolBarButton_Help
+            );
 		toolBarLabel_CurrentStep.setMinWidth(40);
 
 		HBox statusBar = new HBox(10); // HBox( spacing )
@@ -419,8 +452,7 @@ public class WildPark extends Application {
 		HBox.setMargin(textField_FindAnimal, new Insets(2, 0, 2, 0)); // Insets( top, right, bottom, left )
 		HBox.setMargin(button_SearchAnimal, new Insets(2, 0, 2, 0)); // Insets( top, right, bottom, left )
 		statusBar.setAlignment(Pos.BOTTOM_CENTER);
-		statusBar.getChildren().addAll(label_NumberOfAnimals, label_NumberOfDeadBodies, label_FindAnimal,
-				textField_FindAnimal, button_SearchAnimal);
+        statusBar.getChildren().addAll( label_NumberOfAnimals, label_NumberOfDeadBodies, label_FindAnimal, textField_FindAnimal, button_SearchAnimal );    
 
 		stage.setTitle("Wild Park " + VERSION);
 
@@ -448,10 +480,8 @@ public class WildPark extends Application {
 		stage.setHeight(600);
 		stage.show();
 
-		textField_PlaySpeed.setAlignment(Pos.CENTER_RIGHT); // setAlignment MUST be called after the TextField was added
-															// to the scene
-		textField_NumberOfStepsToRun.setAlignment(Pos.CENTER_RIGHT); // setAlignment MUST be called after the TextField
-																		// was added to the scene
+        textField_StepDelay.setAlignment(Pos.CENTER_RIGHT); // setAlignment MUST be called after the TextField was added to the scene
+        textField_NumberOfStepsToRun.setAlignment(Pos.CENTER_RIGHT); // setAlignment MUST be called after the TextField was added to the scene
 
 	}
 
@@ -888,6 +918,16 @@ public class WildPark extends Application {
 				.setText(String.format("Number of dead bodies: %10d", WildParkArea.getDeadBodies().size()));
 	}
 
+	public void stopTimeStepsAnimation() {
+        toolBarButton_Play.setText( "Play" );
+        timeStepsAnimationStopped = true;    
+        //Stop automatic animation of time steps                
+        if( timeline != null ) {
+            timeline.stop();
+            timeline = null;        
+        }
+    }
+	
 	/**
 	 * Listeners to menu items, buttons and other controls of UI
 	 */
@@ -1096,50 +1136,50 @@ public class WildPark extends Application {
 			}
 		});
 
-		toolBarButton_Play.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				System.out.println("toolBarButton_Play clicked");
-				// Let the Park performs steps automatically with the speed specified in
-				// textField_PlaySpeed text field.
-				// Change the button Label to Stop and perform Time Steps until the Stop button
-				// is clicked.
-				if (stopButtonClicked) {
-					toolBarButton_Play.setText("Stop");
-					stopButtonClicked = false;
-					// Perform automatic steps with specified delay determined on the basis of
-					// playSpeed attribute value.
-				} else {
-					toolBarButton_Play.setText("Play");
-					stopButtonClicked = true;
-					// Stop automatic steps
-				}
+		toolBarButton_Play.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("toolBarButton_Play/Stop clicked");
+                // Let the Park performs steps automatically with the speed specified in textField_StepDelay text field.
+                // Change the button Label to Stop and perform Time Steps until the Stop button is clicked.
+                if( timeStepsAnimationStopped ) {   // if Play button clicked
+                    toolBarButton_Play.setText( "Stop" );
+                    timeStepsAnimationStopped = false;
+                    //Perform automatic steps with specified delay determined on the basis of stepDelay attribute value.
+                    timeline = new Timeline( new KeyFrame(
+                        javafx.util.Duration.millis( (int) 1000*stepDelay ),
+                        ae -> makeWildParkTimeStep() ) ); // Programmatically scroll to the very bottom
+                    timeline.setCycleCount( Animation.INDEFINITE ); // Animation.INDEFINITE
+                    timeline.play();                    
+                } else {    // if Stop button clicked
+                    stopTimeStepsAnimation();
+                }
 
-			}
-		});
+            }
+        });
 
-		toolBarButton_Step.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				System.out.println("toolBarButton_Step clicked");
+		toolBarButton_Step.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("toolBarButton_Step clicked");
+                stopTimeStepsAnimation();               
+                // Perform the single Time step
+                makeWildParkTimeStep();
+            }
+        });
 
-				// Perform the single Time step
-				makeWildParkTimeStep();
-			}
-		});
-
-		toolBarButton_Run.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				System.out.println("toolBarButton_Run clicked");
-				// Quickly perform the given amount of Time Steps. The amount of steps is
-				// specified in textField_NumberOfStepsToRun text field.
-				for (int i = 0; i < numberOfStepsToRun; i++) {
-					makeWildParkTimeStep();
-					toolBarLabel_CurrentStep.setText(String.format("%8d", wildParkTime.toHours()));
-				}
-			}
-		});
+		toolBarButton_Run.setOnAction( new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle( ActionEvent e ) {
+                System.out.println("toolBarButton_Run clicked");
+                stopTimeStepsAnimation();
+                // Quickly perform the given amount of Time Steps. The amount of steps is specified in textField_NumberOfStepsToRun text field.
+                for(int i=0; i<numberOfStepsToRun; i++) {
+                    makeWildParkTimeStep();
+                    toolBarLabel_CurrentStep.setText( String.format( "%8d", wildParkTime.toHours() ) );
+                }
+            }
+        });
 
 		toolBarButton_Reports.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -1232,14 +1272,11 @@ public class WildPark extends Application {
 				for (Animal animal : getAnimals()) {
 					System.out.printf("%6d   %-18s\r\n", animal.getId(), animal.getSPECIES_NAME());
 				}
-
 			}
 		});
-
 	}
 
 	public static void main(String[] args) {
 		launch(args);
-
 	}
 }
