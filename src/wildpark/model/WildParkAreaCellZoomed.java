@@ -155,6 +155,7 @@ public class WildParkAreaCellZoomed extends WildParkAreaCell {
 		this.y = cell.getY();
 		this.cellType = cell.getCellType();
 		this.animals = cell.getAnimals();
+		this.setBackground(cell.getBackground());
 	}
 	
 	public void setCoords(Coords coords) {
