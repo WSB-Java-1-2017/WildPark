@@ -16,7 +16,7 @@ import wildpark.model.animals.Animal;
 import wildpark.util.YearsDaysHoursDuration;
 import wildpark.view.MagnifyingGlassView;
 
-public class WildParkAreaCell extends Button {
+public class WildParkAreaCellZoomed extends WildParkAreaCell {
 
 	private CellType cellType;
 
@@ -34,11 +34,11 @@ public class WildParkAreaCell extends Button {
 	 */
 	private LinkedHashSet<Animal> animals = new LinkedHashSet<>();
 
-	public WildParkAreaCell(String string) {
+	public WildParkAreaCellZoomed(String string) {
 		super(string);
 	}
 
-	public WildParkAreaCell(int x, int y, String label) {
+	public WildParkAreaCellZoomed(int x, int y, String label) {
 		super(label);
 		// this.cellType = _type;
 		this.x = x;
@@ -51,7 +51,7 @@ public class WildParkAreaCell extends Button {
 		this.setTooltip(tooltip);
 		tooltip.setFont(new Font("Lucida Console", 11));
 
-		bindTooltip(this, tooltip);
+		//bindTooltip(this, tooltip);
 	}
 
 	/**
@@ -63,15 +63,15 @@ public class WildParkAreaCell extends Button {
 	 * @param tooltip
 	 *            [description]
 	 */
-	public static void bindTooltip(final Node node, final Tooltip tooltip) {
+	/*public static void bindTooltip(final Node node, final Tooltip tooltip) {
 		node.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				// +15 moves the tooltip 15 pixels below the mouse cursor;
 				// if you don't change the y coordinate of the tooltip, you
 				// will see constant screen flicker
-				tooltip.show(node, event.getScreenX(), event.getScreenY() + 15);
-				MagnifyingGlassView.setCenterCell((WildParkAreaCell) node);
+				//tooltip.show(node, event.getScreenX(), event.getScreenY() + 15);
+				MagnifyingGlassView.setCenterCell((WildParkAreaCellZoomed) node);
 			}
 		});
 		node.setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -80,7 +80,7 @@ public class WildParkAreaCell extends Button {
 				tooltip.hide();
 			}
 		});
-	}
+	}*/
 
 	public void setCellType(CellType cellType) {
 		this.cellType = cellType;
@@ -102,20 +102,7 @@ public class WildParkAreaCell extends Button {
 		return animals;
 	}
 
-	public void addAnimal(Animal animal) {
-		this.animals.add(animal);
-		update(); // Update cell label
-	}
-
-	public void removeAnimal(Animal animal) {
-		this.animals.remove(animal);
-		update(); // Update cell label
-	}
-
-	public void clear() {
-		animals.clear();
-		update();
-	}
+	
 
 	/**
 	 * Update cell label
@@ -147,9 +134,9 @@ public class WildParkAreaCell extends Button {
 		// Display living animals and fresh meat
 		for (Animal animal : animals) {
 			animalNames += String.format("\n%-18s", animal.getSPECIES_NAME());
-			toolTipText += String.format("\n%-18s %05d  %-7s  %s    %16s", animal.getSPECIES_NAME(), animal.getId(),
+			/*toolTipText += String.format("\n%-18s %05d  %-7s  %s    %16s", animal.getSPECIES_NAME(), animal.getId(),
 					animal.getGender(), animal.getAnimalState().toStringForTooltip(),
-					YearsDaysHoursDuration.toString(animal.getAge()));
+					YearsDaysHoursDuration.toString(animal.getAge()));*/
 		}
 		this.setText(coords + animalNames);
 		tooltip.setText(coords + toolTipText);
@@ -161,6 +148,18 @@ public class WildParkAreaCell extends Button {
 
 	public String getPosition() {
 		return "X: " + this.x + ", Y: " + this.y;
-
+	}
+	
+	public void set(WildParkAreaCell cell) {
+		this.x = cell.getX();
+		this.y = cell.getY();
+		this.cellType = cell.getCellType();
+		this.animals = cell.getAnimals();
+	}
+	
+	public void setCoords(Coords coords) {
+		this.x = coords.getX();
+		this.y = coords.getY();
+		update();
 	}
 }

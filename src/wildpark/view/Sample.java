@@ -7,10 +7,13 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -44,6 +47,9 @@ public class Sample {
 	private Group glassGroup = new Group();
 	private Text desc = new Text();
 
+	private double maxZoom = 1.0;
+	private double minZoom = 0.2;
+	
 	public void start(Stage primaryStage) {
 		viewportCenterX.bind(centerX.multiply(factor));
 		viewportCenterY.bind(centerY.multiply(factor));
@@ -78,10 +84,10 @@ public class Sample {
 		// no bindings is needed here - it's one time operation
 		//double newValue = magnification.get() + amount / 4;
 		double newValue = magnification.get() * amount;
-		if (newValue < .2) {
-			newValue = .2;
-		} else if (newValue > 1) {
-			newValue = 1;
+		if (newValue < minZoom) {
+			newValue = minZoom;
+		} else if (newValue > maxZoom) {
+			newValue = maxZoom;
 		}
 		magnification.setValue(newValue);
 	}
@@ -115,6 +121,15 @@ public class Sample {
 		factor.bind(db);
 	}
 
+	public void onMouseMoved(Point2D mousePos) {
+		centerX.setValue(mousePos.getX());
+		centerY.setValue(mousePos.getY());	
+	}
+	
+	public void onScroll(double wheelDelta) {
+		adjustMagnification(Math.exp(wheelDelta * 0.005));
+	}
+
 	private void setupBgImageView() {
 		bgImageView.setImage(image);
 		bgImageView.fitWidthProperty().bind(scene.widthProperty());
@@ -125,29 +140,40 @@ public class Sample {
 
 		bgImageView.setSmooth(true);
 		bgImageView.setPreserveRatio(true);
-		bgImageView.setOnMouseMoved(new EventHandler<MouseEvent>() {
+		/*bgImageView.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent me) {
 				centerX.setValue(me.getX());
 				centerY.setValue(me.getY());
 			}
-		});
-//		bgImageView.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//			@Override
-//			public void handle(KeyEvent ke) {
-//				if (ke.getCode() == KeyCode.EQUALS || ke.getCode() == KeyCode.PLUS) {
-//					adjustMagnification(1.0);
-//				} else if (ke.getCode() == KeyCode.MINUS) {
-//					adjustMagnification(-1.0);
-//				}
-//			}
-//		});
+		});*/
+		
+		/*bgImageView.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent ke) {
+				if (ke.getCode() == KeyCode.EQUALS || ke.getCode() == KeyCode.PLUS) {
+					adjustMagnification(1.0);
+				} else if (ke.getCode() == KeyCode.MINUS) {
+					adjustMagnification(-1.0);
+				}
+			}
+		});*/
 
-		bgImageView.setOnScroll(new EventHandler<ScrollEvent>() {
+		/*bgImageView.setOnScroll(new EventHandler<ScrollEvent>() {
 			@Override
 			public void handle(ScrollEvent me) {
 				adjustMagnification(Math.exp(-me.getDeltaY() * 0.005));
 			}
+		});*/
+		
+		bgImageView.setOnMouseMoved(e -> {
+			e.consume();
+			onMouseMoved(new Point2D(e.getX(), e.getY()));
+		});
+		
+		bgImageView.setOnScroll(e -> {
+			e.consume();
+			onScroll(e.getTextDeltaY());
 		});
 
 //		bgImageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -200,8 +226,8 @@ public class Sample {
 		circle.centerXProperty().bind(GLASS_CENTER);
 		circle.centerYProperty().bind(GLASS_CENTER);
 		circle.radiusProperty().bind(GLASS_CENTER.subtract(3));
-		circle.setStroke(Color.GREEN);
-		circle.setStrokeWidth(4);
+		circle.setStroke(Color.BLUE);
+		circle.setStrokeWidth(3);
 		circle.setFill(null);
 		
 		glassGroup.getChildren().addAll(magGlass, text, circle);
@@ -224,16 +250,20 @@ public class Sample {
 		desc.setFont(new Font(12));
 	}*/
 
-	public void setImage(Node node) {
-		final Bounds bounds = node.getLayoutBounds();
-		int scale = 1;
-		final WritableImage img = new WritableImage(
-        (int) Math.round(bounds.getWidth() * scale),
-        (int) Math.round(bounds.getHeight() * scale));
-		final javafx.scene.SnapshotParameters spa = new javafx.scene.SnapshotParameters();
-        spa.setTransform(javafx.scene.transform.Transform.scale(scale, scale));
-        
-
-		image = (Image)node.snapshot(null, null);
+	public void setupParents(Node grid) {
+		//final Bounds bounds = node.getLayoutBounds();
+		//int scale = 1;
+		//final WritableImage img = new WritableImage(
+        //(int) Math.round(bounds.getWidth() * scale),
+        //(int) Math.round(bounds.getHeight() * scale));
+		//final javafx.scene.SnapshotParameters spa = new javafx.scene.SnapshotParameters();
+        //spa.setTransform(javafx.scene.transform.Transform.scale(scale, scale));
+        //node.parentProperty().get().;
+		//parent.getChildren().add(glassGroup);
+		grid.setOnMouseMoved(e -> {
+			e.consume();
+			onMouseMoved(new Point2D(e.getX(), e.getY()));
+		});
+		image = (Image)grid.snapshot(null, null);
 	}
 }

@@ -26,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -40,6 +41,8 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -349,6 +352,10 @@ public class WildPark extends Application {
 	// Main application stage
 	public static Stage stage;
 	GridPane wildParkGrid = new GridPane();
+	ScrollPane scrollPane = new ScrollPane();
+	
+	//public static MagnifyingGlassView magnifyingGlass = new MagnifyingGlassView();
+
 	Slider slider;
 	@Override
 	public void start(Stage stage) {
@@ -387,9 +394,9 @@ public class WildPark extends Application {
 		// slider.setSnapToTicks(true);
 		wildParkGrid.scaleXProperty().bind(slider.valueProperty());
 		wildParkGrid.scaleYProperty().bind(slider.valueProperty());
-
-		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setContent(wildParkGrid);
+		//wildParkGrid.getChildren().add(magnifyingGlass.get());
+		//ScrollPane scrollPane = new ScrollPane(); // Moved up.
+		scrollPane.setContent(new StackPane(wildParkGrid, MagnifyingGlassView.get()));
 		// scrollPane.setPannable(true);
 		// scrollPane.setFitToWidth(true);
 		scrollPane.setHvalue(0.5);
@@ -1265,12 +1272,13 @@ public class WildPark extends Application {
 		toolBarButton_Help.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				double oldVal = slider.getValue();
-				slider.adjustValue(4);
+				/*double oldVal = slider.getValue();
+				slider.adjustValue(2);
 				Sample glass = new Sample();
-				glass.setImage(wildParkGrid);
+				glass.setupParents(wildParkGrid);
 				glass.start(new Stage());
-				slider.adjustValue(oldVal);
+				slider.adjustValue(oldVal);*/
+				MagnifyingGlassView.setDisabled(!MagnifyingGlassView.isDisabled());
 			}
 		});
 		
