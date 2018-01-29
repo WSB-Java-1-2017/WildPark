@@ -2,11 +2,15 @@ package wildpark.view;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -50,8 +54,8 @@ public class MagnifyingGlassView {
 				b.setMinSize(cellSize, cellSize);
 				b.setFont(Font.font(10));
 				zoomedCells[x][y] = b;
-				GridPane.setConstraints(b, x, y);
-				magGlassButtons.getChildren().add(zoomedCells[x][y]);
+				//GridPane.setConstraints(b, x, y);
+				magGlassButtons.add(zoomedCells[x][y], x, y);
 			}
 		}
 		Circle clip = new Circle();
@@ -59,6 +63,7 @@ public class MagnifyingGlassView {
 		clip.setCenterY(GLASS_CENTER);
 		clip.setRadius(GLASS_CENTER);
 		magGlassButtons.setClip(clip);
+		magGlassButtons.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 	
 	private static void setupGlassGroup() {
